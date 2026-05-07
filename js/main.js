@@ -20,15 +20,11 @@ function applyTheme(theme) {
 }
 
 (function initTheme() {
-  applyTheme(localStorage.getItem('theme') || getSystemTheme());
+  applyTheme(localStorage.getItem('theme') || 'light');
 })();
 
 themeToggle.addEventListener('click', () => {
   applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-});
-
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light');
 });
 
 /* =============================================
