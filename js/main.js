@@ -1,0 +1,300 @@
+'use strict';
+
+/* =============================================
+   DARK MODE
+   ============================================= */
+
+const html = document.documentElement;
+const themeToggle = document.getElementById('theme-toggle');
+
+function getSystemTheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  html.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  themeToggle.setAttribute('aria-label',
+    theme === 'dark' ? 'Mudar para modo claro' : 'Mudar para modo escuro'
+  );
+}
+
+(function initTheme() {
+  applyTheme(localStorage.getItem('theme') || getSystemTheme());
+})();
+
+themeToggle.addEventListener('click', () => {
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light');
+});
+
+/* =============================================
+   NAVBAR SCROLL + ACTIVE LINK
+   ============================================= */
+
+const navbar = document.getElementById('navbar');
+
+function updateActiveLink() {
+  const sections = document.querySelectorAll('section[id]');
+  const scrollY = window.scrollY + 120;
+  sections.forEach(section => {
+    const link = document.querySelector(`.navbar__nav a[href="#${section.id}"]`);
+    if (!link) return;
+    link.classList.toggle('active', scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight);
+  });
+}
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+  updateActiveLink();
+}, { passive: true });
+
+/* =============================================
+   MOBILE MENU
+   ============================================= */
+
+const hamburger = document.getElementById('hamburger');
+const navMenu   = document.getElementById('nav-menu');
+
+function closeMenu() {
+  navMenu.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  hamburger.setAttribute('aria-label', 'Abrir menu');
+}
+
+hamburger.addEventListener('click', () => {
+  const isOpen = navMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', String(isOpen));
+  hamburger.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+});
+
+navMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+document.addEventListener('click', (e) => {
+  if (!navbar.contains(e.target) && navMenu.classList.contains('open')) closeMenu();
+});
+
+/* =============================================
+   SMOOTH SCROLL (âncoras)
+   ============================================= */
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const offset = parseInt(getComputedStyle(html).getPropertyValue('--nav-h'), 10) || 72;
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+  });
+});
+
+/* =============================================
+   ANIMAÇÕES DE ENTRADA
+   ============================================= */
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* =============================================
+   FAQ ACCORDION
+   ============================================= */
+
+document.querySelectorAll('.faq-item__btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const body = item.querySelector('.faq-item__body');
+    const isOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item.open').forEach(open => {
+      if (open !== item) {
+        open.classList.remove('open');
+        open.querySelector('.faq-item__btn').setAttribute('aria-expanded', 'false');
+        open.querySelector('.faq-item__body').style.maxHeight = '0';
+      }
+    });
+
+    item.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px';
+  });
+});
+
+/* =============================================
+   DRAWER DE SERVIÇOS
+   ============================================= */
+
+const drawerOverlay = document.getElementById('drawer-overlay');
+let activeDrawer = null;
+
+function openDrawer(id) {
+  const drawer = document.getElementById(`drawer-${id}`);
+  if (!drawer) return;
+
+  if (activeDrawer) closeDrawer();
+
+  activeDrawer = drawer;
+  drawer.classList.add('open');
+  drawer.setAttribute('aria-hidden', 'false');
+  drawerOverlay.classList.add('active');
+  drawerOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  const firstFocusable = drawer.querySelector('button, a[href]');
+  if (firstFocusable) firstFocusable.focus();
+}
+
+function closeDrawer() {
+  if (!activeDrawer) return;
+  activeDrawer.classList.remove('open');
+  activeDrawer.setAttribute('aria-hidden', 'true');
+  drawerOverlay.classList.remove('active');
+  drawerOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  activeDrawer = null;
+}
+
+document.querySelectorAll('[data-drawer]').forEach(btn => {
+  btn.addEventListener('click', () => openDrawer(btn.dataset.drawer));
+});
+
+document.querySelectorAll('.drawer__close').forEach(btn => {
+  btn.addEventListener('click', closeDrawer);
+});
+
+drawerOverlay.addEventListener('click', closeDrawer);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && activeDrawer) closeDrawer();
+});
+
+/* =============================================
+   FORMULÁRIO DE CONTATO (Formspree)
+   ============================================= */
+
+const form = document.getElementById('contact-form');
+const formBtn = document.getElementById('form-btn');
+const formFeedback = document.getElementById('form-feedback');
+
+// Substitua YOUR_FORMSPREE_ID pelo ID do seu form no formspree.io
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+
+function showFeedback(type, message) {
+  formFeedback.className = `form-feedback ${type}`;
+  formFeedback.textContent = message;
+  formFeedback.style.display = 'block';
+  formFeedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function validateForm() {
+  let valid = true;
+  form.querySelectorAll('[required]').forEach(field => {
+    field.classList.remove('error');
+    if (!field.value.trim()) { field.classList.add('error'); valid = false; }
+  });
+  const emailField = form.querySelector('#email');
+  if (emailField?.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+    emailField.classList.add('error'); valid = false;
+  }
+  return valid;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  formFeedback.style.display = 'none';
+
+  if (!validateForm()) {
+    showFeedback('error', 'Por favor, preencha todos os campos obrigatórios corretamente.');
+    return;
+  }
+
+  formBtn.disabled = true;
+  formBtn.textContent = 'Enviando...';
+
+  if (FORMSPREE_ENDPOINT.includes('YOUR_FORMSPREE_ID')) {
+    await new Promise(r => setTimeout(r, 900));
+    showFeedback('success', '✓ Mensagem enviada com sucesso! Em breve entrarei em contato.');
+    form.reset();
+    formBtn.disabled = false;
+    formBtn.textContent = 'Enviar mensagem';
+    return;
+  }
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST', body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    });
+    if (response.ok) {
+      showFeedback('success', '✓ Mensagem enviada com sucesso! Em breve entrarei em contato.');
+      form.reset();
+    } else {
+      const json = await response.json().catch(() => ({}));
+      showFeedback('error', json?.errors?.map(e => e.message).join(', ') || 'Ocorreu um erro. Tente novamente.');
+    }
+  } catch {
+    showFeedback('error', 'Falha na conexão. Por favor, entre em contato pelo WhatsApp.');
+  } finally {
+    formBtn.disabled = false;
+    formBtn.textContent = 'Enviar mensagem';
+  }
+});
+
+form.querySelectorAll('input, textarea').forEach(f => f.addEventListener('input', () => f.classList.remove('error')));
+
+/* =============================================
+   CONTAGEM ANIMADA NAS STATS DO HERO
+   ============================================= */
+
+function animateCount(el, target, suffix = '') {
+  const duration = 1400;
+  const start = performance.now();
+  const isNum = !isNaN(parseInt(target));
+
+  if (!isNum) return; // "UFRJ" e similar: não anima
+
+  const end = parseInt(target);
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = suffix + Math.round(ease * end);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = suffix + end;
+  }
+  requestAnimationFrame(step);
+}
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.querySelectorAll('.hero__stat strong').forEach(el => {
+      const text = el.textContent.trim();
+      const prefix = text.startsWith('+') ? '+' : '';
+      const num = text.replace('+', '');
+      if (!isNaN(parseInt(num))) animateCount(el, num, prefix);
+    });
+    statsObserver.unobserve(entry.target);
+  });
+}, { threshold: 0.5 });
+
+const statsEl = document.querySelector('.hero__stats');
+if (statsEl) statsObserver.observe(statsEl);
+
+/* =============================================
+   FOOTER ANO
+   ============================================= */
+
+const yearEl = document.getElementById('footer-year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
