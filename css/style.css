@@ -677,7 +677,7 @@ input, textarea { font-family: var(--font-body); }
 .hero__tagline {
   font-family: var(--font-script);
   font-style: normal;
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-size: clamp(3rem, 5.8vw, 5.8rem);
   color: var(--color-primary);
   margin-bottom: 0;
   line-height: 1.2;
@@ -874,6 +874,7 @@ input, textarea { font-family: var(--font-body); }
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   text-align: center;
+  z-index: 2;
 }
 .sobre__image-tag strong {
   display: block;
@@ -1134,16 +1135,31 @@ input, textarea { font-family: var(--font-body); }
 .faq__layout {
   display: grid;
   grid-template-columns: 1fr 1.8fr;
-  gap: clamp(2.5rem, 5vw, 5rem);
+  column-gap: clamp(2.5rem, 5vw, 5rem);
+  row-gap: 2rem;
   align-items: start;
 }
 
 .faq__intro {
   position: sticky;
   top: calc(var(--nav-h) + 2rem);
+  grid-column: 1;
+  grid-row: 1;
 }
 
-.faq__list { display: flex; flex-direction: column; gap: 0.625rem; }
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  grid-column: 2;
+  grid-row: 1 / -1;
+}
+
+.faq__cta {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+}
 
 .faq-item {
   background-color: var(--color-surface);
@@ -1236,6 +1252,25 @@ input, textarea { font-family: var(--font-body); }
 .contato__info-items { display: flex; flex-direction: column; gap: 1.125rem; margin-top: 1.875rem; }
 
 .contato__info-item { display: flex; gap: 0.875rem; align-items: flex-start; }
+
+a.contato__info-item {
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.625rem;
+  margin: -0.5rem -0.625rem;
+  transition: background-color var(--transition-fast);
+}
+a.contato__info-item:hover {
+  background-color: var(--color-accent-light);
+}
+a.contato__info-item .contato__info-text span {
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+a.contato__info-item:hover .contato__info-text span {
+  color: var(--color-primary);
+}
 
 .contato__info-icon {
   width: 42px; height: 42px; flex-shrink: 0;
@@ -1595,6 +1630,21 @@ footer {
   opacity: 1;
 }
 
+[data-theme="dark"] .hero__tagline {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .servico-card__tag {
+  color: #fff;
+}
+
+[data-theme="dark"] .servico-card__link {
+  color: #fff;
+}
+[data-theme="dark"] .servico-card__link:hover {
+  color: var(--color-accent);
+}
+
 [data-theme="dark"] .hero__stat,
 [data-theme="dark"] .hero__badge {
   background: color-mix(in srgb, var(--color-accent-light) 18%, transparent);
@@ -1620,6 +1670,21 @@ footer {
     background: radial-gradient(circle at 45% 85%, color-mix(in srgb, #4A9E6E 22%, transparent) 0%, transparent 70%);
     opacity: 1;
   }
+  body:not([data-theme="light"]) .hero__tagline {
+    color: var(--color-text);
+  }
+
+  body:not([data-theme="light"]) .servico-card__tag {
+    color: #fff;
+  }
+
+  body:not([data-theme="light"]) .servico-card__link {
+    color: #fff;
+  }
+  body:not([data-theme="light"]) .servico-card__link:hover {
+    color: var(--color-accent);
+  }
+
   body:not([data-theme="light"]) .hero__stat,
   body:not([data-theme="light"]) .hero__badge {
     background: color-mix(in srgb, var(--color-accent-light) 18%, transparent);
@@ -1750,8 +1815,23 @@ footer {
 
   .hero__name { white-space: normal; }
 
-  .faq__layout { grid-template-columns: 1fr; }
-  .faq__intro { position: static; }
+  .faq__layout {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+  }
+  .faq__intro {
+    position: static;
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .faq__list {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .faq__cta {
+    grid-column: 1;
+    grid-row: auto;
+  }
 
   .organic-art--faq,
   .organic-art--sobre { opacity: 0.2; }
@@ -1781,4 +1861,13 @@ footer {
   .hero__stats { gap: 0.5rem; }
   .hero__stat { padding: 0.75rem 1rem; min-width: 70px; }
   .hero__stat strong { font-size: 1.625rem; }
+
+  .sobre__image-wrapper {
+    padding-right: 1.5rem;
+    padding-bottom: 1.25rem;
+  }
+  .sobre__image-tag {
+    right: 0;
+    bottom: -0.75rem;
+  }
 }
