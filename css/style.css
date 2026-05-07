@@ -1674,17 +1674,6 @@ footer {
     color: var(--color-text);
   }
 
-  body:not([data-theme="light"]) .servico-card__tag {
-    color: #fff;
-  }
-
-  body:not([data-theme="light"]) .servico-card__link {
-    color: #fff;
-  }
-  body:not([data-theme="light"]) .servico-card__link:hover {
-    color: var(--color-accent);
-  }
-
   body:not([data-theme="light"]) .hero__stat,
   body:not([data-theme="light"]) .hero__badge {
     background: color-mix(in srgb, var(--color-accent-light) 18%, transparent);
