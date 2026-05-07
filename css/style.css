@@ -422,6 +422,12 @@ input, textarea { font-family: var(--font-body); }
   color: var(--color-text);
   letter-spacing: 0.01em;
   line-height: 1;
+  white-space: nowrap;
+}
+
+.navbar__logo-name em {
+  font-style: inherit;
+  color: var(--color-primary);
 }
 
 .navbar__logo-sub {
@@ -551,8 +557,8 @@ input, textarea { font-family: var(--font-body); }
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  mask-image: linear-gradient(to right, black 0%, black 42%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black 0%, black 42%, transparent 100%);
+  mask-image: linear-gradient(to right, black 0%, black 55%, transparent 88%);
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 55%, transparent 88%);
 }
 
 /* Sombra no chão para ancorar a figura */
@@ -578,6 +584,33 @@ input, textarea { font-family: var(--font-body); }
   display: block;
   filter: drop-shadow(0 16px 40px rgba(15, 61, 37, 0.14));
 }
+
+/* Badge WhatsApp sobre a foto do hero */
+.hero__wa-badge {
+  position: absolute;
+  bottom: 2.25rem;
+  left: 1.75rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #25D366;
+  color: #fff;
+  padding: 0.625rem 1.125rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.38);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.hero__wa-badge:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.52);
+}
+.hero__wa-badge svg { flex-shrink: 0; }
 
 /* ── Direita: texto ── */
 
@@ -620,7 +653,7 @@ input, textarea { font-family: var(--font-body); }
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1;
-  margin-bottom: 1.125rem;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
@@ -668,25 +701,17 @@ input, textarea { font-family: var(--font-body); }
   margin-bottom: 1.625rem;
 }
 
-.hero__cards-sep {
-  width: 1px;
-  align-self: stretch;
-  background: linear-gradient(to bottom, transparent, var(--color-border) 25%, var(--color-border) 75%, transparent);
-  flex-shrink: 0;
-  margin: 0.125rem 0;
-}
-
 .hero__badge {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  padding: 0.875rem 1.25rem;
+  padding: 0.875rem 1rem;
   border: 1.5px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--color-accent-light) 30%, transparent);
-  min-width: 82px;
+  flex: 1 0 82px;
   font-size: 0.58rem;
   font-weight: 500;
   letter-spacing: 0.09em;
@@ -706,6 +731,7 @@ input, textarea { font-family: var(--font-body); }
   color: var(--color-primary);
   width: 18px;
   height: 18px;
+  min-height: 2rem;
 }
 
 .hero__actions {
@@ -730,11 +756,11 @@ input, textarea { font-family: var(--font-body); }
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 0.875rem 1.25rem;
+  padding: 0.875rem 1rem;
   border: 1.5px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--color-accent-light) 30%, transparent);
-  min-width: 82px;
+  flex: 1 0 82px;
   transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -745,7 +771,10 @@ input, textarea { font-family: var(--font-body); }
 }
 
 .hero__stat strong {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 2rem;
@@ -753,6 +782,12 @@ input, textarea { font-family: var(--font-body); }
   color: var(--color-primary);
   line-height: 1;
   margin-bottom: 0.3rem;
+  font-variant-numeric: lining-nums;
+}
+
+.hero__stat strong.hero__stat--sm {
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .hero__stat span {
@@ -835,7 +870,7 @@ input, textarea { font-family: var(--font-body); }
   bottom: -1.25rem; right: -1.25rem;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: white;
-  padding: 1.25rem 1.5rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   text-align: center;
@@ -843,10 +878,14 @@ input, textarea { font-family: var(--font-body); }
 .sobre__image-tag strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 1.875rem;
+  font-size: 1.375rem;
   line-height: 1;
 }
-.sobre__image-tag span { font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.04em; }
+.sobre__image-tag-plus {
+  font-size: 1em;
+  vertical-align: middle;
+}
+.sobre__image-tag span { font-size: 0.72rem; opacity: 0.85; letter-spacing: 0.04em; }
 
 .sobre__content { padding-left: clamp(0rem, 2vw, 1rem); }
 
@@ -1201,7 +1240,7 @@ input, textarea { font-family: var(--font-body); }
 .contato__info-icon {
   width: 42px; height: 42px; flex-shrink: 0;
   background: transparent;
-  border: 1.5px solid var(--color-border);
+  border: 1.5px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
   border-radius: var(--radius-md);
   display: flex; align-items: center; justify-content: center;
   color: var(--color-muted);
@@ -1556,12 +1595,14 @@ footer {
   opacity: 1;
 }
 
-[data-theme="dark"] .hero__stat {
+[data-theme="dark"] .hero__stat,
+[data-theme="dark"] .hero__badge {
   background: color-mix(in srgb, var(--color-accent-light) 18%, transparent);
   border-color: color-mix(in srgb, var(--color-primary) 22%, transparent);
 }
 
-[data-theme="dark"] .hero__stat:hover {
+[data-theme="dark"] .hero__stat:hover,
+[data-theme="dark"] .hero__badge:hover {
   background: color-mix(in srgb, var(--color-accent-light) 32%, transparent);
 }
 
@@ -1569,17 +1610,27 @@ footer {
   opacity: 0.06;
 }
 
+
+[data-theme="dark"] footer {
+  background: linear-gradient(135deg, #0F3D25 0%, #1F5C3A 100%);
+}
+
 @media (prefers-color-scheme: dark) {
   body:not([data-theme="light"]) .hero__left::before {
     background: radial-gradient(circle at 45% 85%, color-mix(in srgb, #4A9E6E 22%, transparent) 0%, transparent 70%);
     opacity: 1;
   }
-  body:not([data-theme="light"]) .hero__stat {
+  body:not([data-theme="light"]) .hero__stat,
+  body:not([data-theme="light"]) .hero__badge {
     background: color-mix(in srgb, var(--color-accent-light) 18%, transparent);
     border-color: color-mix(in srgb, var(--color-primary) 22%, transparent);
   }
   body:not([data-theme="light"])::after {
     opacity: 0.06;
+  }
+
+  body:not([data-theme="light"]) footer {
+    background: linear-gradient(135deg, #0F3D25 0%, #1F5C3A 100%);
   }
 }
 
@@ -1624,6 +1675,13 @@ footer {
     max-height: 400px;
   }
 
+  .hero__wa-badge {
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.72rem;
+    padding: 0.5rem 0.875rem;
+  }
+
   .hero__photo-wrap {
     mask-image: none;
     -webkit-mask-image: none;
@@ -1632,6 +1690,11 @@ footer {
   .hero__photo { height: 95%; animation: none; }
 
   .hero__right { order: 1; }
+
+  .hero__right-organic {
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 88%);
+    mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 88%);
+  }
 
   .servicos__grid { grid-template-columns: repeat(2, 1fr); }
   .sobre__grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -1677,10 +1740,21 @@ footer {
   .navbar__nav { display: none !important; }
   .navbar__actions .btn-primary { display: flex; font-size: 0.8rem; padding: 0.5rem 1rem; }
 
+  .navbar__logo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+  .navbar__logo-name { font-size: 1.2rem; }
+  .navbar__logo-sub { font-size: 0.58rem; }
+
   .hero__name { white-space: normal; }
 
   .faq__layout { grid-template-columns: 1fr; }
   .faq__intro { position: static; }
+
+  .organic-art--faq,
+  .organic-art--sobre { opacity: 0.2; }
 
   .contato__grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }

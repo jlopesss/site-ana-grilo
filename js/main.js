@@ -254,39 +254,6 @@ form.querySelectorAll('input, textarea').forEach(f => f.addEventListener('input'
    CONTAGEM ANIMADA NAS STATS DO HERO
    ============================================= */
 
-function animateCount(el, target, suffix = '') {
-  const duration = 1400;
-  const start = performance.now();
-  const isNum = !isNaN(parseInt(target));
-
-  if (!isNum) return; // "UFRJ" e similar: não anima
-
-  const end = parseInt(target);
-  function step(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const ease = 1 - Math.pow(1 - progress, 3);
-    el.textContent = suffix + Math.round(ease * end);
-    if (progress < 1) requestAnimationFrame(step);
-    else el.textContent = suffix + end;
-  }
-  requestAnimationFrame(step);
-}
-
-const statsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.querySelectorAll('.hero__stat strong').forEach(el => {
-      const text = el.textContent.trim();
-      const prefix = text.startsWith('+') ? '+' : '';
-      const num = text.replace('+', '');
-      if (!isNaN(parseInt(num))) animateCount(el, num, prefix);
-    });
-    statsObserver.unobserve(entry.target);
-  });
-}, { threshold: 0.5 });
-
-const statsEl = document.querySelector('.hero__stats');
-if (statsEl) statsObserver.observe(statsEl);
 
 /* =============================================
    FOOTER ANO
