@@ -810,7 +810,7 @@ input, textarea { font-family: var(--font-body); }
 
 .sobre {
   padding-block: clamp(4rem, 8vw, 8rem);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   position: relative;
   overflow: hidden;
 }
@@ -1137,7 +1137,7 @@ input, textarea { font-family: var(--font-body); }
   display: grid;
   grid-template-columns: 1fr 1.8fr;
   column-gap: clamp(2.5rem, 5vw, 5rem);
-  row-gap: 2rem;
+  row-gap: 0.5rem;
   align-items: start;
 }
 
@@ -1154,12 +1154,14 @@ input, textarea { font-family: var(--font-body); }
   gap: 0.625rem;
   grid-column: 2;
   grid-row: 1 / -1;
+  padding-top: 10rem;
 }
 
 .faq__cta {
   grid-column: 1;
   grid-row: 2;
   align-self: start;
+  margin-top: -9rem;
 }
 
 .faq-item {
@@ -1404,7 +1406,7 @@ footer {
   color: rgba(255,255,255,0.92);
 }
 
-.footer__copy { font-size: 0.75rem; }
+.footer__copy { font-size: 0.70rem; }
 
 .footer__links { display: flex; gap: 1.25rem; }
 .footer__links a { font-size: 0.75rem; transition: color var(--transition-fast); }
@@ -1635,6 +1637,13 @@ footer {
   color: var(--color-text);
 }
 
+[data-theme="dark"] .section-label {
+  color: var(--color-primary-light);
+}
+[data-theme="dark"] .section-label::before {
+  background-color: var(--color-primary-light);
+}
+
 [data-theme="dark"] .servico-card__tag {
   color: #fff;
 }
@@ -1716,6 +1725,10 @@ footer {
    RESPONSIVO
    ============================================= */
 
+@media (min-width: 1025px) {
+  .faq { padding-block-start: clamp(1rem, 2vw, 2rem); }
+}
+
 @media (min-width: 1280px) {
   html { font-size: 17px; }
 }
@@ -1735,8 +1748,8 @@ footer {
 
   .hero__left {
     order: 2;
-    height: 52vw;
-    max-height: 400px;
+    height: 88vw;
+    max-height: 676px;
   }
 
   .hero__wa-badge {
@@ -1751,7 +1764,7 @@ footer {
     -webkit-mask-image: none;
   }
 
-  .hero__photo { height: 95%; animation: none; }
+  .hero__photo { height: 95%; animation: none; object-position: center 20%; }
 
   .hero__right { order: 1; }
 
@@ -1837,10 +1850,16 @@ footer {
   .faq__list {
     grid-column: 1;
     grid-row: auto;
+    padding-top: 0;
   }
   .faq__cta {
     grid-column: 1;
     grid-row: auto;
+    margin-top: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .organic-art--faq,
