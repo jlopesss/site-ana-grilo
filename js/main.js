@@ -113,8 +113,9 @@ document.querySelectorAll('.faq-item__btn').forEach(btn => {
     const item = btn.closest('.faq-item');
     const body = item.querySelector('.faq-item__body');
     const isOpen = item.classList.contains('open');
+    const list = item.closest('.faq__list, .accordion-list');
 
-    document.querySelectorAll('.faq-item.open').forEach(open => {
+    (list || document).querySelectorAll('.faq-item.open').forEach(open => {
       if (open !== item) {
         open.classList.remove('open');
         open.querySelector('.faq-item__btn').setAttribute('aria-expanded', 'false');
@@ -261,3 +262,36 @@ form.querySelectorAll('input, textarea').forEach(f => f.addEventListener('input'
 
 const yearEl = document.getElementById('footer-year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* =============================================
+   MODAL BIO
+   ============================================= */
+
+(function () {
+  const overlay = document.getElementById('bio-modal');
+  if (!overlay) return;
+
+  const openTriggers = document.querySelectorAll('[data-modal="bio-modal"]');
+  const closeTriggers = overlay.querySelectorAll('[data-modal-close]');
+
+  function openModal() {
+    overlay.hidden = false;
+    overlay.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    overlay.querySelector('.bio-modal__close').focus();
+  }
+
+  function closeModal() {
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  openTriggers.forEach(btn => btn.addEventListener('click', openModal));
+  closeTriggers.forEach(btn => btn.addEventListener('click', closeModal));
+
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !overlay.hidden) closeModal();
+  });
+}());
