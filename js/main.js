@@ -171,7 +171,7 @@ document.querySelectorAll('.drawer__close').forEach(btn => {
   btn.addEventListener('click', closeDrawer);
 });
 
-drawerOverlay.addEventListener('click', closeDrawer);
+if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && activeDrawer) closeDrawer();
@@ -208,7 +208,7 @@ function validateForm() {
   return valid;
 }
 
-form.addEventListener('submit', async (e) => {
+if (form) form.addEventListener('submit', async (e) => {
   e.preventDefault();
   formFeedback.style.display = 'none';
 
@@ -249,7 +249,7 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-form.querySelectorAll('input, textarea').forEach(f => f.addEventListener('input', () => f.classList.remove('error')));
+if (form) form.querySelectorAll('input, textarea').forEach(f => f.addEventListener('input', () => f.classList.remove('error')));
 
 /* =============================================
    CONTAGEM ANIMADA NAS STATS DO HERO
