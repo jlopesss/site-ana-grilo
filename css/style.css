@@ -2015,9 +2015,60 @@ footer {
 }
 
 .sp-hero {
+  position: relative;
+  overflow: hidden;
   background: var(--color-surface);
   padding: clamp(3rem, 8vw, 5.5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
   border-bottom: 1px solid var(--color-border);
+}
+
+.sp-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.sp-hero__text {
+  max-width: 600px;
+}
+
+/* Organic arts no hero das páginas de serviço */
+.organic-art--sp-hero .organic-leaf {
+  right: -2%;
+  top: -8%;
+  height: 118%;
+  width: auto;
+}
+
+.organic-art--sp-hero .organic-circle-lg {
+  right: -14%;
+  top: -35%;
+  width: clamp(300px, 44vw, 580px);
+  height: auto;
+}
+
+.organic-art--sp-hero .organic-sound-wave {
+  right: 3%;
+  top: 15%;
+  width: clamp(200px, 26vw, 340px);
+  aspect-ratio: 340 / 280;
+  height: auto;
+}
+
+.organic-art--sp-hero .organic-branch-sm {
+  right: 5%;
+  bottom: -10%;
+  height: 65%;
+  width: auto;
+  opacity: 0.7;
+  transform: scaleX(-1);
+}
+
+.organic-art--sp-hero .organic-sparkle {
+  right: 10%;
+  top: 8%;
+  width: clamp(100px, 14vw, 180px);
+  height: auto;
+  opacity: 0.7;
 }
 
 .sp-breadcrumb {
@@ -2221,6 +2272,11 @@ footer {
 
 [data-theme="dark"] .sp-block { background: var(--color-surface-2); }
 [data-theme="dark"] .sp-closing { background: var(--color-accent); }
+
+@media (max-width: 768px) {
+  .organic-art--sp-hero { opacity: 0.18; }
+  .sp-hero__text { max-width: 100%; }
+}
 
 @media (max-width: 600px) {
   .sp-block { padding: 1.125rem 1.125rem; }
