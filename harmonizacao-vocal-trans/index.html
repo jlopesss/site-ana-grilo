@@ -55,6 +55,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,900&family=Fuggles&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    /* Arts laterais do conteúdo — 3 artes, alternando esquerda/direita/esquerda */
+    .hvt-art-left {
+      position: absolute;
+      top: 2%;
+      left: -2%;
+      height: 76vh;
+      width: auto;
+    }
+    .hvt-art-right {
+      position: absolute;
+      top: 44%;
+      right: -2%;
+      height: 70vh;
+      width: auto;
+    }
+    .hvt-art-left-2 {
+      position: absolute;
+      top: 72%;
+      left: -2%;
+      height: 72vh;
+      width: auto;
+    }
+    @media (max-width: 900px) {
+      .hvt-art-left   { height: 48vh; }
+      .hvt-art-right  { display: none; }
+      .hvt-art-left-2 { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -99,61 +128,64 @@
 
       <!-- Arte orgânica -->
       <div class="organic-art organic-art--sp-hero" aria-hidden="true">
-        <!-- Convergência: duas trajetórias distintas que se encontram e ascendem juntas como uma só voz -->
-        <svg class="organic-convergence" viewBox="0 0 420 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Origem A: parte de cima à esquerda, percurso irregular -->
-          <path d="M 60 20 C 80 60 50 110 90 160 C 120 200 100 230 210 280"
-                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
-          <!-- Origem B: parte de baixo à direita, percurso diferente -->
-          <path d="M 380 30 C 360 80 390 130 340 180 C 300 220 320 250 210 280"
-                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
-          <!-- Ponto de encontro -->
-          <circle cx="210" cy="280" r="7" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.12" opacity="0.7"/>
-          <circle cx="210" cy="280" r="14" stroke="currentColor" stroke-width="0.8" opacity="0.30"/>
-          <!-- Ascensão unificada após a convergência -->
-          <path d="M 210 280 C 210 310 205 350 200 420 C 197 460 200 490 200 500"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.60"/>
-          <!-- Sombra/eco da ascensão — segunda linha paralela suave -->
-          <path d="M 220 288 C 222 318 218 356 216 426 C 214 466 216 492 216 500"
-                stroke="currentColor" stroke-width="0.9" stroke-linecap="round" opacity="0.22"/>
-          <!-- Partículas nas origens — individualidade antes da convergência -->
-          <circle cx="60"  cy="20"  r="4" stroke="currentColor" stroke-width="1.2" opacity="0.50"/>
-          <circle cx="380" cy="30"  r="4" stroke="currentColor" stroke-width="1.2" opacity="0.50"/>
-          <!-- Pequenos desvios ao longo do caminho A -->
-          <path d="M 68 55 C 56 62 50 72 58 78"  stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.28"/>
-          <path d="M 82 130 C 68 136 62 148 72 154" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.22"/>
-          <!-- Pequenos desvios ao longo do caminho B -->
-          <path d="M 370 68 C 382 76 388 88 378 94" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.28"/>
-          <path d="M 348 148 C 362 158 368 170 356 176" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.22"/>
-          <!-- Fragmentos flutuantes — memória do percurso -->
-          <circle cx="90"  cy="160" r="2.5" fill="currentColor" opacity="0.30"/>
-          <circle cx="340" cy="180" r="2.5" fill="currentColor" opacity="0.30"/>
-          <circle cx="150" cy="220" r="2"   fill="currentColor" opacity="0.20"/>
-          <circle cx="280" cy="230" r="2"   fill="currentColor" opacity="0.20"/>
-          <!-- Linhas de aura ao redor da ascensão -->
-          <path d="M 192 310 C 190 350 188 400 186 460" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.14"/>
-          <path d="M 230 310 C 232 350 234 400 236 460" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.14"/>
-        </svg>
-        <!-- Espiral delicada de fundo — evoca transformação contínua -->
-        <svg class="organic-spiral" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 150 150
-                   C 150 120 178 108 195 125
-                   C 215 145 210 180 185 198
-                   C 155 218 118 205 100 175
-                   C 78 140 92 100 128 82
-                   C 168 62 215 78 238 115
-                   C 264 158 248 212 208 234
-                   C 162 260 106 240 80 196
-                   C 50 146 70 82 120 56
-                   C 174 28 242 54 268 108"
-                stroke="currentColor" stroke-width="0.9" stroke-linecap="round" opacity="0.18"/>
-          <path d="M 150 150
-                   C 150 132 164 124 175 132
-                   C 187 142 184 160 172 168
-                   C 158 178 142 170 136 155
-                   C 128 138 138 120 155 114
-                   C 174 108 194 118 200 136"
-                stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.28"/>
+        <!-- Composição floral — caule com flor aberta e folhas — canto superior direito -->
+        <svg class="sp-corner-tr" viewBox="0 0 240 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Caule principal: desce do canto superior direito -->
+          <path d="M 218 6 C 196 38 170 80 146 124 C 126 162 112 204 104 252 C 100 276 99 300 100 330"
+                stroke="currentColor" stroke-width="1.05" stroke-linecap="round" opacity="0.24"/>
+          <!-- ── FLOR 1 — topo (centro ~202, 28) ── -->
+          <!-- Pétala superior -->
+          <path d="M 202 28 C 198 18 196 8 200 2 C 206 8 206 18 202 28 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" opacity="0.22"/>
+          <!-- Pétala superior direita -->
+          <path d="M 202 28 C 210 20 218 14 224 10 C 222 18 214 24 202 28 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" opacity="0.22"/>
+          <!-- Pétala direita -->
+          <path d="M 202 28 C 212 28 222 32 226 38 C 218 36 210 32 202 28 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" opacity="0.20"/>
+          <!-- Pétala inferior direita -->
+          <path d="M 202 28 C 208 36 210 46 206 52 C 202 44 200 36 202 28 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" opacity="0.20"/>
+          <!-- Pétala esquerda -->
+          <path d="M 202 28 C 192 24 184 18 182 12 C 190 14 198 20 202 28 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" opacity="0.20"/>
+          <!-- Centro da flor -->
+          <circle cx="202" cy="28" r="4" stroke="currentColor" stroke-width="0.8" opacity="0.28"/>
+          <circle cx="204" cy="25" r="1.2" fill="currentColor" opacity="0.18"/>
+          <circle cx="200" cy="24" r="1" fill="currentColor" opacity="0.15"/>
+          <circle cx="202" cy="22" r="1.1" fill="currentColor" opacity="0.16"/>
+          <!-- ── FOLHA 1 — lado direito do caule (y≈100) ── -->
+          <path d="M 158 106 C 180 90 202 70 204 50 C 206 32 192 22 178 26 C 164 32 154 62 158 106 Z"
+                stroke="currentColor" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.20"/>
+          <path d="M 158 106 C 178 86 198 64 202 46"
+                stroke="currentColor" stroke-width="0.45" stroke-linecap="round" opacity="0.12"/>
+          <!-- ── RAMO LATERAL com botão floral (de y≈140) ── -->
+          <path d="M 146 124 C 168 114 184 102 188 88"
+                stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.18"/>
+          <!-- Botão floral — fechado -->
+          <path d="M 188 88 C 186 80 183 72 184 66 C 188 62 194 66 194 74 C 194 82 192 86 188 88 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.20"/>
+          <!-- Sépala do botão -->
+          <path d="M 188 88 C 184 84 182 80 184 76"
+                stroke="currentColor" stroke-width="0.5" stroke-linecap="round" opacity="0.14"/>
+          <!-- ── FOLHA 2 — lado esquerdo (y≈190) ── -->
+          <path d="M 116 198 C 92 182 68 160 64 134 C 60 110 74 94 90 98 C 106 102 116 130 116 198 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <path d="M 116 198 C 94 176 70 154 66 130"
+                stroke="currentColor" stroke-width="0.4" stroke-linecap="round" opacity="0.11"/>
+          <!-- ── FLOR 2 — menor, em botão aberto (y≈260) ── -->
+          <path d="M 104 252 C 124 244 138 234 140 220"
+                stroke="currentColor" stroke-width="0.75" stroke-linecap="round" opacity="0.16"/>
+          <path d="M 140 220 C 138 212 136 204 138 198 C 142 194 148 198 148 206 C 148 214 144 218 140 220 Z"
+                stroke="currentColor" stroke-width="0.75" fill="none" opacity="0.18"/>
+          <!-- Pequenas pétalas abertas ao redor do botão 2 -->
+          <path d="M 140 220 C 148 214 154 208 154 202 C 150 208 146 214 140 220 Z"
+                stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.16"/>
+          <path d="M 140 220 C 132 214 128 206 130 200 C 134 208 136 214 140 220 Z"
+                stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.16"/>
+          <!-- Raíz/base e topo -->
+          <circle cx="100" cy="330" r="3" stroke="currentColor" stroke-width="0.8" opacity="0.20"/>
+          <circle cx="218" cy="6" r="2" stroke="currentColor" stroke-width="0.7" opacity="0.22"/>
         </svg>
       </div>
 
@@ -173,6 +205,118 @@
     </section>
 
     <section class="sp-content">
+
+      <div class="organic-art organic-art--sp-content" aria-hidden="true">
+
+        <!-- Borboleta com caule descendente — lado esquerdo, topo da seção -->
+        <!-- viewBox tall: borboleta no 1/3 superior, caule com folhas desce até o fim -->
+        <svg class="hvt-art-left" viewBox="0 0 200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Antenas -->
+          <path d="M 100 56 C 90 46 80 40 74 36" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" opacity="0.20"/>
+          <path d="M 100 56 C 110 46 120 40 126 36" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" opacity="0.20"/>
+          <circle cx="74" cy="36" r="1.8" stroke="currentColor" stroke-width="0.5" opacity="0.18"/>
+          <circle cx="126" cy="36" r="1.8" stroke="currentColor" stroke-width="0.5" opacity="0.18"/>
+          <!-- Corpo da borboleta -->
+          <line x1="100" y1="56" x2="100" y2="154" stroke="currentColor" stroke-width="0.85" stroke-linecap="round" opacity="0.22"/>
+          <!-- Asas superiores -->
+          <path d="M 100 78 C 88 68 60 52 38 60 C 18 68 12 92 22 108 C 32 124 64 122 100 106 Z"
+                stroke="currentColor" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.22"/>
+          <path d="M 100 78 C 112 68 140 52 162 60 C 182 68 188 92 178 108 C 168 124 136 122 100 106 Z"
+                stroke="currentColor" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.22"/>
+          <!-- Asas inferiores -->
+          <path d="M 100 106 C 84 112 54 122 38 138 C 22 154 26 172 42 176 C 60 180 86 162 100 146 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <path d="M 100 106 C 116 112 146 122 162 138 C 178 154 174 172 158 176 C 140 180 114 162 100 146 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <!-- Caule que desce da base da borboleta -->
+          <path d="M 100 154 C 102 188 100 222 103 258 C 106 292 102 328 104 364 C 106 400 102 436 101 512"
+                stroke="currentColor" stroke-width="1.0" stroke-linecap="round" opacity="0.22"/>
+          <!-- Par de folhas y≈230 -->
+          <path d="M 102 232 C 118 220 140 212 150 200 C 146 218 132 232 116 238 C 110 240 102 238 102 232 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.19"/>
+          <path d="M 102 232 C 86 220 64 212 54 200 C 58 218 72 232 88 238 C 94 240 102 238 102 232 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.19"/>
+          <!-- Folha direita y≈308 -->
+          <path d="M 103 308 C 120 296 142 290 154 278 C 148 296 134 310 118 316 C 112 318 103 314 103 308 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.17"/>
+          <!-- Folha esquerda y≈384 -->
+          <path d="M 103 384 C 86 372 64 366 52 354 C 56 372 70 386 88 392 C 96 394 103 390 103 384 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.17"/>
+          <!-- Par de folhas y≈460 -->
+          <path d="M 102 460 C 118 448 140 442 150 430 C 146 448 132 462 116 468 C 110 470 102 466 102 460 Z"
+                stroke="currentColor" stroke-width="0.75" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.16"/>
+          <path d="M 102 460 C 86 448 64 442 52 430 C 56 448 70 462 88 468 C 94 470 102 466 102 460 Z"
+                stroke="currentColor" stroke-width="0.75" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.16"/>
+          <circle cx="101" cy="512" r="2.5" stroke="currentColor" stroke-width="0.75" opacity="0.20"/>
+        </svg>
+
+        <!-- Borboleta com caule — lado esquerdo, terço final da seção -->
+        <svg class="hvt-art-left-2" viewBox="0 0 200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 100 56 C 90 46 80 40 74 36" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" opacity="0.20"/>
+          <path d="M 100 56 C 110 46 120 40 126 36" stroke="currentColor" stroke-width="0.65" stroke-linecap="round" opacity="0.20"/>
+          <circle cx="74" cy="36" r="1.8" stroke="currentColor" stroke-width="0.5" opacity="0.18"/>
+          <circle cx="126" cy="36" r="1.8" stroke="currentColor" stroke-width="0.5" opacity="0.18"/>
+          <line x1="100" y1="56" x2="100" y2="154" stroke="currentColor" stroke-width="0.85" stroke-linecap="round" opacity="0.22"/>
+          <path d="M 100 78 C 88 68 60 52 38 60 C 18 68 12 92 22 108 C 32 124 64 122 100 106 Z"
+                stroke="currentColor" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.22"/>
+          <path d="M 100 78 C 112 68 140 52 162 60 C 182 68 188 92 178 108 C 168 124 136 122 100 106 Z"
+                stroke="currentColor" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.22"/>
+          <path d="M 100 106 C 84 112 54 122 38 138 C 22 154 26 172 42 176 C 60 180 86 162 100 146 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <path d="M 100 106 C 116 112 146 122 162 138 C 178 154 174 172 158 176 C 140 180 114 162 100 146 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <path d="M 100 154 C 102 188 100 222 103 258 C 106 292 102 328 104 364 C 106 400 102 436 101 512"
+                stroke="currentColor" stroke-width="1.0" stroke-linecap="round" opacity="0.22"/>
+          <path d="M 102 232 C 118 220 140 212 150 200 C 146 218 132 232 116 238 C 110 240 102 238 102 232 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.19"/>
+          <path d="M 102 232 C 86 220 64 212 54 200 C 58 218 72 232 88 238 C 94 240 102 238 102 232 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.19"/>
+          <path d="M 103 308 C 120 296 142 290 154 278 C 148 296 134 310 118 316 C 112 318 103 314 103 308 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.17"/>
+          <path d="M 103 384 C 86 372 64 366 52 354 C 56 372 70 386 88 392 C 96 394 103 390 103 384 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.17"/>
+          <path d="M 102 460 C 118 448 140 442 150 430 C 146 448 132 462 116 468 C 110 470 102 466 102 460 Z"
+                stroke="currentColor" stroke-width="0.75" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.16"/>
+          <path d="M 102 460 C 86 448 64 442 52 430 C 56 448 70 462 88 468 C 94 470 102 466 102 460 Z"
+                stroke="currentColor" stroke-width="0.75" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.16"/>
+          <circle cx="101" cy="512" r="2.5" stroke="currentColor" stroke-width="0.75" opacity="0.20"/>
+        </svg>
+
+        <!-- Galho floral — lado direito, a partir do 1/3 da seção -->
+        <svg class="hvt-art-right" viewBox="0 0 160 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Caule principal: curva da borda direita em direção ao centro -->
+          <path d="M 148 8 C 138 44 122 86 110 132 C 98 178 92 226 92 274 C 92 322 98 368 102 452"
+                stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.22"/>
+          <!-- Folha direita y≈70 -->
+          <path d="M 126 80 C 140 64 158 52 164 36 C 158 56 144 72 130 80 C 126 82 124 82 126 80 Z"
+                stroke="currentColor" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.19"/>
+          <!-- Folha esquerda y≈70 -->
+          <path d="M 120 78 C 102 62 80 52 64 40 C 68 62 84 78 104 84 C 110 86 120 82 120 78 Z"
+                stroke="currentColor" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <!-- Folha direita y≈180 -->
+          <path d="M 100 166 C 114 150 134 140 144 124 C 138 144 124 162 110 170 C 104 174 100 170 100 166 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <!-- Folha esquerda y≈260 -->
+          <path d="M 93 260 C 74 248 52 240 38 228 C 42 248 58 264 78 270 C 84 272 93 268 93 260 Z"
+                stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+          <!-- Florzinha — 5 pétalas pequenas y≈340 -->
+          <path d="M 97 326 C 94 316 92 308 96 302 C 102 308 102 318 97 326 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.18"/>
+          <path d="M 97 326 C 107 322 116 318 120 312 C 116 320 108 326 97 326 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.18"/>
+          <path d="M 97 326 C 104 335 108 344 104 350 C 98 346 94 337 97 326 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.18"/>
+          <path d="M 97 326 C 87 334 78 340 72 338 C 74 330 84 324 97 326 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.18"/>
+          <circle cx="97" cy="326" r="3" stroke="currentColor" stroke-width="0.75" opacity="0.20"/>
+          <!-- Folha esquerda y≈400 -->
+          <path d="M 100 406 C 82 396 60 390 46 380 C 50 398 66 414 86 420 C 92 422 100 418 100 406 Z"
+                stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.16"/>
+          <circle cx="102" cy="452" r="2.5" stroke="currentColor" stroke-width="0.75" opacity="0.20"/>
+          <circle cx="148" cy="8" r="2" stroke="currentColor" stroke-width="0.7" opacity="0.18"/>
+        </svg>
+
+      </div>
       <div class="container">
 
         <div class="sp-prose">
@@ -233,9 +377,27 @@
     </section>
 
     <section class="sp-cta">
+
+      <div class="organic-art organic-art--sp-cta" aria-hidden="true">
+        <svg class="sp-cta-art-right" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 210 190 C 178 164 138 128 100 96 C 68 68 36 46 8 32" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" opacity="0.22"/>
+          <path d="M 210 164 C 186 146 158 120 128 96 C 100 74 68 54 34 42" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.17"/>
+          <path d="M 210 136 C 194 124 172 106 148 88 C 126 72 100 58 72 50" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" opacity="0.13"/>
+          <path d="M 148 96 C 158 78 164 56 158 36 C 154 20 142 10 128 14" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.18"/>
+          <path d="M 100 96 C 104 76 100 54 92 38 C 84 22 68 14 52 20" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.14"/>
+          <circle cx="148" cy="96" r="3"   stroke="currentColor" stroke-width="0.7"  opacity="0.22"/>
+          <circle cx="100" cy="96" r="2.5" stroke="currentColor" stroke-width="0.65" opacity="0.20"/>
+          <circle cx="60"  cy="62" r="2"   stroke="currentColor" stroke-width="0.6"  opacity="0.17"/>
+          <circle cx="210" cy="190" r="4"  stroke="currentColor" stroke-width="0.7"  opacity="0.18"/>
+          <circle cx="128" cy="14" r="1.8" stroke="currentColor" stroke-width="0.55" opacity="0.15"/>
+          <circle cx="52"  cy="20" r="1.6" stroke="currentColor" stroke-width="0.5"  opacity="0.13"/>
+          <path d="M 210 110 C 200 96 188 84 174 76" stroke="currentColor" stroke-width="0.45" stroke-dasharray="3 5" stroke-linecap="round" opacity="0.13"/>
+        </svg>
+      </div>
+
       <div class="container">
         <h2 class="sp-cta__title">Pronta para começar?</h2>
-        <p class="sp-cta__text">Entre em contato e agende sua avaliação inicial. Atendimento presencial em Niterói e online para todo o Brasil.</p>
+        <p class="sp-cta__text">Entre em contato e agende sua avaliação inicial.<br>Atendimento presencial em Niterói e online para todo o Brasil.</p>
         <a href="https://wa.me/5521968270262?text=Olá%2C%20estou%20vindo%20do%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20Harmonização%20Vocal." class="btn btn-primary" target="_blank" rel="noopener noreferrer">
           Agendar consulta pelo WhatsApp
         </a>

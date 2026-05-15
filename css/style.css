@@ -2033,81 +2033,56 @@ footer {
   text-align: center;
 }
 
-/* Organic arts no hero das páginas de serviço */
-.organic-art--sp-hero .organic-leaf {
-  right: -2%;
-  top: -8%;
-  height: 118%;
-  width: auto;
+/* Cor das artes nas páginas de serviço — usa primary diretamente,
+   opacidade controlada por cada elemento SVG */
+.organic-art--sp-hero {
+  color: var(--color-primary);
 }
 
-.organic-art--sp-hero .organic-circle-lg {
-  right: -14%;
-  top: -35%;
-  width: clamp(300px, 44vw, 580px);
-  height: auto;
-}
-
-.organic-art--sp-hero .organic-sound-wave {
-  right: 3%;
-  top: 15%;
-  width: clamp(200px, 26vw, 340px);
-  aspect-ratio: 340 / 280;
-  height: auto;
-}
-
-.organic-art--sp-hero .organic-branch-sm {
-  right: 5%;
-  bottom: -10%;
-  height: 65%;
-  width: auto;
-  opacity: 0.7;
-  transform: scaleX(-1);
-}
-
-.organic-art--sp-hero .organic-sparkle {
-  right: 10%;
-  top: 8%;
-  width: clamp(100px, 14vw, 180px);
-  height: auto;
-  opacity: 0.7;
-}
-
-/* Comunicação e Oratória — leque de projeção */
-.organic-art--sp-hero .organic-voice-fan {
+/* Artes de canto — páginas de serviço (hero e conteúdo) */
+.organic-art--sp-hero .sp-corner-tr {
   position: absolute;
-  right: -2%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(280px, 52vw, 520px);
-  height: auto;
-}
-
-.organic-art--sp-hero .organic-grid-lines {
-  position: absolute;
-  right: 2%;
-  bottom: 0;
-  width: clamp(160px, 28vw, 320px);
-  height: auto;
-  opacity: 0.9;
-}
-
-/* Harmonização Vocal da Pessoa Trans — convergência de trajetórias */
-.organic-art--sp-hero .organic-convergence {
-  position: absolute;
-  right: 0%;
   top: -10%;
-  height: 120%;
+  right: -3%;
+  height: 125%;
   width: auto;
 }
 
-.organic-art--sp-hero .organic-spiral {
+.organic-art--sp-hero .sp-corner-tl {
   position: absolute;
-  right: 8%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(140px, 22vw, 300px);
+  top: -10%;
+  left: -3%;
+  height: 125%;
+  width: auto;
+}
+
+.organic-art--sp-content .sp-corner-bl {
+  position: absolute;
+  bottom: -6%;
+  left: -3%;
+  width: clamp(200px, 24vw, 340px);
   height: auto;
+}
+
+.organic-art--sp-content .sp-corner-br {
+  position: absolute;
+  bottom: -6%;
+  right: -3%;
+  width: clamp(200px, 24vw, 340px);
+  height: auto;
+}
+
+.organic-art--sp-content .sp-corner-tl {
+  position: absolute;
+  top: -4%;
+  left: -3%;
+  width: clamp(200px, 24vw, 340px);
+  height: auto;
+}
+
+/* sa-bio: arte ligeiramente mais suave — seção longa com muito texto */
+.sp-content.sa-bio .organic-art--sp-content {
+  opacity: 0.8;
 }
 
 .sp-breadcrumb {
@@ -2164,10 +2139,36 @@ footer {
 
 .sp-content {
   padding: clamp(2.5rem, 7vw, 5rem) 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .sp-content .container {
   max-width: 960px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Arte orgânica na seção de conteúdo — continuação do hero */
+.organic-art--sp-content {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  color: var(--color-primary);
+  z-index: 0;
+}
+
+.organic-art--sp-content .sp-content-branch {
+  position: absolute;
+  right: -2%;
+  bottom: -4%;
+  width: clamp(130px, 15vw, 210px);
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .organic-art--sp-content { opacity: 0.5; }
 }
 
 .sp-prose p {
@@ -2281,6 +2282,31 @@ footer {
   border-top: 1px solid var(--color-border);
   padding: clamp(3rem, 8vw, 5rem) 0;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sp-cta .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Arte geométrica da CTA — igual em todas as páginas de serviço */
+.organic-art--sp-cta {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: var(--color-primary);
+  z-index: 0;
+}
+
+.organic-art--sp-cta .sp-cta-art-right {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(170px, 22vw, 300px);
+  height: auto;
 }
 
 .sp-cta__title {
@@ -2296,7 +2322,7 @@ footer {
   font-size: 1.0625rem;
   color: var(--color-muted);
   margin-bottom: 2rem;
-  max-width: 480px;
+  max-width: 640px;
   margin-left: auto;
   margin-right: auto;
 }

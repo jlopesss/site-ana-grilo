@@ -55,6 +55,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,900&family=Fuggles&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    /* 3 artes L→R→L — voz artística */
+    .va-art-left {
+      position: absolute;
+      top: 2%;
+      left: -2%;
+      height: 76vh;
+      width: auto;
+    }
+    .va-art-right {
+      position: absolute;
+      top: 44%;
+      right: -2%;
+      height: 72vh;
+      width: auto;
+    }
+    .va-art-left-2 {
+      position: absolute;
+      top: 72%;
+      left: -2%;
+      height: 72vh;
+      width: auto;
+    }
+    @media (max-width: 900px) {
+      .va-art-left   { height: 48vh; }
+      .va-art-right  { display: none; }
+      .va-art-left-2 { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -99,16 +128,21 @@
 
       <!-- Arte orgânica -->
       <div class="organic-art organic-art--sp-hero" aria-hidden="true">
-        <svg class="organic-leaf" viewBox="0 0 200 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 100 410 C 90 348 68 274 60 200 C 52 132 66 76 94 44 C 102 34 108 20 110 10 C 116 24 130 48 138 80 C 150 122 148 180 132 240 C 116 300 118 360 100 410 Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 100 410 C 104 324 108 220 110 10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" opacity="0.5"/>
-          <path d="M 96 290 C 72 274 48 250 36 224 C 25 200 32 174 48 166 C 64 158 86 190 96 290 Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
-          <circle cx="100" cy="410" r="5" stroke="currentColor" stroke-width="1" opacity="0.55"/>
-          <circle cx="110" cy="10" r="3" stroke="currentColor" stroke-width="1" opacity="0.55"/>
-        </svg>
-        <svg class="organic-circle-lg" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="240" cy="240" r="235" stroke="currentColor" stroke-width="1.5" opacity="0.18"/>
-          <circle cx="240" cy="240" r="175" stroke="currentColor" stroke-width="0.8" opacity="0.09"/>
+        <!-- Clave de sol + notas musicais — voz artística — canto superior direito -->
+        <svg class="sp-corner-tr" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 168 10 C 160 26 146 50 138 78 C 130 106 134 130 146 142 C 162 158 178 150 180 132 C 182 114 170 100 156 106 C 146 110 142 124 144 138 C 146 152 156 160 168 154 C 184 146 190 126 186 102 C 182 78 170 54 166 30"
+                stroke="currentColor" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.24"/>
+          <line x1="128" y1="116" x2="186" y2="116" stroke="currentColor" stroke-width="0.85" stroke-linecap="round" opacity="0.18"/>
+          <path d="M 152 152 C 146 164 142 180 144 196 C 146 210 158 216 168 208"
+                stroke="currentColor" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="0.20"/>
+          <ellipse cx="78" cy="182" rx="12" ry="8" transform="rotate(-25 78 182)"
+                stroke="currentColor" stroke-width="0.85" fill="none" opacity="0.20"/>
+          <line x1="90" y1="177" x2="90" y2="132" stroke="currentColor" stroke-width="0.85" stroke-linecap="round" opacity="0.18"/>
+          <ellipse cx="36" cy="214" rx="10" ry="7" transform="rotate(-22 36 214)"
+                stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.16"/>
+          <line x1="46" y1="209" x2="46" y2="172" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.14"/>
+          <path d="M 46 172 C 58 168 66 176 62 184" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.12"/>
+          <circle cx="168" cy="10" r="2" stroke="currentColor" stroke-width="0.6" opacity="0.22"/>
         </svg>
       </div>
 
@@ -128,6 +162,85 @@
     </section>
 
     <section class="sp-content">
+
+      <div class="organic-art organic-art--sp-content" aria-hidden="true">
+
+        <!-- Arte esquerda 1 — fitas fluidas em cascata (viewBox tall) -->
+        <svg class="va-art-left" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Faixa 1 — dominante -->
+          <path d="M 8 56 C 44 44 78 30 112 24 C 146 18 176 28 198 46"
+                stroke="currentColor" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.22"/>
+          <path d="M 8 74 C 46 60 82 42 116 34 C 148 26 178 36 198 56"
+                stroke="currentColor" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.15"/>
+          <!-- Faixa 2 — deslocada, mais lenta -->
+          <path d="M 8 180 C 50 162 88 140 122 126 C 156 112 184 116 198 130"
+                stroke="currentColor" stroke-width="1.05" stroke-linecap="round" fill="none" opacity="0.21"/>
+          <path d="M 8 198 C 52 178 92 154 126 140 C 160 126 186 130 198 146"
+                stroke="currentColor" stroke-width="0.75" stroke-linecap="round" fill="none" opacity="0.14"/>
+          <!-- Faixa 3 — mais baixa, sutil -->
+          <path d="M 8 306 C 46 290 86 268 120 252 C 154 236 182 234 198 246"
+                stroke="currentColor" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.20"/>
+          <path d="M 8 322 C 48 306 88 284 122 268 C 156 252 184 252 198 264"
+                stroke="currentColor" stroke-width="0.65" stroke-linecap="round" fill="none" opacity="0.13"/>
+          <!-- Faixa 4 — base -->
+          <path d="M 8 428 C 44 414 80 396 114 384 C 148 372 178 372 198 386"
+                stroke="currentColor" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.18"/>
+          <path d="M 8 444 C 46 430 82 412 116 400 C 150 388 180 390 198 404"
+                stroke="currentColor" stroke-width="0.6" stroke-linecap="round" fill="none" opacity="0.12"/>
+          <!-- Nós de inflexão -->
+          <circle cx="112" cy="24"  r="2.2" stroke="currentColor" stroke-width="0.55" opacity="0.18"/>
+          <circle cx="122" cy="126" r="2"   stroke="currentColor" stroke-width="0.5"  opacity="0.18"/>
+          <circle cx="120" cy="252" r="2"   stroke="currentColor" stroke-width="0.5"  opacity="0.17"/>
+          <circle cx="114" cy="384" r="1.8" stroke="currentColor" stroke-width="0.5"  opacity="0.16"/>
+        </svg>
+
+        <!-- Arte direita — arcos melódicos em cascata, desde o meio da seção -->
+        <svg class="va-art-right" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Arcos ascendentes — como uma melodia que sobe e desce -->
+          <path d="M 192 56 C 158 44 122 30 88 24 C 54 18 24 28 2 46"
+                stroke="currentColor" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.22"/>
+          <path d="M 192 74 C 154 60 118 42 84 34 C 52 26 22 36 2 56"
+                stroke="currentColor" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.15"/>
+          <path d="M 192 180 C 150 162 112 140 78 126 C 44 112 16 116 2 130"
+                stroke="currentColor" stroke-width="1.05" stroke-linecap="round" fill="none" opacity="0.21"/>
+          <path d="M 192 198 C 148 178 108 154 74 140 C 40 126 14 130 2 146"
+                stroke="currentColor" stroke-width="0.75" stroke-linecap="round" fill="none" opacity="0.14"/>
+          <path d="M 192 310 C 154 294 114 272 80 256 C 46 240 18 238 2 250"
+                stroke="currentColor" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.20"/>
+          <path d="M 192 328 C 152 310 112 288 78 272 C 44 256 16 256 2 270"
+                stroke="currentColor" stroke-width="0.65" stroke-linecap="round" fill="none" opacity="0.13"/>
+          <path d="M 192 430 C 156 416 120 400 86 388 C 52 376 22 378 2 392"
+                stroke="currentColor" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.18"/>
+          <!-- Nós de inflexão -->
+          <circle cx="88"  cy="24"  r="2.2" stroke="currentColor" stroke-width="0.55" opacity="0.18"/>
+          <circle cx="78"  cy="126" r="2"   stroke="currentColor" stroke-width="0.5"  opacity="0.18"/>
+          <circle cx="80"  cy="256" r="2"   stroke="currentColor" stroke-width="0.5"  opacity="0.17"/>
+          <circle cx="86"  cy="388" r="1.8" stroke="currentColor" stroke-width="0.5"  opacity="0.16"/>
+        </svg>
+
+        <!-- Arte esquerda 2 — mesma fita fluida, terço final da seção -->
+        <svg class="va-art-left-2" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 8 56 C 44 44 78 30 112 24 C 146 18 176 28 198 46"
+                stroke="currentColor" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.22"/>
+          <path d="M 8 74 C 46 60 82 42 116 34 C 148 26 178 36 198 56"
+                stroke="currentColor" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.15"/>
+          <path d="M 8 180 C 50 162 88 140 122 126 C 156 112 184 116 198 130"
+                stroke="currentColor" stroke-width="1.05" stroke-linecap="round" fill="none" opacity="0.21"/>
+          <path d="M 8 198 C 52 178 92 154 126 140 C 160 126 186 130 198 146"
+                stroke="currentColor" stroke-width="0.75" stroke-linecap="round" fill="none" opacity="0.14"/>
+          <path d="M 8 306 C 46 290 86 268 120 252 C 154 236 182 234 198 246"
+                stroke="currentColor" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.20"/>
+          <path d="M 8 322 C 48 306 88 284 122 268 C 156 252 184 252 198 264"
+                stroke="currentColor" stroke-width="0.65" stroke-linecap="round" fill="none" opacity="0.13"/>
+          <path d="M 8 428 C 44 414 80 396 114 384 C 148 372 178 372 198 386"
+                stroke="currentColor" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.18"/>
+          <circle cx="112" cy="24"  r="2.2" stroke="currentColor" stroke-width="0.55" opacity="0.18"/>
+          <circle cx="122" cy="126" r="2"   stroke="currentColor" stroke-width="0.5"  opacity="0.18"/>
+          <circle cx="120" cy="252" r="2"   stroke="currentColor" stroke-width="0.5"  opacity="0.17"/>
+          <circle cx="114" cy="384" r="1.8" stroke="currentColor" stroke-width="0.5"  opacity="0.16"/>
+        </svg>
+
+      </div>
       <div class="container">
 
         <div class="sp-prose">
@@ -212,9 +325,27 @@
     </section>
 
     <section class="sp-cta">
+
+      <div class="organic-art organic-art--sp-cta" aria-hidden="true">
+        <svg class="sp-cta-art-right" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 210 190 C 178 164 138 128 100 96 C 68 68 36 46 8 32" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" opacity="0.22"/>
+          <path d="M 210 164 C 186 146 158 120 128 96 C 100 74 68 54 34 42" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.17"/>
+          <path d="M 210 136 C 194 124 172 106 148 88 C 126 72 100 58 72 50" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" opacity="0.13"/>
+          <path d="M 148 96 C 158 78 164 56 158 36 C 154 20 142 10 128 14" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity="0.18"/>
+          <path d="M 100 96 C 104 76 100 54 92 38 C 84 22 68 14 52 20" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" opacity="0.14"/>
+          <circle cx="148" cy="96" r="3"   stroke="currentColor" stroke-width="0.7"  opacity="0.22"/>
+          <circle cx="100" cy="96" r="2.5" stroke="currentColor" stroke-width="0.65" opacity="0.20"/>
+          <circle cx="60"  cy="62" r="2"   stroke="currentColor" stroke-width="0.6"  opacity="0.17"/>
+          <circle cx="210" cy="190" r="4"  stroke="currentColor" stroke-width="0.7"  opacity="0.18"/>
+          <circle cx="128" cy="14" r="1.8" stroke="currentColor" stroke-width="0.55" opacity="0.15"/>
+          <circle cx="52"  cy="20" r="1.6" stroke="currentColor" stroke-width="0.5"  opacity="0.13"/>
+          <path d="M 210 110 C 200 96 188 84 174 76" stroke="currentColor" stroke-width="0.45" stroke-dasharray="3 5" stroke-linecap="round" opacity="0.13"/>
+        </svg>
+      </div>
+
       <div class="container">
         <h2 class="sp-cta__title">Pronta para começar?</h2>
-        <p class="sp-cta__text">Entre em contato e agende sua avaliação inicial. Atendimento presencial em Niterói e online para todo o Brasil.</p>
+        <p class="sp-cta__text">Entre em contato e agende sua avaliação inicial.<br>Atendimento presencial em Niterói e online para todo o Brasil.</p>
         <a href="https://wa.me/5521968270262?text=Olá%2C%20estou%20vindo%20do%20seu%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20Voz%20Artística." class="btn btn-primary" target="_blank" rel="noopener noreferrer">
           Agendar consulta pelo WhatsApp
         </a>
