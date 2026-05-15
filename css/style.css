@@ -2028,7 +2028,7 @@ footer {
 }
 
 .sp-hero__text {
-  max-width: 700px;
+  max-width: 820px;
   margin: 0 auto;
   text-align: center;
 }
@@ -2071,6 +2071,43 @@ footer {
   width: clamp(100px, 14vw, 180px);
   height: auto;
   opacity: 0.7;
+}
+
+/* Comunicação e Oratória — leque de projeção */
+.organic-art--sp-hero .organic-voice-fan {
+  position: absolute;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(280px, 52vw, 520px);
+  height: auto;
+}
+
+.organic-art--sp-hero .organic-grid-lines {
+  position: absolute;
+  right: 2%;
+  bottom: 0;
+  width: clamp(160px, 28vw, 320px);
+  height: auto;
+  opacity: 0.9;
+}
+
+/* Harmonização Vocal da Pessoa Trans — convergência de trajetórias */
+.organic-art--sp-hero .organic-convergence {
+  position: absolute;
+  right: 0%;
+  top: -10%;
+  height: 120%;
+  width: auto;
+}
+
+.organic-art--sp-hero .organic-spiral {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(140px, 22vw, 300px);
+  height: auto;
 }
 
 .sp-breadcrumb {
@@ -2122,7 +2159,7 @@ footer {
   color: var(--color-muted);
   line-height: 1.75;
   margin-bottom: 2rem;
-  max-width: 680px;
+  max-width: 780px;
 }
 
 .sp-content {
@@ -2130,7 +2167,7 @@ footer {
 }
 
 .sp-content .container {
-  max-width: 820px;
+  max-width: 960px;
 }
 
 .sp-prose p {
@@ -2139,6 +2176,13 @@ footer {
   line-height: 1.8;
   color: var(--color-text);
   margin-bottom: 1.25rem;
+  text-align: justify;
+}
+
+.sp-list li,
+.sp-block__text,
+.sp-closing p {
+  text-align: justify;
 }
 
 .sp-section {
@@ -2222,11 +2266,11 @@ footer {
 }
 
 .sp-closing p {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: clamp(1rem, 1.8vw, 1.15rem);
   line-height: 1.8;
-  color: var(--color-primary-dark);
-  font-style: italic;
+  color: var(--color-text);
+  font-style: normal;
   margin: 0;
 }
 
@@ -2273,6 +2317,7 @@ footer {
 
 [data-theme="dark"] .sp-block { background: var(--color-surface-2); }
 [data-theme="dark"] .sp-closing { background: var(--color-accent); }
+[data-theme="dark"] .sp-closing p { color: var(--color-text); }
 
 @media (max-width: 768px) {
   .organic-art--sp-hero { opacity: 0.18; }
