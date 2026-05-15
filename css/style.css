@@ -2093,8 +2093,6 @@ footer {
 
 .sp-breadcrumb a:hover { color: var(--color-primary-dark); }
 
-.sp-breadcrumb__sep { color: var(--color-border); }
-
 .sp-hero__label {
   font-family: var(--font-body);
   font-size: 0.8rem;
