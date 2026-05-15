@@ -178,15 +178,12 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* =============================================
-   FORMULÁRIO DE CONTATO (Formspree)
+   FORMULÁRIO DE CONTATO (Web3Forms)
    ============================================= */
 
 const form = document.getElementById('contact-form');
 const formBtn = document.getElementById('form-btn');
 const formFeedback = document.getElementById('form-feedback');
-
-// Substitua YOUR_FORMSPREE_ID pelo ID do seu form no formspree.io
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
 
 function showFeedback(type, message) {
   formFeedback.className = `form-feedback ${type}`;
@@ -217,29 +214,26 @@ if (form) form.addEventListener('submit', async (e) => {
     return;
   }
 
+  // Copia o email do visitante para o campo replyto
+  const emailField = form.querySelector('#email');
+  const replytoField = form.querySelector('#replyto-field');
+  if (emailField && replytoField) replytoField.value = emailField.value;
+
   formBtn.disabled = true;
   formBtn.textContent = 'Enviando...';
 
-  if (FORMSPREE_ENDPOINT.includes('YOUR_FORMSPREE_ID')) {
-    await new Promise(r => setTimeout(r, 900));
-    showFeedback('success', '✓ Mensagem enviada com sucesso! Em breve entrarei em contato.');
-    form.reset();
-    formBtn.disabled = false;
-    formBtn.textContent = 'Enviar mensagem';
-    return;
-  }
-
   try {
-    const response = await fetch(FORMSPREE_ENDPOINT, {
-      method: 'POST', body: new FormData(form),
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: new FormData(form),
       headers: { Accept: 'application/json' },
     });
-    if (response.ok) {
+    const json = await response.json().catch(() => ({}));
+    if (response.ok && json.success) {
       showFeedback('success', '✓ Mensagem enviada com sucesso! Em breve entrarei em contato.');
       form.reset();
     } else {
-      const json = await response.json().catch(() => ({}));
-      showFeedback('error', json?.errors?.map(e => e.message).join(', ') || 'Ocorreu um erro. Tente novamente.');
+      showFeedback('error', json.message || 'Ocorreu um erro. Tente novamente.');
     }
   } catch {
     showFeedback('error', 'Falha na conexão. Por favor, entre em contato pelo WhatsApp.');
