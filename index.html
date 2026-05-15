@@ -24,7 +24,7 @@
   <link rel="icon" href="img/favicon/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="img/favicon/favicon-180.png" />
   <link rel="manifest" href="img/favicon/site.webmanifest" />
-  <link rel="preload" as="image" href="img/ana-profile-oficial.png" />
+  <link rel="preload" as="image" href="img/ana-profile-oficial.webp" type="image/webp" />
   <title>Fonoaudióloga Ana Grilo | Niterói | Voz & Comunicação</title>
   <script type="application/ld+json">
   {
@@ -245,14 +245,17 @@
         </div>
 
         <div class="hero__photo-wrap">
-          <img
-            src="img/ana-profile-oficial.png"
-            alt="Ana Grilo, fonoaudióloga especializada em voz em Niterói"
-            class="hero__photo"
-            fetchpriority="high"
-            width="831"
-            height="841"
-          />
+          <picture>
+            <source srcset="img/ana-profile-oficial.webp" type="image/webp" />
+            <img
+              src="img/ana-profile-oficial.png"
+              alt="Ana Grilo, fonoaudióloga especializada em voz em Niterói"
+              class="hero__photo"
+              fetchpriority="high"
+              width="831"
+              height="841"
+            />
+          </picture>
         </div>
       </div>
 
