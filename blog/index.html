@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blog da fonoaudióloga Ana Grilo. Artigos sobre voz, comunicação, saúde vocal e oratória por especialista com +10 anos de experiência em Niterói e online." />
+  <meta name="keywords" content="blog fonoaudiologia, saúde vocal, dicas de voz, cuidados com a voz, comunicação, oratória, fonoaudióloga Niterói, Ana Grilo" />
+  <meta name="robots" content="index, follow" />
+  <meta name="geo.region" content="BR-RJ" />
+  <meta name="geo.placename" content="Niterói, Rio de Janeiro" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Blog | Ana Grilo Fonoaudióloga | Voz & Comunicação" />
+  <meta property="og:description" content="Artigos sobre saúde vocal, comunicação e voz por Ana Grilo, fonoaudióloga especializada com +10 anos de experiência." />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:url" content="https://anagrilovoz.com/blog/" />
+  <meta property="og:image" content="https://anagrilovoz.com/img/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Blog da fonoaudióloga Ana Grilo" />
+  <link rel="canonical" href="https://anagrilovoz.com/blog/" />
+  <meta name="theme-color" content="#4A8C65" />
+  <link rel="icon" href="../img/favicon/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="../img/favicon/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="../img/favicon/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="../img/favicon/favicon-180.png" />
+  <link rel="manifest" href="../img/favicon/site.webmanifest" />
+  <title>Blog | Voz & Comunicação | Ana Grilo Fonoaudióloga</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog da Ana Grilo",
+    "description": "Artigos sobre saúde vocal, comunicação e voz por Ana Grilo, fonoaudióloga especializada em Niterói e online.",
+    "url": "https://anagrilovoz.com/blog/",
+    "author": {
+      "@type": "Person",
+      "name": "Ana Grilo",
+      "jobTitle": "Fonoaudióloga",
+      "url": "https://anagrilovoz.com"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+    /* ── Blog Index ─────────────────────────────────────────── */
+    .blog-hero {
+      padding: 6rem 0 3rem;
+      text-align: center;
+      position: relative;
+    }
+    .blog-hero__label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary, #4A8C65);
+      margin-bottom: 1rem;
+    }
+    .blog-hero__title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: var(--color-heading, inherit);
+    }
+    .blog-hero__sub {
+      font-size: 1.05rem;
+      opacity: 0.7;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Grid de posts ──────────────────────────────────────── */
+    .blog-grid {
+      padding: 2rem 0 5rem;
+    }
+    .blog-grid__inner {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    /* ── Card ───────────────────────────────────────────────── */
+    .post-card {
+      border: 1px solid var(--color-border, rgba(0,0,0,0.08));
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--color-surface, #fff);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(74,140,101,0.12);
+    }
+    .post-card__tag-bar {
+      padding: 1.5rem 1.5rem 0;
+    }
+    .post-card__tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary, #4A8C65);
+      background: color-mix(in srgb, var(--color-primary, #4A8C65) 12%, transparent);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+    }
+    .post-card__body {
+      padding: 1rem 1.5rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .post-card__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+      color: var(--color-heading, inherit);
+    }
+    .post-card__excerpt {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      opacity: 0.7;
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+    .post-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      opacity: 0.55;
+    }
+    .post-card__meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+    .post-card__link {
+      text-decoration: none;
+      color: inherit;
+    }
+    .post-card__link:hover .post-card__title {
+      color: var(--color-primary, #4A8C65);
+    }
+
+    /* ── Estado vazio (quando não há posts) ─────────────────── */
+    .blog-empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      opacity: 0.5;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      .blog-hero { padding: 5rem 0 2rem; }
+      .blog-grid__inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar" role="banner">
+    <div class="container navbar__inner">
+      <a href="/" class="navbar__logo" aria-label="Ana Grilo — página inicial">Ana Grilo</a>
+      <nav class="navbar__nav" id="nav-menu" aria-label="Navegação principal">
+        <a href="/#servicos">Serviços</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/#sobre">Sobre</a>
+        <a href="/#contato">Contato</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <a href="https://wa.me/5521968270262?text=Olá%2C%20estou%20vindo%20do%20seu%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Agendar pelo WhatsApp">
+          Agendar consulta
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="blog-hero">
+      <div class="container">
+        <span class="blog-hero__label">Voz & Comunicação</span>
+        <h1 class="blog-hero__title">Blog da Ana Grilo</h1>
+        <p class="blog-hero__sub">Artigos sobre saúde vocal, comunicação e tudo que envolve a voz — escritos por quem entende do assunto.</p>
+      </div>
+    </section>
+
+    <section class="blog-grid">
+      <div class="container">
+        <div class="blog-grid__inner">
+
+          <!--
+            ════════════════════════════════════════════════════
+            COMO ADICIONAR UM NOVO POST:
+            1. Copie um bloco <article class="post-card"> abaixo
+            2. Atualize: href, tag, título, resumo, data e tempo de leitura
+            3. Crie a pasta e o arquivo do post (veja a pasta de exemplo)
+            ════════════════════════════════════════════════════
+          -->
+
+          <!-- POST DE EXEMPLO ─── remova este comentário na versão final -->
+          <article class="post-card">
+            <a href="/blog/por-que-minha-voz-cansa/" class="post-card__link" aria-label="Ler: Por que minha voz cansa no final do dia?">
+              <div class="post-card__tag-bar">
+                <span class="post-card__tag">Saúde Vocal</span>
+              </div>
+              <div class="post-card__body">
+                <h2 class="post-card__title">Por que minha voz cansa no final do dia?</h2>
+                <p class="post-card__excerpt">Sensação de voz "pesada", esforço para falar ou rouquidão no fim do expediente? Entenda as causas e o que fazer.</p>
+                <div class="post-card__meta">
+                  <time datetime="2026-05-20">20 mai. 2026</time>
+                  <span class="post-card__meta-dot" aria-hidden="true"></span>
+                  <span>5 min de leitura</span>
+                </div>
+              </div>
+            </a>
+          </article>
+
+          <!-- COLE NOVOS POSTS AQUI -->
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__copy">
+          &copy; <span id="footer-year"></span> Fonoaudióloga Ana Grilo . Todos os direitos reservados.
+        </p>
+        <nav class="footer__links" aria-label="Links do rodapé">
+          <a href="/#servicos">Serviços</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/#sobre">Sobre</a>
+          <a href="/#contato">Contato</a>
+        </nav>
+      </div>
+      <p class="footer__credit">
+        <a href="https://www.google.com/" target="_blank" rel="noopener noreferrer">Designed by Jhonatan Lopes</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
