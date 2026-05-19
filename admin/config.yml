@@ -11,21 +11,6 @@ public_folder: /img/blog
 locale: pt
 
 collections:
-  - name: categories
-    label: Categorias do Blog
-    label_singular: Categoria
-    folder: blog/_categories
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    editor:
-      preview: false
-    fields:
-      - label: Nome da categoria
-        name: title
-        widget: string
-        hint: "Ex: Saúde Vocal, Voz Profissional, Comunicação..."
-
   - name: posts
     label: Posts do Blog
     label_singular: Post
@@ -107,3 +92,18 @@ collections:
           • Subtítulo → comece a linha com ## (seção) ou ### (subseção)
           • Lista → comece cada item com - ou 1.
           • Botão WhatsApp → escreva ---cta--- na linha onde quer que o botão apareça (funciona junto com o campo "Texto do botão WhatsApp" acima)
+
+  - name: categories
+    label: Categorias do Blog
+    label_singular: Categoria
+    folder: blog/_categories
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: Nome da categoria
+        name: title
+        widget: string
+        hint: "Ex: Saúde Vocal, Voz Profissional, Comunicação..."
