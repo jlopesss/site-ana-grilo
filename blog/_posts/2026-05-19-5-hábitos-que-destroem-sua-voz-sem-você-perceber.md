@@ -4,7 +4,7 @@ date: 2026-05-19
 description: Engolir em seco, sussurrar e tomar café em excesso parecem
   inofensivos, mas machucam as pregas vocais. Veja o que evitar para ter uma voz
   saudável.
-category: Saúde Vocal
+category: Comunicação
 cta_texto: Quero cuidar da minha voz
 tags:
   - saúde vocal
