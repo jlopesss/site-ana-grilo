@@ -1,0 +1,109 @@
+backend:
+  name: github
+  repo: jlopesss/site-ana-grilo
+  branch: main
+  base_url: https://site-ana-grilo.vercel.app
+  auth_endpoint: /api/auth
+
+media_folder: img/blog
+public_folder: /img/blog
+
+locale: pt
+
+collections:
+  - name: categories
+    label: Categorias do Blog
+    label_singular: Categoria
+    folder: blog/_categories
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: Nome da categoria
+        name: title
+        widget: string
+        hint: "Ex: Saúde Vocal, Voz Profissional, Comunicação..."
+
+  - name: posts
+    label: Posts do Blog
+    label_singular: Post
+    folder: blog/_posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: Título
+        name: title
+        widget: string
+        hint: "Título principal do artigo (até 70 caracteres)"
+
+      - label: Data de publicação
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        default: "{{now}}"
+
+      - label: Descrição (meta)
+        name: description
+        widget: string
+        hint: "Resumo para SEO e redes sociais (até 160 caracteres). Aparece no Google e quando o post é compartilhado."
+
+      - label: Categoria
+        name: category
+        widget: relation
+        collection: categories
+        search_fields: [title]
+        value_field: title
+        display_fields: [title]
+        hint: "Escolha uma categoria existente ou crie uma nova em 'Categorias do Blog' no menu lateral."
+
+      - label: Tempo de leitura (min)
+        name: reading_time
+        widget: number
+        required: false
+        value_type: int
+        hint: "Opcional — se deixar em branco, o tempo é calculado automaticamente pelo número de palavras."
+
+      - label: Texto do botão WhatsApp
+        name: cta_texto
+        widget: string
+        required: false
+        hint: "Opcional — escreva uma frase de convite para o botão de agendamento. Para posicionar o botão no meio do texto, escreva ---cta--- na linha desejada. Se deixar em branco, o botão não aparece."
+
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        hint: "Palavras-chave do post (ex: refluxo, professores, hidratação). Ajudam no SEO e no filtro do blog."
+
+      - label: Serviços relacionados
+        name: servicos_relacionados
+        widget: list
+        required: false
+        hint: "Opcional — serviços do site para linkar no final do post."
+        field:
+          label: Serviço
+          name: servico
+          widget: select
+          options:
+            - { label: "Voz Clínica", value: "voz-clinica" }
+            - { label: "Voz Artística", value: "voz-artistica" }
+            - { label: "Harmonização Vocal Trans", value: "harmonizacao-vocal-trans" }
+            - { label: "Oratória e Comunicação", value: "oratoria-comunicacao" }
+            - { label: "Motricidade Orofacial", value: "motricidade-orofacial" }
+            - { label: "Move Voz Empresarial", value: "move-voz-empresarial" }
+
+      - label: Conteúdo
+        name: body
+        widget: markdown
+        hint: >
+          FORMATAÇÃO RÁPIDA:
+          • Citação/destaque → selecione o texto e clique no botão " (aspas) da barra, ou comece a linha com >
+          • Negrito → selecione e clique B, ou envolva com **texto**
+          • Subtítulo → comece a linha com ## (seção) ou ### (subseção)
+          • Lista → comece cada item com - ou 1.
+          • Botão WhatsApp → escreva ---cta--- na linha onde quer que o botão apareça (funciona junto com o campo "Texto do botão WhatsApp" acima)

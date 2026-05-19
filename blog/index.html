@@ -42,9 +42,33 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,900&family=Fuggles&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
 
   <style>
+    /* ── Layout base ───────────────────────────────────────── */
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    main { flex: 1; position: relative; overflow: hidden; }
+
+    /* ── Artes orgânicas do blog index ──────────────────────── */
+    .blog-art {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      color: var(--color-primary, #4A8C65);
+      opacity: 0.45;
+    }
+    .blog-art svg { position: absolute; width: auto; height: clamp(440px, 56vh, 880px); }
+    .blog-art__l1 { left: 2%; top:  5%; }
+    .blog-art__r1 { right: 2%; top: 42%; }
+    .blog-art__l2 { left: 2%; top: 76%; }
+    @media (max-width: 1100px) { .blog-art { display: none; } }
+
+    /* Margens laterais menores no blog */
+    .blog-grid .container,
+    .blog-hero .container { --container-pad: clamp(0.75rem, 2.5vw, 1.5rem); }
+
     /* ── Blog Index ─────────────────────────────────────────── */
     .blog-hero {
       padding: 6rem 0 3rem;
@@ -155,12 +179,70 @@
       color: var(--color-primary, #4A8C65);
     }
 
-    /* ── Estado vazio (quando não há posts) ─────────────────── */
+    /* ── Filtros de categoria ───────────────────────────────── */
+    .blog-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .blog-filter__btn {
+      background: none;
+      border: 1px solid var(--color-border, rgba(0,0,0,0.14));
+      border-radius: 100px;
+      padding: 0.38rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: inherit;
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+      font-family: inherit;
+    }
+    .blog-filter__btn:hover {
+      border-color: var(--color-primary, #4A8C65);
+      color: var(--color-primary, #4A8C65);
+    }
+    .blog-filter__btn.active {
+      background: var(--color-primary, #4A8C65);
+      border-color: var(--color-primary, #4A8C65);
+      color: #fff;
+    }
+
+    /* ── Busca ──────────────────────────────────────────────── */
+    .blog-search {
+      margin-bottom: 1.25rem;
+    }
+    .blog-search__input {
+      width: 100%;
+      max-width: 480px;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border: 1px solid var(--color-border, rgba(0,0,0,0.14));
+      border-radius: 100px;
+      background: var(--color-surface, #fff) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A8C65' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat 0.8rem center;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .blog-search__input:focus {
+      border-color: var(--color-primary, #4A8C65);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary, #4A8C65) 15%, transparent);
+    }
+    .blog-search__input::placeholder { opacity: 0.5; }
+
+    /* ── Estado vazio (quando nenhum card bate no filtro) ───── */
     .blog-empty {
+      display: none;
       text-align: center;
       padding: 4rem 1rem;
       opacity: 0.5;
       font-size: 0.95rem;
+      grid-column: 1 / -1;
     }
 
     @media (max-width: 600px) {
@@ -173,12 +255,16 @@
 
   <header class="navbar" role="banner">
     <div class="container navbar__inner">
-      <a href="/" class="navbar__logo" aria-label="Ana Grilo — página inicial">Ana Grilo</a>
-      <nav class="navbar__nav" id="nav-menu" aria-label="Navegação principal">
+      <a href="/" class="navbar__logo" aria-label="Página inicial — Ana Grilo">
+        <span class="navbar__logo-name"><em>Ana</em> Grilo</span>
+        <span class="navbar__logo-sub">Fonoaudióloga</span>
+      </a>
+      <nav class="navbar__nav" id="nav-menu" role="navigation" aria-label="Menu principal">
         <a href="/#servicos">Serviços</a>
-        <a href="/blog/" aria-current="page">Blog</a>
+        <a href="/#faq">FAQ</a>
         <a href="/#sobre">Sobre</a>
         <a href="/#contato">Contato</a>
+        <a href="/blog/" aria-current="page">Blog</a>
       </nav>
       <div class="navbar__actions">
         <button class="theme-toggle" id="theme-toggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">
@@ -205,6 +291,67 @@
 
   <main>
 
+    <div class="blog-art" aria-hidden="true">
+      <svg class="blog-art__l1" viewBox="0 0 180 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 90 512 C 85 448 72 378 78 310 C 84 244 106 204 102 148 C 98 96 80 56 84 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M 82 425 C 58 410 34 390 18 362 C 46 358 68 386 82 425 Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" opacity="0.85"/>
+        <path d="M 84 423 C 108 408 132 388 148 360 C 122 358 104 388 84 423 Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" opacity="0.85"/>
+        <path d="M 82 425 C 58 408 36 388 18 362" stroke="currentColor" stroke-width="0.65" opacity="0.4" stroke-linecap="round"/>
+        <path d="M 84 423 C 108 408 130 390 148 360" stroke="currentColor" stroke-width="0.65" opacity="0.4" stroke-linecap="round"/>
+        <path d="M 80 338 C 57 322 36 302 22 278 C 48 274 66 300 80 338 Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round" opacity="0.75"/>
+        <path d="M 82 336 C 105 320 124 298 138 274 C 114 272 98 302 82 336 Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round" opacity="0.75"/>
+        <path d="M 80 338 C 56 320 38 300 22 278" stroke="currentColor" stroke-width="0.6" opacity="0.35" stroke-linecap="round"/>
+        <path d="M 82 336 C 104 320 122 300 138 274" stroke="currentColor" stroke-width="0.6" opacity="0.35" stroke-linecap="round"/>
+        <path d="M 80 252 C 62 238 44 222 32 204 C 50 200 68 218 80 252 Z" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round" opacity="0.65"/>
+        <path d="M 82 250 C 100 236 118 218 130 200 C 112 198 96 218 82 250 Z" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round" opacity="0.65"/>
+        <path d="M 80 172 C 65 158 50 144 40 128 C 56 124 70 140 80 172 Z" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round" opacity="0.55"/>
+        <path d="M 82 170 C 97 156 110 142 118 126 C 106 124 96 142 82 170 Z" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round" opacity="0.55"/>
+        <path d="M 82 88 C 74 74 70 56 74 40 C 82 50 86 66 82 88 Z" stroke="currentColor" stroke-width="0.7" stroke-linejoin="round" opacity="0.45"/>
+        <path d="M 84 86 C 92 72 96 54 92 38 C 84 48 84 66 84 86 Z" stroke="currentColor" stroke-width="0.7" stroke-linejoin="round" opacity="0.45"/>
+        <circle cx="90" cy="512" r="4.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <circle cx="84" cy="12" r="2.5" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+      </svg>
+
+      <svg class="blog-art__r1" viewBox="0 0 160 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 80 8 C 112 32 132 64 120 96 C 108 128 48 156 40 188 C 32 220 72 252 80 268 C 88 284 128 316 120 348 C 112 380 48 408 40 440 C 36 460 56 472 80 472" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 80 8 C 48 32 28 64 40 96 C 52 128 112 156 120 188 C 128 220 88 252 80 268 C 72 284 32 316 40 348 C 48 380 112 408 120 440 C 124 460 104 472 80 472" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 80 8 C 100 30 112 60 104 90 C 96 120 62 148 58 178 C 54 208 78 240 80 256 C 82 272 106 304 100 334 C 94 364 62 392 58 422 C 55 444 66 462 80 472" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/>
+        <path d="M 80 8 C 60 30 48 60 56 90 C 64 120 98 148 102 178 C 106 208 82 240 80 256 C 78 272 54 304 60 334 C 66 364 98 392 102 422 C 105 444 94 462 80 472" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/>
+        <line x1="80" y1="8" x2="80" y2="472" stroke="currentColor" stroke-width="0.6" stroke-dasharray="3 8" opacity="0.25"/>
+        <circle cx="122" cy="96"  r="3" stroke="currentColor" stroke-width="0.9" opacity="0.6"/>
+        <circle cx="38"  cy="188" r="3" stroke="currentColor" stroke-width="0.9" opacity="0.6"/>
+        <circle cx="80"  cy="268" r="3" stroke="currentColor" stroke-width="0.9" opacity="0.6"/>
+        <circle cx="122" cy="348" r="3" stroke="currentColor" stroke-width="0.9" opacity="0.6"/>
+        <circle cx="38"  cy="440" r="3" stroke="currentColor" stroke-width="0.9" opacity="0.6"/>
+        <circle cx="38"  cy="96"  r="3" stroke="currentColor" stroke-width="0.9" opacity="0.4"/>
+        <circle cx="122" cy="188" r="3" stroke="currentColor" stroke-width="0.9" opacity="0.4"/>
+        <circle cx="38"  cy="348" r="3" stroke="currentColor" stroke-width="0.9" opacity="0.4"/>
+        <circle cx="122" cy="440" r="3" stroke="currentColor" stroke-width="0.9" opacity="0.4"/>
+        <circle cx="80" cy="8"   r="4" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+        <circle cx="80" cy="472" r="4" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      </svg>
+
+      <svg class="blog-art__l2" viewBox="0 0 180 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 90 512 C 85 448 72 378 78 310 C 84 244 106 204 102 148 C 98 96 80 56 84 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M 82 425 C 58 410 34 390 18 362 C 46 358 68 386 82 425 Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" opacity="0.85"/>
+        <path d="M 84 423 C 108 408 132 388 148 360 C 122 358 104 388 84 423 Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" opacity="0.85"/>
+        <path d="M 82 425 C 58 408 36 388 18 362" stroke="currentColor" stroke-width="0.65" opacity="0.4" stroke-linecap="round"/>
+        <path d="M 84 423 C 108 408 130 390 148 360" stroke="currentColor" stroke-width="0.65" opacity="0.4" stroke-linecap="round"/>
+        <path d="M 80 338 C 57 322 36 302 22 278 C 48 274 66 300 80 338 Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round" opacity="0.75"/>
+        <path d="M 82 336 C 105 320 124 298 138 274 C 114 272 98 302 82 336 Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round" opacity="0.75"/>
+        <path d="M 80 338 C 56 320 38 300 22 278" stroke="currentColor" stroke-width="0.6" opacity="0.35" stroke-linecap="round"/>
+        <path d="M 82 336 C 104 320 122 300 138 274" stroke="currentColor" stroke-width="0.6" opacity="0.35" stroke-linecap="round"/>
+        <path d="M 80 252 C 62 238 44 222 32 204 C 50 200 68 218 80 252 Z" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round" opacity="0.65"/>
+        <path d="M 82 250 C 100 236 118 218 130 200 C 112 198 96 218 82 250 Z" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round" opacity="0.65"/>
+        <path d="M 80 172 C 65 158 50 144 40 128 C 56 124 70 140 80 172 Z" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round" opacity="0.55"/>
+        <path d="M 82 170 C 97 156 110 142 118 126 C 106 124 96 142 82 170 Z" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round" opacity="0.55"/>
+        <path d="M 82 88 C 74 74 70 56 74 40 C 82 50 86 66 82 88 Z" stroke="currentColor" stroke-width="0.7" stroke-linejoin="round" opacity="0.45"/>
+        <path d="M 84 86 C 92 72 96 54 92 38 C 84 48 84 66 84 86 Z" stroke="currentColor" stroke-width="0.7" stroke-linejoin="round" opacity="0.45"/>
+        <circle cx="90" cy="512" r="4.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <circle cx="84" cy="12" r="2.5" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+      </svg>
+    </div>
+
     <section class="blog-hero">
       <div class="container">
         <span class="blog-hero__label">Voz & Comunicação</span>
@@ -215,19 +362,24 @@
 
     <section class="blog-grid">
       <div class="container">
-        <div class="blog-grid__inner">
 
-          <!--
-            ════════════════════════════════════════════════════
-            COMO ADICIONAR UM NOVO POST:
-            1. Copie um bloco <article class="post-card"> abaixo
-            2. Atualize: href, tag, título, resumo, data e tempo de leitura
-            3. Crie a pasta e o arquivo do post (veja a pasta de exemplo)
-            ════════════════════════════════════════════════════
-          -->
+        <div class="blog-search">
+          <input
+            type="search"
+            id="blog-search-input"
+            class="blog-search__input"
+            placeholder="Buscar artigos…"
+            aria-label="Buscar artigos por título ou conteúdo"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="blog-filter" id="blog-filter" role="group" aria-label="Filtrar por categoria"></div>
+
+        <div class="blog-grid__inner" id="blog-grid">
 
           <!-- POST DE EXEMPLO ─── remova este comentário na versão final -->
-          <article class="post-card">
+          <article class="post-card" data-category="Saúde Vocal">
             <a href="/blog/por-que-minha-voz-cansa/" class="post-card__link" aria-label="Ler: Por que minha voz cansa no final do dia?">
               <div class="post-card__tag-bar">
                 <span class="post-card__tag">Saúde Vocal</span>
@@ -238,13 +390,15 @@
                 <div class="post-card__meta">
                   <time datetime="2026-05-20">20 mai. 2026</time>
                   <span class="post-card__meta-dot" aria-hidden="true"></span>
-                  <span>5 min de leitura</span>
+                  <span>3 min de leitura</span>
                 </div>
               </div>
             </a>
           </article>
 
           <!-- COLE NOVOS POSTS AQUI -->
+
+          <p class="blog-empty" id="blog-empty" aria-live="polite">Nenhum post nesta categoria ainda.</p>
 
         </div>
       </div>
@@ -263,14 +417,70 @@
           <a href="/#faq">FAQ</a>
           <a href="/#sobre">Sobre</a>
           <a href="/#contato">Contato</a>
+          <a href="/blog/">Blog</a>
         </nav>
       </div>
       <p class="footer__credit">
-        <a href="https://www.google.com/" target="_blank" rel="noopener noreferrer">Designed by Jhonatan Lopes</a>
+        <a href="https://www.instagram.com/tattoo.jhonatan" target="_blank" rel="noopener noreferrer">Designed by Jhonatan Lopes</a>
       </p>
     </div>
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    (function () {
+      const filterBar   = document.getElementById('blog-filter');
+      const searchInput = document.getElementById('blog-search-input');
+      const grid        = document.getElementById('blog-grid');
+      const empty       = document.getElementById('blog-empty');
+      const cards       = Array.from(grid.querySelectorAll('.post-card[data-category]'));
+
+      let activeCat   = 'Todos';
+      let searchQuery = '';
+
+      // Coleta categorias únicas que existem nos cards
+      const cats = [...new Set(cards.map(c => c.dataset.category).filter(Boolean))];
+
+      function renderFilters(active) {
+        filterBar.innerHTML = '';
+        if (cats.length === 0) return;
+        ['Todos', ...cats].forEach(cat => {
+          const btn = document.createElement('button');
+          btn.className = 'blog-filter__btn' + (cat === active ? ' active' : '');
+          btn.textContent = cat;
+          btn.dataset.filter = cat;
+          btn.setAttribute('aria-pressed', cat === active ? 'true' : 'false');
+          btn.addEventListener('click', () => { activeCat = cat; applyFilters(); });
+          filterBar.appendChild(btn);
+        });
+      }
+
+      function applyFilters() {
+        renderFilters(activeCat);
+        const q = searchQuery.trim().toLowerCase();
+        let visible = 0;
+        cards.forEach(card => {
+          const matchCat   = activeCat === 'Todos' || card.dataset.category === activeCat;
+          const title      = card.querySelector('.post-card__title')?.textContent.toLowerCase() || '';
+          const excerpt    = card.querySelector('.post-card__excerpt')?.textContent.toLowerCase() || '';
+          const matchQuery = !q || title.includes(q) || excerpt.includes(q);
+          const show = matchCat && matchQuery;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        empty.style.display = visible === 0 ? 'block' : 'none';
+      }
+
+      searchInput.addEventListener('input', () => {
+        searchQuery = searchInput.value;
+        applyFilters();
+      });
+
+      // Ativa filtro via URL (?cat=Saúde Vocal)
+      const urlCat = new URLSearchParams(location.search).get('cat');
+      activeCat = urlCat && cats.includes(urlCat) ? urlCat : 'Todos';
+      applyFilters();
+    })();
+  </script>
 </body>
 </html>
