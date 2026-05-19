@@ -27,22 +27,31 @@ export default async function handler(req, res) {
       return;
     }
 
-    const message = JSON.stringify({
-      token: data.access_token,
-      provider: 'github',
-    });
+    const content = JSON.stringify({ token: data.access_token, provider: 'github' });
+    const msg = `authorization:github:success:${content}`;
 
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.send(`<!DOCTYPE html><html><body><script>
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(`<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Autenticando...</title></head>
+<body>
+<script>
 (function () {
-  var msg = 'authorization:github:success:' + ${JSON.stringify(message)};
-  function onMessage(e) {
-    window.opener.postMessage(msg, e.origin);
+  var msg = ${JSON.stringify(msg)};
+  function done(origin) {
+    window.opener.postMessage(msg, origin || '*');
+    setTimeout(function () { window.close(); }, 500);
   }
-  window.addEventListener('message', onMessage, false);
+  if (!window.opener) { return; }
+  window.addEventListener('message', function (e) {
+    if (e.data === 'authorizing:github') { done(e.origin); }
+  }, false);
   window.opener.postMessage('authorizing:github', '*');
+  setTimeout(function () { done('*'); }, 800);
 })();
-<\/script></body></html>`);
+</script>
+</body>
+</html>`);
   } catch (_) {
     res.status(500).send('Erro interno');
   }
