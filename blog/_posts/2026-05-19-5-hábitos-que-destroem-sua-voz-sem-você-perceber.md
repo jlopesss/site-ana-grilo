@@ -15,9 +15,7 @@ servicos_relacionados:
   - voz-clinica
   - oratoria-comunicacao
 ---
-A voz é um instrumento que usamos o dia todo — e justamente por isso é fácil maltratá-la sem perceber. Não precisa gritar num show ou passar horas em reunião para machucar as pregas
-
-  vocais. Pequenos hábitos do cotidiano fazem esse estrago silenciosamente.
+A voz é um instrumento que usamos o dia todo — e justamente por isso é fácil maltratá-la sem perceber. Não precisa gritar num show ou passar horas em reunião para machucar as pregas vocais. Pequenos hábitos do cotidiano fazem esse estrago silenciosamente.
 
 ## 1. Sussurrar quando está rouco
 
