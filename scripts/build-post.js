@@ -510,7 +510,8 @@ function injectCardInIndex(slug, cardHTML) {
 
   if (content.includes(startMarker)) {
     // Substitui card existente (edição de post)
-    const re = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`, 'g');
+    const slugEsc = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`<!-- POST:${slugEsc} -->[\\s\\S]*?\\s*<!-- /POST:${slugEsc} -->`, 'g');
     content = content.replace(re, cardHTML);
     fs.writeFileSync(BLOG_INDEX, content, 'utf8');
     console.log(`  index.html: card atualizado para "${slug}".`);
