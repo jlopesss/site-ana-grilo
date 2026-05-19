@@ -33,9 +33,7 @@ A voz é um instrumento que usamos o dia todo — e justamente por isso é fáci
 
 ## 3. Falar muito no celular sem fone
 
-  Segurar o celular entre o ombro e o ouvido torce o pescoço e comprime a laringe. Já falar no viva-voz em ambiente barulhento faz você forçar o volume sem perceber. Prefira fone de
-
-  ouvido e ambientes mais silenciosos sempre que puder.
+  Segurar o celular entre o ombro e o ouvido torce o pescoço e comprime a laringe. Já falar no viva-voz em ambiente barulhento faz você forçar o volume sem perceber. Prefira fone de ouvido e ambientes mais silenciosos sempre que puder.
 
 ## 4. Café, álcool e anti-histamínico antes de usar muito a voz
 
