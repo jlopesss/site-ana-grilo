@@ -1,5 +1,5 @@
 ---
-title: 5 hábitos que destroem sua voz sem você perceber v2
+title: 5 hábitos que destroem sua voz sem você perceber
 date: 2026-05-19
 description: Engolir em seco, sussurrar e tomar café em excesso parecem
   inofensivos, mas machucam as pregas vocais. Veja o que evitar para ter uma voz
