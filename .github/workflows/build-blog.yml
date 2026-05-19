@@ -22,7 +22,7 @@ jobs:
 
       - run: npm install
 
-      - run: node scripts/build-post.js
+      - run: node scripts/build-post.js --force
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
