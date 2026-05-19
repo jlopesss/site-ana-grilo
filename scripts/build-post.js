@@ -352,6 +352,15 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, latestPost) {
     }
     .post-body hr { border: none; border-top: 1px solid var(--color-border, rgba(0,0,0,0.1)); margin: 3rem 0; }
 
+    .post-cta-inline {
+      text-align: center; margin: 2.5rem 0;
+      padding: 2rem 1.5rem;
+      background: color-mix(in srgb, var(--color-primary, #4A8C65) 7%, transparent);
+      border-radius: 12px;
+    }
+    .post-cta-inline p { margin-bottom: 1.25rem; font-size: 1.05rem; font-style: italic; }
+    .post-cta-inline .btn { display: inline-block; }
+
     .post-author {
       display: flex; align-items: center; gap: 1.25rem;
       border-top: 1px solid var(--color-border, rgba(0,0,0,0.1));
