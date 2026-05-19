@@ -21,7 +21,7 @@ A voz é um instrumento que usamos o dia todo — e justamente por isso é fáci
 
   
 
-\## 1. Sussurrar quando está rouco
+## 1. Sussurrar quando está rouco
 
   
 
@@ -31,7 +31,7 @@ A voz é um instrumento que usamos o dia todo — e justamente por isso é fáci
 
    
 
-\## 2. Pigarrear o tempo todo
+## 2. Pigarrear o tempo todo
 
   
 
@@ -41,7 +41,7 @@ A voz é um instrumento que usamos o dia todo — e justamente por isso é fáci
 
   
 
-\## 3. Falar muito no celular sem fone
+## 3. Falar muito no celular sem fone
 
   
 
@@ -51,7 +51,7 @@ A voz é um instrumento que usamos o dia todo — e justamente por isso é fáci
 
   
 
-\## 4. Café, álcool e anti-histamínico antes de usar muito a voz
+## 4. Café, álcool e anti-histamínico antes de usar muito a voz
 
   
 
@@ -61,11 +61,11 @@ A voz é um instrumento que usamos o dia todo — e justamente por isso é fáci
 
   
 
-\---cta---
+---cta---
 
   
 
-\## 5. Ignorar a rouquidão que não passa
+## 5. Ignorar a rouquidão que não passa
 
   
 
@@ -75,7 +75,7 @@ A voz é um instrumento que usamos o dia todo — e justamente por isso é fáci
 
    
 
-\> A voz saudável não exige perfeição — exige atenção. Pequenas mudanças de hábito protegem um instrumento que você vai usar pelo resto da vida.
+> A voz saudável não exige perfeição — exige atenção. Pequenas mudanças de hábito protegem um instrumento que você vai usar pelo resto da vida.
 
   
 

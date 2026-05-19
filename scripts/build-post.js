@@ -555,7 +555,8 @@ for (const post of allPosts) {
   // Último post publicado que não é o atual
   const latestPost = allPosts.find(p => p.slug !== slug) || null;
 
-  const htmlBody = injectCta(marked.parse(markdown), frontmatter.cta_texto, frontmatter.title);
+  const cleanMd = markdown.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
+  const htmlBody = injectCta(marked.parse(cleanMd), frontmatter.cta_texto, frontmatter.title);
   const postHTML = buildPostHTML(slug, frontmatter, markdown, htmlBody, latestPost);
 
   fs.mkdirSync(destDir, { recursive: true });
