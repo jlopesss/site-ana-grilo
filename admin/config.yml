@@ -2,7 +2,7 @@ backend:
   name: github
   repo: jlopesss/site-ana-grilo
   branch: main
-  base_url: https://anagrilovoz.com
+  base_url: https://www.anagrilovoz.com
   auth_endpoint: /api/auth
 
 media_folder: img/blog
