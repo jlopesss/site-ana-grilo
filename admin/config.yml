@@ -5,6 +5,8 @@ backend:
   base_url: https://www.anagrilovoz.com
   auth_endpoint: /api/auth
 
+publish_mode: editorial_workflow
+
 media_folder: img/blog
 public_folder: /img/blog
 
