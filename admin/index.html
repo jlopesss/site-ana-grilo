@@ -10,38 +10,114 @@
   <link rel="apple-touch-icon" href="/img/favicon/favicon-180.png">
 </head>
 <body>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
+    // Carrega o CSS real do site dentro do iframe de preview
+    CMS.registerPreviewStyle('/css/style.css');
+    CMS.registerPreviewStyle(`
+      body { font-family: 'Outfit', sans-serif; color: #2d2d2d; background: #fff; margin: 0; }
+      .post-header { padding: 4rem 1.5rem 2rem; text-align: center; }
+      .post-tag {
+        display: inline-block; font-size: 0.7rem; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: #4A8C65;
+        background: rgba(74,140,101,0.12);
+        padding: 0.25rem 0.65rem; border-radius: 100px; margin-bottom: 1.25rem;
+      }
+      .post-title {
+        font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; line-height: 1.2;
+        max-width: 760px; margin: 0 auto 1rem;
+      }
+      .post-meta {
+        display: flex; justify-content: center; align-items: center;
+        gap: 0.75rem; font-size: 0.85rem; opacity: 0.55; flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
+      .post-body {
+        max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
+      }
+      .post-body p  { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.4rem; }
+      .post-body h2 { font-size: 1.4rem; font-weight: 700; margin: 2.5rem 0 0.85rem; line-height: 1.25; }
+      .post-body h3 { font-size: 1.1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; }
+      .post-body ul, .post-body ol { margin: 0 0 1.4rem 1.5rem; }
+      .post-body li { font-size: 1.05rem; line-height: 1.75; margin-bottom: 0.4rem; }
+      .post-body strong { font-weight: 700; }
+      .post-body em { font-style: italic; }
+      .post-body blockquote {
+        border-left: 3px solid #4A8C65; margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        background: rgba(74,140,101,0.06);
+        border-radius: 0 8px 8px 0; font-size: 1.05rem; font-style: italic; line-height: 1.7;
+      }
+      .post-body hr { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin: 3rem 0; }
+      .post-cta-inline {
+        text-align: center; margin: 2.5rem 0; padding: 2rem 1.5rem;
+        background: rgba(74,140,101,0.07); border-radius: 12px;
+      }
+      .post-cta-inline p { margin-bottom: 1.25rem; font-size: 1.05rem; font-style: italic; }
+      .cta-btn {
+        display: inline-block; background: #4A8C65; color: #fff;
+        padding: 0.75rem 1.75rem; border-radius: 100px;
+        font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      }
+      .preview-desc {
+        font-size: 1rem; font-style: italic; opacity: 0.6;
+        max-width: 680px; margin: 0 auto 0.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 1.5rem;
+      }
+    `, { raw: true });
+
     var PostPreview = CMS.createClass({
-      render: function() {
+      render: function () {
+        var h     = this.props.h;
         var entry = this.props.entry;
-        var body  = this.props.widgetFor('body');
-        var title = entry.getIn(['data', 'title']) || '';
+
+        var title = entry.getIn(['data', 'title'])       || '';
         var desc  = entry.getIn(['data', 'description']) || '';
-        var cat   = entry.getIn(['data', 'category']) || '';
-        var cta   = entry.getIn(['data', 'cta_texto']) || '';
-        return this.props.h('div', { style: { fontFamily: 'Georgia, serif', maxWidth: '740px', margin: '0 auto', padding: '2rem 1.5rem', color: '#2d2d2d' } },
-          this.props.h('p',    { style: { fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#4A8C65', fontWeight: 700, marginBottom: '0.5rem' } }, cat),
-          this.props.h('h1',   { style: { fontSize: '2rem', fontWeight: 700, lineHeight: 1.25, marginBottom: '1rem' } }, title),
-          this.props.h('p',    { style: { fontSize: '1rem', fontStyle: 'italic', opacity: 0.6, marginBottom: '2rem', borderBottom: '1px solid #ddd', paddingBottom: '1.5rem' } }, desc),
-          this.props.h('style', {}, `
-            .cms-preview h2 { font-size:1.4rem; font-weight:700; margin:2.5rem 0 0.85rem; }
-            .cms-preview h3 { font-size:1.1rem; font-weight:600; margin:1.75rem 0 0.6rem; }
-            .cms-preview p  { font-size:1.05rem; line-height:1.8; margin-bottom:1.4rem; }
-            .cms-preview blockquote { border-left:3px solid #4A8C65; margin:2rem 0; padding:1rem 1.5rem; background:rgba(74,140,101,.07); border-radius:0 8px 8px 0; font-style:italic; }
-            .cms-preview ul, .cms-preview ol { margin:0 0 1.4rem 1.5rem; }
-            .cms-preview li { line-height:1.75; margin-bottom:0.4rem; }
-            .cms-preview hr { border:none; border-top:1px solid #ddd; margin:2.5rem 0; }
-            .cms-preview strong { font-weight:700; }
-          `),
-          this.props.h('div', { className: 'cms-preview' }, body),
-          cta ? this.props.h('div', { style: { textAlign:'center', margin:'2rem 0', padding:'1.5rem', background:'rgba(74,140,101,.07)', borderRadius:'12px' } },
-            this.props.h('p', { style: { fontStyle:'italic', marginBottom:'1rem' } }, cta),
-            this.props.h('span', { style: { display:'inline-block', background:'#4A8C65', color:'#fff', padding:'0.65rem 1.5rem', borderRadius:'100px', fontSize:'0.9rem' } }, 'Falar com Ana Grilo pelo WhatsApp')
-          ) : null
+        var cat   = entry.getIn(['data', 'category'])    || '';
+        var cta   = entry.getIn(['data', 'cta_texto'])   || '';
+        var date  = entry.getIn(['data', 'date'])        || '';
+        var rawMd = entry.getIn(['data', 'body'])        || '';
+
+        // Mesma lógica do build-post.js
+        var cleanMd = rawMd.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
+
+        // Substitui ---cta--- pelo bloco real
+        var ctaHtml = cta
+          ? '<div class="post-cta-inline"><p>' + cta + '</p><span class="cta-btn">Falar com Ana Grilo pelo WhatsApp</span></div>'
+          : '';
+        if (ctaHtml) {
+          cleanMd = cleanMd.replace(/^---cta---$/m, '\n\n' + ctaHtml + '\n\n');
+        }
+
+        var bodyHtml = window.marked ? window.marked.parse(cleanMd) : '<p>' + cleanMd + '</p>';
+
+        // Formata data
+        var displayDate = '';
+        if (date) {
+          try {
+            displayDate = new Date(date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+          } catch(e) {}
+        }
+
+        return h('div', {},
+          h('header', { className: 'post-header' },
+            cat   ? h('span', { className: 'post-tag' }, cat) : null,
+            title ? h('h1',  { className: 'post-title' }, title) : null,
+            desc  ? h('p',   { className: 'preview-desc' }, desc) : null,
+            h('div', { className: 'post-meta' },
+              displayDate ? h('time', {}, displayDate) : null
+            )
+          ),
+          h('div', {
+            className: 'post-body',
+            dangerouslySetInnerHTML: { __html: bodyHtml }
+          })
         );
       }
     });
+
     CMS.registerPreviewTemplate('posts', PostPreview);
   </script>
 </body>
