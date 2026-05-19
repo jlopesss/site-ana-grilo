@@ -483,7 +483,8 @@ function buildPostCard(slug, frontmatter, markdown = '') {
   const displayDate = formatDate(frontmatter.date);
   const readingTime = frontmatter.reading_time || estimateReadingTime(markdown);
   const tagsAttr = (frontmatter.tags || []).join(',');
-  return `          <article class="post-card" data-category="${frontmatter.category || ''}" data-tags="${tagsAttr}">
+  return `<!-- POST:${slug} -->
+          <article class="post-card" data-category="${frontmatter.category || ''}" data-tags="${tagsAttr}">
             <a href="/blog/${slug}/" class="post-card__link" aria-label="Ler: ${frontmatter.title}">
               <div class="post-card__tag-bar">
                 <span class="post-card__tag">${frontmatter.category || ''}</span>
@@ -498,15 +499,24 @@ function buildPostCard(slug, frontmatter, markdown = '') {
                 </div>
               </div>
             </a>
-          </article>`;
+          </article>
+          <!-- /POST:${slug} -->`;
 }
 
 function injectCardInIndex(slug, cardHTML) {
   let content = fs.readFileSync(BLOG_INDEX, 'utf8');
-  if (content.includes(`/blog/${slug}/`)) {
-    console.log(`  index.html: card para "${slug}" já existe, pulando.`);
+  const startMarker = `<!-- POST:${slug} -->`;
+  const endMarker   = `<!-- /POST:${slug} -->`;
+
+  if (content.includes(startMarker)) {
+    // Substitui card existente (edição de post)
+    const re = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`, 'g');
+    content = content.replace(re, cardHTML);
+    fs.writeFileSync(BLOG_INDEX, content, 'utf8');
+    console.log(`  index.html: card atualizado para "${slug}".`);
     return;
   }
+
   const MARKER = '          <!-- COLE NOVOS POSTS AQUI -->';
   if (!content.includes(MARKER)) {
     console.warn('  AVISO: marcador não encontrado em blog/index.html');

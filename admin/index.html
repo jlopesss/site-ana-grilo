@@ -10,11 +10,39 @@
   <link rel="apple-touch-icon" href="/img/favicon/favicon-180.png">
 </head>
 <body>
-  <script>
-    window.addEventListener('message', function(e) {
-      console.log('[CMS-DEBUG] mensagem recebida:', e.origin, JSON.stringify(e.data));
-    }, false);
-  </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    var PostPreview = CMS.createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var body  = this.props.widgetFor('body');
+        var title = entry.getIn(['data', 'title']) || '';
+        var desc  = entry.getIn(['data', 'description']) || '';
+        var cat   = entry.getIn(['data', 'category']) || '';
+        var cta   = entry.getIn(['data', 'cta_texto']) || '';
+        return this.props.h('div', { style: { fontFamily: 'Georgia, serif', maxWidth: '740px', margin: '0 auto', padding: '2rem 1.5rem', color: '#2d2d2d' } },
+          this.props.h('p',    { style: { fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#4A8C65', fontWeight: 700, marginBottom: '0.5rem' } }, cat),
+          this.props.h('h1',   { style: { fontSize: '2rem', fontWeight: 700, lineHeight: 1.25, marginBottom: '1rem' } }, title),
+          this.props.h('p',    { style: { fontSize: '1rem', fontStyle: 'italic', opacity: 0.6, marginBottom: '2rem', borderBottom: '1px solid #ddd', paddingBottom: '1.5rem' } }, desc),
+          this.props.h('style', {}, `
+            .cms-preview h2 { font-size:1.4rem; font-weight:700; margin:2.5rem 0 0.85rem; }
+            .cms-preview h3 { font-size:1.1rem; font-weight:600; margin:1.75rem 0 0.6rem; }
+            .cms-preview p  { font-size:1.05rem; line-height:1.8; margin-bottom:1.4rem; }
+            .cms-preview blockquote { border-left:3px solid #4A8C65; margin:2rem 0; padding:1rem 1.5rem; background:rgba(74,140,101,.07); border-radius:0 8px 8px 0; font-style:italic; }
+            .cms-preview ul, .cms-preview ol { margin:0 0 1.4rem 1.5rem; }
+            .cms-preview li { line-height:1.75; margin-bottom:0.4rem; }
+            .cms-preview hr { border:none; border-top:1px solid #ddd; margin:2.5rem 0; }
+            .cms-preview strong { font-weight:700; }
+          `),
+          this.props.h('div', { className: 'cms-preview' }, body),
+          cta ? this.props.h('div', { style: { textAlign:'center', margin:'2rem 0', padding:'1.5rem', background:'rgba(74,140,101,.07)', borderRadius:'12px' } },
+            this.props.h('p', { style: { fontStyle:'italic', marginBottom:'1rem' } }, cta),
+            this.props.h('span', { style: { display:'inline-block', background:'#4A8C65', color:'#fff', padding:'0.65rem 1.5rem', borderRadius:'100px', fontSize:'0.9rem' } }, 'Falar com Ana Grilo pelo WhatsApp')
+          ) : null
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('posts', PostPreview);
+  </script>
 </body>
 </html>
