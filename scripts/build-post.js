@@ -566,4 +566,35 @@ for (const post of allPosts) {
   injectCardInIndex(slug, buildPostCard(slug, frontmatter, markdown));
 }
 
+// Gera sitemap.xml incluindo posts do blog
+const BASE_URL = 'https://www.anagrilovoz.com';
+const today = new Date().toISOString().slice(0, 10);
+
+const staticPages = [
+  { loc: '/',                          lastmod: '2026-05-14', priority: '1.0', changefreq: 'monthly' },
+  { loc: '/voz-clinica/',              lastmod: '2026-05-14', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/voz-artistica/',            lastmod: '2026-05-14', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/harmonizacao-vocal-trans/', lastmod: '2026-05-14', priority: '0.9', changefreq: 'monthly' },
+  { loc: '/oratoria-comunicacao/',     lastmod: '2026-05-14', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/motricidade-orofacial/',    lastmod: '2026-05-14', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/move-voz-empresarial/',     lastmod: '2026-05-14', priority: '0.7', changefreq: 'monthly' },
+  { loc: '/sobre-ana/',                lastmod: '2026-05-14', priority: '0.7', changefreq: 'monthly' },
+  { loc: '/blog/',                     lastmod: today,        priority: '0.8', changefreq: 'weekly'  },
+];
+
+const postEntries = allPosts.map(p => ({
+  loc:        `/blog/${p.slug}/`,
+  lastmod:    (p.frontmatter.date ? new Date(p.frontmatter.date).toISOString().slice(0, 10) : today),
+  priority:   '0.7',
+  changefreq: 'yearly',
+}));
+
+const urlTag = ({ loc, lastmod, priority, changefreq }) =>
+  `  <url>\n    <loc>${BASE_URL}${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+
+const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...staticPages, ...postEntries].map(urlTag).join('\n')}\n</urlset>\n`;
+
+fs.writeFileSync(path.join(__dirname, '../sitemap.xml'), sitemapXml, 'utf8');
+console.log(`Sitemap atualizado com ${postEntries.length} post(s).`);
+
 console.log('Concluído.');

@@ -1,51 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://anagrilovoz.com/</loc>
+    <loc>https://www.anagrilovoz.com/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://anagrilovoz.com/voz-clinica/</loc>
+    <loc>https://www.anagrilovoz.com/voz-clinica/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://anagrilovoz.com/voz-artistica/</loc>
+    <loc>https://www.anagrilovoz.com/voz-artistica/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://anagrilovoz.com/harmonizacao-vocal-trans/</loc>
+    <loc>https://www.anagrilovoz.com/harmonizacao-vocal-trans/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://anagrilovoz.com/oratoria-comunicacao/</loc>
+    <loc>https://www.anagrilovoz.com/oratoria-comunicacao/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://anagrilovoz.com/motricidade-orofacial/</loc>
+    <loc>https://www.anagrilovoz.com/motricidade-orofacial/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://anagrilovoz.com/move-voz-empresarial/</loc>
+    <loc>https://www.anagrilovoz.com/move-voz-empresarial/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anagrilovoz.com/sobre-ana/</loc>
+    <loc>https://www.anagrilovoz.com/sobre-ana/</loc>
     <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.anagrilovoz.com/blog/</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.anagrilovoz.com/blog/5-hábitos-que-destroem-sua-voz-sem-você-perceber/</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 </urlset>
