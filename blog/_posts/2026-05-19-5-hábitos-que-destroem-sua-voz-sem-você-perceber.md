@@ -1,5 +1,5 @@
 ---
-title: 5 hábitos que destroem sua voz sem você perceber v2
+title: 5 hábitos que destroem sua voz sem você perceber
 date: 2026-05-19
 description: Engolir em seco, sussurrar e tomar café em excesso parecem
   inofensivos, mas machucam as pregas vocais. Veja o que evitar para ter uma voz
@@ -15,9 +15,7 @@ servicos_relacionados:
   - voz-clinica
   - oratoria-comunicacao
 ---
-A voz é um instrumento que usamos o dia todo — e justamente por isso é fácil maltratá-la sem perceber. Não precisa gritar num show ou passar horas em reunião para machucar as pregas
-
-  vocais. Pequenos hábitos do cotidiano fazem esse estrago silenciosamente.
+A voz é um instrumento que usamos o dia todo — e justamente por isso é fácil maltratá-la sem perceber. Não precisa gritar num show ou passar horas em reunião para machucar as pregas vocais. Pequenos hábitos do cotidiano fazem esse estrago silenciosamente.
 
 ## 1. Sussurrar quando está rouco
 
