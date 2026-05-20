@@ -73,59 +73,54 @@
       .post-hero-img img { width: 100%; height: auto; display: block; }
     `, { raw: true });
 
-    var PostPreview = CMS.createClass({
-      render: function () {
-        var h     = this.props.h;
-        var entry = this.props.entry;
+    var PostPreview = function(props) {
+      var h     = props.h;
+      var entry = props.entry;
 
-        var title = entry.getIn(['data', 'title'])       || '';
-        var desc  = entry.getIn(['data', 'description']) || '';
-        var cat   = entry.getIn(['data', 'category'])    || '';
-        var cta   = entry.getIn(['data', 'cta_texto'])   || '';
-        var date  = entry.getIn(['data', 'date'])        || '';
-        var image = entry.getIn(['data', 'image'])       || '';
-        var rawMd = entry.getIn(['data', 'body'])        || '';
+      var title = entry.getIn(['data', 'title'])       || '';
+      var desc  = entry.getIn(['data', 'description']) || '';
+      var cat   = entry.getIn(['data', 'category'])    || '';
+      var cta   = entry.getIn(['data', 'cta_texto'])   || '';
+      var date  = entry.getIn(['data', 'date'])        || '';
+      var image = entry.getIn(['data', 'image'])       || '';
+      var rawMd = entry.getIn(['data', 'body'])        || '';
 
-        // Mesma lógica do build-post.js
-        var cleanMd = rawMd.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
+      var cleanMd = rawMd.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
 
-        // Substitui ---cta--- pelo bloco real
-        var ctaHtml = cta
-          ? '<div class="post-cta-inline"><p>' + cta + '</p><span class="cta-btn">Falar com Ana Grilo pelo WhatsApp</span></div>'
-          : '';
-        if (ctaHtml) {
-          cleanMd = cleanMd.replace(/^---cta---$/m, '\n\n' + ctaHtml + '\n\n');
-        }
-
-        var bodyHtml = window.marked ? window.marked.parse(cleanMd) : '<p>' + cleanMd + '</p>';
-
-        // Formata data
-        var displayDate = '';
-        if (date) {
-          try {
-            displayDate = new Date(date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-          } catch(e) {}
-        }
-
-        return h('div', {},
-          h('header', { className: 'post-header' },
-            cat   ? h('span', { className: 'post-tag' }, cat) : null,
-            title ? h('h1',  { className: 'post-title' }, title) : null,
-            desc  ? h('p',   { className: 'preview-desc' }, desc) : null,
-            h('div', { className: 'post-meta' },
-              displayDate ? h('time', {}, displayDate) : null
-            ),
-            image ? h('figure', { className: 'post-hero-img' },
-              h('img', { src: image, alt: title, style: { width: '100%', height: 'auto' } })
-            ) : null
-          ),
-          h('div', {
-            className: 'post-body',
-            dangerouslySetInnerHTML: { __html: bodyHtml }
-          })
-        );
+      var ctaHtml = cta
+        ? '<div class="post-cta-inline"><p>' + cta + '</p><span class="cta-btn">Falar com Ana Grilo pelo WhatsApp</span></div>'
+        : '';
+      if (ctaHtml) {
+        cleanMd = cleanMd.replace(/^---cta---$/m, '\n\n' + ctaHtml + '\n\n');
       }
-    });
+
+      var bodyHtml = window.marked ? window.marked.parse(cleanMd) : '<p>' + cleanMd + '</p>';
+
+      var displayDate = '';
+      if (date) {
+        try {
+          displayDate = new Date(date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+        } catch(e) {}
+      }
+
+      return h('div', {},
+        h('header', { className: 'post-header' },
+          cat   ? h('span', { className: 'post-tag' }, cat) : null,
+          title ? h('h1',  { className: 'post-title' }, title) : null,
+          desc  ? h('p',   { className: 'preview-desc' }, desc) : null,
+          h('div', { className: 'post-meta' },
+            displayDate ? h('time', {}, displayDate) : null
+          ),
+          image ? h('figure', { className: 'post-hero-img' },
+            h('img', { src: image, alt: title, style: { width: '100%', height: 'auto' } })
+          ) : null
+        ),
+        h('div', {
+          className: 'post-body',
+          dangerouslySetInnerHTML: { __html: bodyHtml }
+        })
+      );
+    };
 
     CMS.registerPreviewTemplate('posts', PostPreview);
   </script>
