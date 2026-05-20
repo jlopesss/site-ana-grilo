@@ -6,6 +6,10 @@ on:
     paths:
       - "blog/_categories/**.md"
 
+concurrency:
+  group: validate-category
+  cancel-in-progress: false
+
 jobs:
   validate:
     runs-on: ubuntu-latest
