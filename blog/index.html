@@ -568,13 +568,17 @@
       const searchInput = document.getElementById('blog-search-input');
       const grid        = document.getElementById('blog-grid');
       const empty       = document.getElementById('blog-empty');
-      const cards = Array.from(grid.querySelectorAll('.post-card[data-category]'))
-        .sort((a, b) => {
-          const da = a.dataset.date || a.querySelector('time')?.getAttribute('datetime') || '';
-          const db = b.dataset.date || b.querySelector('time')?.getAttribute('datetime') || '';
-          return db.localeCompare(da); // ISO strings: ordem lexicográfica = cronológica
-        });
-      cards.forEach(c => grid.appendChild(c)); // reinsere na ordem correta
+      const cards = Array.from(grid.querySelectorAll('.post-card[data-category]'));
+      const domPos = new Map(cards.map((c, i) => [c, i]));
+      cards.sort((a, b) => {
+        const da = a.dataset.date || a.querySelector('time')?.getAttribute('datetime') || '';
+        const db = b.dataset.date || b.querySelector('time')?.getAttribute('datetime') || '';
+        const cmp = db.localeCompare(da);
+        if (cmp !== 0) return cmp;
+        // Datas iguais: card mais abaixo no HTML foi publicado depois → aparece primeiro
+        return domPos.get(b) - domPos.get(a);
+      });
+      cards.forEach(c => grid.appendChild(c));
 
       let activeCat   = 'Todos';
       let searchQuery = '';
