@@ -9,168 +9,138 @@
   <link rel="icon" href="/img/favicon/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/img/favicon/favicon-180.png">
   <style>
-    /* ── Dark theme para a interface do Decap CMS ── */
-    :root {
-      --bg0: #0e1117;
-      --bg1: #161b26;
-      --bg2: #1d2333;
-      --border: rgba(255,255,255,0.07);
-      --text: #dde2ec;
-      --text2: #8790a3;
-      --green: #5cb87a;
-      --green-dim: rgba(92,184,122,0.14);
+    /* ── Dark theme da interface Decap CMS (ativo quando html.dark) ── */
+    html.dark, html.dark body {
+      background: #0e1117 !important;
+      color: #dde2ec !important;
     }
 
-    html, body {
-      background: var(--bg0) !important;
-      color: var(--text) !important;
-      margin: 0;
+    html.dark [class*="SidebarContainer"],
+    html.dark [class*="Sidebar"],
+    html.dark [class*="Nav"] {
+      background: #161b26 !important;
+      border-right: 1px solid rgba(255,255,255,0.07) !important;
     }
 
-    [class*="SidebarContainer"], [class*="Sidebar"], [class*="Nav"] {
-      background: var(--bg1) !important;
-      border-right: 1px solid var(--border) !important;
+    html.dark [class*="AppHeader"],
+    html.dark [class*="Toolbar"] {
+      background: #161b26 !important;
+      border-bottom: 1px solid rgba(255,255,255,0.07) !important;
     }
 
-    [class*="App__NavItemLabel"],
-    [class*="AppHeader"],
-    [class*="Toolbar"] {
-      background: var(--bg1) !important;
-      border-bottom: 1px solid var(--border) !important;
+    html.dark [class*="WorkflowContainer"],
+    html.dark [class*="CollectionContainer"],
+    html.dark [class*="EditorContainer"],
+    html.dark [class*="MainView"] {
+      background: #0e1117 !important;
     }
 
-    [class*="WorkflowContainer"],
-    [class*="CollectionContainer"],
-    [class*="EditorContainer"],
-    [class*="MainView"] {
-      background: var(--bg0) !important;
+    html.dark [class*="Card"] {
+      background: #161b26 !important;
+      border: 1px solid rgba(255,255,255,0.07) !important;
+      color: #dde2ec !important;
     }
 
-    [class*="Card"] {
-      background: var(--bg1) !important;
-      border: 1px solid var(--border) !important;
-      color: var(--text) !important;
+    html.dark input,
+    html.dark textarea,
+    html.dark select,
+    html.dark [class*="TextInput"],
+    html.dark [class*="Select"] {
+      background: #1d2333 !important;
+      border-color: rgba(255,255,255,0.07) !important;
+      color: #dde2ec !important;
     }
 
-    input, textarea, select, [class*="TextInput"], [class*="Select"] {
-      background: var(--bg2) !important;
-      border-color: var(--border) !important;
-      color: var(--text) !important;
+    html.dark label,
+    html.dark [class*="Label"] { color: #8790a3 !important; }
+
+    html.dark [class*="PrimaryButton"],
+    html.dark button[type="submit"] { background: #5cb87a !important; }
+
+    /* ── Botão flutuante de tema (sobre a UI do Decap) ── */
+    #admin-theme-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: #161b26;
+      color: #8790a3;
+      font-size: 0.78rem;
+      font-family: system-ui, sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      transition: border-color 0.2s, color 0.2s;
+      letter-spacing: 0.03em;
+      user-select: none;
     }
-
-    label, [class*="Label"] { color: var(--text2) !important; }
-
-    [class*="PrimaryButton"], button[type="submit"] {
-      background: var(--green) !important;
+    #admin-theme-btn:hover {
+      border-color: #5cb87a;
+      color: #5cb87a;
+    }
+    html:not(.dark) #admin-theme-btn {
+      background: #fff;
+      border-color: rgba(0,0,0,0.15);
+      color: #6b7280;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    html:not(.dark) #admin-theme-btn:hover {
+      border-color: #4A8C65;
+      color: #4A8C65;
     }
   </style>
 </head>
 <body>
+  <!-- Toggle de tema na página admin -->
+  <button id="admin-theme-btn" title="Alternar tema">☾ Escuro</button>
+  <script>
+    (function() {
+      var btn  = document.getElementById('admin-theme-btn');
+      var html = document.documentElement;
+      var dark = localStorage.getItem('admin-theme') !== 'light';
+
+      function apply(d) {
+        html.classList.toggle('dark', d);
+        btn.textContent = d ? '☀ Claro' : '☾ Escuro';
+      }
+
+      apply(dark);
+
+      btn.addEventListener('click', function() {
+        dark = !dark;
+        localStorage.setItem('admin-theme', dark ? 'dark' : 'light');
+        apply(dark);
+      });
+    })();
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // ── CSS do preview com variáveis para tema dark/light ──
+    // ── Preview: sempre dark, sem barra de toggle ──
     CMS.registerPreviewStyle(`
       @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
       *, *::before, *::after { box-sizing: border-box; }
 
-      /* ── Tokens: dark (padrão) ── */
-      :root {
-        --bg:           #0e1117;
-        --surface:      #161b26;
-        --text:         #dde2ec;
-        --text2:        #8790a3;
-        --text3:        #c8cdd9;
-        --title:        #eef0f5;
-        --accent:       #5cb87a;
-        --accent-dim:   rgba(92,184,122,0.12);
-        --accent-bd:    rgba(92,184,122,0.20);
-        --border:       rgba(255,255,255,0.06);
-        --h2-border:    rgba(255,255,255,0.05);
-        --quote-bg:     rgba(92,184,122,0.07);
-        --quote-text:   #b8c4b0;
-        --cta-bg:       rgba(92,184,122,0.07);
-        --cta-bd:       rgba(92,184,122,0.18);
-        --toggle-icon:  '☀';
-      }
-
-      /* ── Tokens: light ── */
-      :root.light {
-        --bg:           #fafaf9;
-        --surface:      #f4f3f1;
-        --text:         #2d2d2d;
-        --text2:        #6b7280;
-        --text3:        #374151;
-        --title:        #111827;
-        --accent:       #4A8C65;
-        --accent-dim:   rgba(74,140,101,0.10);
-        --accent-bd:    rgba(74,140,101,0.25);
-        --border:       rgba(0,0,0,0.08);
-        --h2-border:    rgba(0,0,0,0.06);
-        --quote-bg:     rgba(74,140,101,0.06);
-        --quote-text:   #374151;
-        --cta-bg:       rgba(74,140,101,0.07);
-        --cta-bd:       rgba(74,140,101,0.20);
-        --toggle-icon:  '☾';
-      }
-
       body {
         font-family: 'Outfit', sans-serif;
-        background: var(--bg);
-        color: var(--text);
+        background: #0e1117;
+        color: #dde2ec;
         margin: 0;
-        padding-top: 2.75rem;
         -webkit-font-smoothing: antialiased;
-        transition: background 0.25s, color 0.25s;
       }
 
-      /* ── Barra de tema (topo fixo do preview) ── */
-      .theme-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 999;
-        height: 2.75rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 1rem;
-        background: var(--surface);
-        border-bottom: 1px solid var(--border);
-        font-size: 0.75rem;
-        color: var(--text2);
-        letter-spacing: 0.04em;
-      }
-
-      .theme-bar span { opacity: 0.6; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
-
-      .theme-toggle {
-        display: flex;
-        align-items: center;
-        gap: 0.45rem;
-        padding: 0.3rem 0.75rem;
-        border-radius: 100px;
-        border: 1px solid var(--border);
-        background: var(--bg);
-        color: var(--text2);
-        font-size: 0.75rem;
-        font-family: inherit;
-        cursor: pointer;
-        transition: border-color 0.2s, color 0.2s;
-        letter-spacing: 0.03em;
-      }
-      .theme-toggle:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-
-      /* ── Header ── */
       .post-header {
         padding: 3.5rem 1.5rem 2rem;
         text-align: center;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
       }
 
       .post-tag {
@@ -179,9 +149,9 @@
         font-weight: 700;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--accent);
-        background: var(--accent-dim);
-        border: 1px solid var(--accent-bd);
+        color: #5cb87a;
+        background: rgba(92,184,122,0.12);
+        border: 1px solid rgba(92,184,122,0.20);
         padding: 0.28rem 0.75rem;
         border-radius: 100px;
         margin-bottom: 1.25rem;
@@ -193,14 +163,14 @@
         line-height: 1.22;
         max-width: 740px;
         margin: 0 auto 0.9rem;
-        color: var(--title);
+        color: #eef0f5;
         letter-spacing: -0.01em;
       }
 
       .preview-desc {
         font-size: 1rem;
         line-height: 1.65;
-        color: var(--text2);
+        color: #8790a3;
         max-width: 640px;
         margin: 0 auto 1.25rem;
         font-style: italic;
@@ -212,22 +182,20 @@
         align-items: center;
         gap: 0.6rem;
         font-size: 0.8rem;
-        color: var(--text2);
+        color: #8790a3;
         letter-spacing: 0.03em;
       }
 
-      /* ── Hero image ── */
       .post-hero-img {
         max-width: 860px;
         margin: 2rem auto 0;
         border-radius: 10px;
         overflow: hidden;
         line-height: 0;
-        border: 1px solid var(--border);
+        border: 1px solid rgba(255,255,255,0.06);
       }
       .post-hero-img img { width: 100%; height: auto; display: block; }
 
-      /* ── Corpo ── */
       .post-body {
         max-width: 760px;
         margin: 0 auto;
@@ -238,7 +206,7 @@
         font-size: 1.05rem;
         line-height: 1.85;
         margin-bottom: 1.5rem;
-        color: var(--text3);
+        color: #c8cdd9;
       }
 
       .post-body h2 {
@@ -246,78 +214,51 @@
         font-weight: 700;
         margin: 2.75rem 0 0.85rem;
         line-height: 1.25;
-        color: var(--title);
+        color: #eef0f5;
         letter-spacing: -0.01em;
         padding-top: 0.5rem;
-        border-top: 1px solid var(--h2-border);
+        border-top: 1px solid rgba(255,255,255,0.05);
       }
 
       .post-body h3 {
         font-size: 1.1rem;
         font-weight: 600;
         margin: 1.75rem 0 0.6rem;
-        color: var(--text);
+        color: #dde2ec;
       }
 
-      .post-body ul, .post-body ol {
-        margin: 0 0 1.5rem 1.25rem;
-        padding: 0;
-      }
-
-      .post-body li {
-        font-size: 1.05rem;
-        line-height: 1.8;
-        margin-bottom: 0.45rem;
-        color: var(--text3);
-      }
-
-      .post-body strong { font-weight: 700; color: var(--text); }
-      .post-body em    { font-style: italic; color: var(--text2); }
-
-      .post-body a {
-        color: var(--accent);
-        text-decoration: none;
-        border-bottom: 1px solid var(--accent-bd);
-      }
+      .post-body ul, .post-body ol { margin: 0 0 1.5rem 1.25rem; padding: 0; }
+      .post-body li { font-size: 1.05rem; line-height: 1.8; margin-bottom: 0.45rem; color: #c8cdd9; }
+      .post-body strong { font-weight: 700; color: #dde2ec; }
+      .post-body em    { font-style: italic; color: #8790a3; }
+      .post-body a     { color: #5cb87a; text-decoration: none; border-bottom: 1px solid rgba(92,184,122,0.3); }
 
       .post-body blockquote {
-        border-left: 3px solid var(--accent);
+        border-left: 3px solid #5cb87a;
         margin: 2.25rem 0;
         padding: 1.1rem 1.5rem;
-        background: var(--quote-bg);
+        background: rgba(92,184,122,0.07);
         border-radius: 0 10px 10px 0;
         font-size: 1.05rem;
         font-style: italic;
         line-height: 1.75;
-        color: var(--quote-text);
+        color: #b8c4b0;
       }
 
-      .post-body hr {
-        border: none;
-        border-top: 1px solid var(--border);
-        margin: 3rem 0;
-      }
+      .post-body hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 3rem 0; }
 
-      /* ── CTA ── */
       .post-cta-inline {
         text-align: center;
         margin: 2.5rem 0;
         padding: 2rem 1.5rem;
-        background: var(--cta-bg);
-        border: 1px solid var(--cta-bd);
+        background: rgba(92,184,122,0.07);
+        border: 1px solid rgba(92,184,122,0.18);
         border-radius: 14px;
       }
-
-      .post-cta-inline p {
-        margin-bottom: 1.25rem;
-        font-size: 1.05rem;
-        font-style: italic;
-        color: var(--text2);
-      }
-
+      .post-cta-inline p { margin-bottom: 1.25rem; font-size: 1.05rem; font-style: italic; color: #8790a3; }
       .cta-btn {
         display: inline-block;
-        background: var(--accent);
+        background: #5cb87a;
         color: #fff;
         padding: 0.8rem 1.85rem;
         border-radius: 100px;
@@ -328,26 +269,8 @@
       }
     `, { raw: true });
 
-    // ── Preview component com toggle de tema ──
+    // h e createClass são globais expostos pelo bundle UMD do decap-cms.js
     var PostPreview = createClass({
-      getInitialState: function() {
-        return { dark: true };
-      },
-
-      componentDidMount: function() {
-        var saved = window.localStorage.getItem('preview-theme');
-        var dark = saved !== 'light';
-        this.setState({ dark: dark });
-        document.documentElement.className = dark ? '' : 'light';
-      },
-
-      toggleTheme: function() {
-        var dark = !this.state.dark;
-        this.setState({ dark: dark });
-        document.documentElement.className = dark ? '' : 'light';
-        window.localStorage.setItem('preview-theme', dark ? 'dark' : 'light');
-      },
-
       render: function() {
         var entry = this.props.entry;
 
@@ -358,7 +281,6 @@
         var date  = entry.getIn(['data', 'date'])        || '';
         var image = entry.getIn(['data', 'image'])       || '';
         var rawMd = entry.getIn(['data', 'body'])        || '';
-        var dark  = this.state.dark;
 
         var cleanMd = rawMd.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
 
@@ -379,19 +301,6 @@
         }
 
         return h('div', {},
-          h('div', { className: 'theme-bar' },
-            h('span', {}, 'Preview'),
-            h('button', {
-              className: 'theme-toggle',
-              title: dark ? 'Mudar para tema claro' : 'Mudar para tema escuro',
-              onClick: this.toggleTheme
-            },
-              dark ? '☀' : '☾',
-              ' ',
-              dark ? 'Tema claro' : 'Tema escuro'
-            )
-          ),
-
           h('header', { className: 'post-header' },
             cat   ? h('span', { className: 'post-tag' }, cat) : null,
             title ? h('h1',  { className: 'post-title' }, title) : null,
@@ -403,7 +312,6 @@
               h('img', { src: image, alt: title, style: { width: '100%', height: 'auto' } })
             ) : null
           ),
-
           h('div', {
             className: 'post-body',
             dangerouslySetInnerHTML: { __html: bodyHtml }
