@@ -1,12 +1,6 @@
 {
   "redirects": [
-    { "source": "/admin", "destination": "/admin/", "permanent": true },
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.anagrilovoz.com" }],
-      "destination": "https://anagrilovoz.com/:path*",
-      "permanent": true
-    }
+    { "source": "/admin", "destination": "/admin/", "permanent": true }
   ],
   "headers": [
     {
