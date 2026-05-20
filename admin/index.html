@@ -27,13 +27,11 @@
       margin: 0;
     }
 
-    /* Barra lateral */
     [class*="SidebarContainer"], [class*="Sidebar"], [class*="Nav"] {
       background: var(--bg1) !important;
       border-right: 1px solid var(--border) !important;
     }
 
-    /* Painel principal */
     [class*="App__NavItemLabel"],
     [class*="AppHeader"],
     [class*="Toolbar"] {
@@ -41,7 +39,6 @@
       border-bottom: 1px solid var(--border) !important;
     }
 
-    /* Fundo geral do conteúdo */
     [class*="WorkflowContainer"],
     [class*="CollectionContainer"],
     [class*="EditorContainer"],
@@ -49,26 +46,20 @@
       background: var(--bg0) !important;
     }
 
-    /* Cards de posts */
     [class*="Card"] {
       background: var(--bg1) !important;
       border: 1px solid var(--border) !important;
       color: var(--text) !important;
     }
 
-    /* Inputs e textareas */
     input, textarea, select, [class*="TextInput"], [class*="Select"] {
       background: var(--bg2) !important;
       border-color: var(--border) !important;
       color: var(--text) !important;
     }
 
-    /* Labels */
-    label, [class*="Label"] {
-      color: var(--text2) !important;
-    }
+    label, [class*="Label"] { color: var(--text2) !important; }
 
-    /* Botão primário (manter verde) */
     [class*="PrimaryButton"], button[type="submit"] {
       background: var(--green) !important;
     }
@@ -78,26 +69,91 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // ── Preview: dark theme refinado ──
+    // ── CSS do preview com variáveis para tema dark/light ──
     CMS.registerPreviewStyle(`
       @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
       *, *::before, *::after { box-sizing: border-box; }
 
-      body {
-        font-family: 'Outfit', sans-serif;
-        background: #0e1117;
-        color: #dde2ec;
-        margin: 0;
-        -webkit-font-smoothing: antialiased;
+      /* ── Tokens: dark (padrão) ── */
+      :root {
+        --bg:           #0e1117;
+        --surface:      #161b26;
+        --text:         #dde2ec;
+        --text2:        #8790a3;
+        --text3:        #c8cdd9;
+        --title:        #eef0f5;
+        --accent:       #5cb87a;
+        --accent-dim:   rgba(92,184,122,0.12);
+        --accent-bd:    rgba(92,184,122,0.20);
+        --border:       rgba(255,255,255,0.06);
+        --h2-border:    rgba(255,255,255,0.05);
+        --quote-bg:     rgba(92,184,122,0.07);
+        --quote-text:   #b8c4b0;
+        --cta-bg:       rgba(92,184,122,0.07);
+        --cta-bd:       rgba(92,184,122,0.18);
+        --toggle-icon:  '☀';
       }
 
-      /* ── Header do post ── */
+      /* ── Tokens: light ── */
+      :root.light {
+        --bg:           #fafaf9;
+        --surface:      #f4f3f1;
+        --text:         #2d2d2d;
+        --text2:        #6b7280;
+        --text3:        #374151;
+        --title:        #111827;
+        --accent:       #4A8C65;
+        --accent-dim:   rgba(74,140,101,0.10);
+        --accent-bd:    rgba(74,140,101,0.25);
+        --border:       rgba(0,0,0,0.08);
+        --h2-border:    rgba(0,0,0,0.06);
+        --quote-bg:     rgba(74,140,101,0.06);
+        --quote-text:   #374151;
+        --cta-bg:       rgba(74,140,101,0.07);
+        --cta-bd:       rgba(74,140,101,0.20);
+        --toggle-icon:  '☾';
+      }
+
+      body {
+        font-family: 'Outfit', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        transition: background 0.25s, color 0.25s;
+      }
+
+      /* ── Botão de tema ── */
+      .theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 999;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text2);
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.2s, color 0.2s, background 0.25s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      }
+      .theme-toggle:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* ── Header ── */
       .post-header {
         padding: 3.5rem 1.5rem 2rem;
         text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-        margin-bottom: 0;
+        border-bottom: 1px solid var(--border);
       }
 
       .post-tag {
@@ -106,9 +162,9 @@
         font-weight: 700;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: #5cb87a;
-        background: rgba(92,184,122,0.12);
-        border: 1px solid rgba(92,184,122,0.2);
+        color: var(--accent);
+        background: var(--accent-dim);
+        border: 1px solid var(--accent-bd);
         padding: 0.28rem 0.75rem;
         border-radius: 100px;
         margin-bottom: 1.25rem;
@@ -120,14 +176,14 @@
         line-height: 1.22;
         max-width: 740px;
         margin: 0 auto 0.9rem;
-        color: #eef0f5;
+        color: var(--title);
         letter-spacing: -0.01em;
       }
 
       .preview-desc {
         font-size: 1rem;
         line-height: 1.65;
-        color: #8790a3;
+        color: var(--text2);
         max-width: 640px;
         margin: 0 auto 1.25rem;
         font-style: italic;
@@ -139,23 +195,22 @@
         align-items: center;
         gap: 0.6rem;
         font-size: 0.8rem;
-        color: #5a6378;
+        color: var(--text2);
         letter-spacing: 0.03em;
       }
 
-      /* ── Imagem hero ── */
+      /* ── Hero image ── */
       .post-hero-img {
-        margin: 0;
         max-width: 860px;
         margin: 2rem auto 0;
         border-radius: 10px;
         overflow: hidden;
         line-height: 0;
-        border: 1px solid rgba(255,255,255,0.06);
+        border: 1px solid var(--border);
       }
       .post-hero-img img { width: 100%; height: auto; display: block; }
 
-      /* ── Corpo do post ── */
+      /* ── Corpo ── */
       .post-body {
         max-width: 760px;
         margin: 0 auto;
@@ -166,7 +221,7 @@
         font-size: 1.05rem;
         line-height: 1.85;
         margin-bottom: 1.5rem;
-        color: #c8cdd9;
+        color: var(--text3);
       }
 
       .post-body h2 {
@@ -174,17 +229,17 @@
         font-weight: 700;
         margin: 2.75rem 0 0.85rem;
         line-height: 1.25;
-        color: #eef0f5;
+        color: var(--title);
         letter-spacing: -0.01em;
         padding-top: 0.5rem;
-        border-top: 1px solid rgba(255,255,255,0.05);
+        border-top: 1px solid var(--h2-border);
       }
 
       .post-body h3 {
         font-size: 1.1rem;
         font-weight: 600;
         margin: 1.75rem 0 0.6rem;
-        color: #d4d8e4;
+        color: var(--text);
       }
 
       .post-body ul, .post-body ol {
@@ -196,44 +251,43 @@
         font-size: 1.05rem;
         line-height: 1.8;
         margin-bottom: 0.45rem;
-        color: #c8cdd9;
+        color: var(--text3);
       }
 
-      .post-body strong { font-weight: 700; color: #dde2ec; }
-      .post-body em { font-style: italic; color: #aab0be; }
+      .post-body strong { font-weight: 700; color: var(--text); }
+      .post-body em    { font-style: italic; color: var(--text2); }
+
+      .post-body a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid var(--accent-bd);
+      }
 
       .post-body blockquote {
-        border-left: 3px solid #5cb87a;
+        border-left: 3px solid var(--accent);
         margin: 2.25rem 0;
         padding: 1.1rem 1.5rem;
-        background: rgba(92,184,122,0.07);
+        background: var(--quote-bg);
         border-radius: 0 10px 10px 0;
         font-size: 1.05rem;
         font-style: italic;
         line-height: 1.75;
-        color: #b8c4b0;
+        color: var(--quote-text);
       }
 
       .post-body hr {
         border: none;
-        border-top: 1px solid rgba(255,255,255,0.07);
+        border-top: 1px solid var(--border);
         margin: 3rem 0;
       }
 
-      .post-body a {
-        color: #5cb87a;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(92,184,122,0.3);
-        transition: border-color 0.2s;
-      }
-
-      /* ── CTA inline ── */
+      /* ── CTA ── */
       .post-cta-inline {
         text-align: center;
         margin: 2.5rem 0;
         padding: 2rem 1.5rem;
-        background: rgba(92,184,122,0.07);
-        border: 1px solid rgba(92,184,122,0.18);
+        background: var(--cta-bg);
+        border: 1px solid var(--cta-bd);
         border-radius: 14px;
       }
 
@@ -241,12 +295,12 @@
         margin-bottom: 1.25rem;
         font-size: 1.05rem;
         font-style: italic;
-        color: #b8c4b0;
+        color: var(--text2);
       }
 
       .cta-btn {
         display: inline-block;
-        background: #5cb87a;
+        background: var(--accent);
         color: #fff;
         padding: 0.8rem 1.85rem;
         border-radius: 100px;
@@ -257,54 +311,80 @@
       }
     `, { raw: true });
 
-    // h e createClass são globais expostos pelo bundle UMD do decap-cms.js
+    // ── Preview component com toggle de tema ──
     var PostPreview = createClass({
+      getInitialState: function() {
+        return { dark: true };
+      },
+
+      componentDidMount: function() {
+        var saved = window.localStorage.getItem('preview-theme');
+        var dark = saved !== 'light';
+        this.setState({ dark: dark });
+        document.documentElement.className = dark ? '' : 'light';
+      },
+
+      toggleTheme: function() {
+        var dark = !this.state.dark;
+        this.setState({ dark: dark });
+        document.documentElement.className = dark ? '' : 'light';
+        window.localStorage.setItem('preview-theme', dark ? 'dark' : 'light');
+      },
+
       render: function() {
-      var entry = this.props.entry;
+        var entry = this.props.entry;
 
-      var title = entry.getIn(['data', 'title'])       || '';
-      var desc  = entry.getIn(['data', 'description']) || '';
-      var cat   = entry.getIn(['data', 'category'])    || '';
-      var cta   = entry.getIn(['data', 'cta_texto'])   || '';
-      var date  = entry.getIn(['data', 'date'])        || '';
-      var image = entry.getIn(['data', 'image'])       || '';
-      var rawMd = entry.getIn(['data', 'body'])        || '';
+        var title = entry.getIn(['data', 'title'])       || '';
+        var desc  = entry.getIn(['data', 'description']) || '';
+        var cat   = entry.getIn(['data', 'category'])    || '';
+        var cta   = entry.getIn(['data', 'cta_texto'])   || '';
+        var date  = entry.getIn(['data', 'date'])        || '';
+        var image = entry.getIn(['data', 'image'])       || '';
+        var rawMd = entry.getIn(['data', 'body'])        || '';
+        var dark  = this.state.dark;
 
-      var cleanMd = rawMd.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
+        var cleanMd = rawMd.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
 
-      var ctaHtml = cta
-        ? '<div class="post-cta-inline"><p>' + cta + '</p><span class="cta-btn">Falar com Ana Grilo pelo WhatsApp</span></div>'
-        : '';
-      if (ctaHtml) {
-        cleanMd = cleanMd.replace(/^---cta---$/m, '\n\n' + ctaHtml + '\n\n');
-      }
+        var ctaHtml = cta
+          ? '<div class="post-cta-inline"><p>' + cta + '</p><span class="cta-btn">Falar com Ana Grilo pelo WhatsApp</span></div>'
+          : '';
+        if (ctaHtml) {
+          cleanMd = cleanMd.replace(/^---cta---$/m, '\n\n' + ctaHtml + '\n\n');
+        }
 
-      var bodyHtml = window.marked ? window.marked.parse(cleanMd) : '<p>' + cleanMd + '</p>';
+        var bodyHtml = window.marked ? window.marked.parse(cleanMd) : '<p>' + cleanMd + '</p>';
 
-      var displayDate = '';
-      if (date) {
-        try {
-          displayDate = new Date(date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-        } catch(e) {}
-      }
+        var displayDate = '';
+        if (date) {
+          try {
+            displayDate = new Date(date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+          } catch(e) {}
+        }
 
-      return h('div', {},
-        h('header', { className: 'post-header' },
-          cat   ? h('span', { className: 'post-tag' }, cat) : null,
-          title ? h('h1',  { className: 'post-title' }, title) : null,
-          desc  ? h('p',   { className: 'preview-desc' }, desc) : null,
-          h('div', { className: 'post-meta' },
-            displayDate ? h('time', {}, displayDate) : null
+        return h('div', {},
+          h('button', {
+            className: 'theme-toggle',
+            title: dark ? 'Mudar para tema claro' : 'Mudar para tema escuro',
+            onClick: this.toggleTheme
+          }, dark ? '☀' : '☾'),
+
+          h('header', { className: 'post-header' },
+            cat   ? h('span', { className: 'post-tag' }, cat) : null,
+            title ? h('h1',  { className: 'post-title' }, title) : null,
+            desc  ? h('p',   { className: 'preview-desc' }, desc) : null,
+            h('div', { className: 'post-meta' },
+              displayDate ? h('time', {}, displayDate) : null
+            ),
+            image ? h('figure', { className: 'post-hero-img' },
+              h('img', { src: image, alt: title, style: { width: '100%', height: 'auto' } })
+            ) : null
           ),
-          image ? h('figure', { className: 'post-hero-img' },
-            h('img', { src: image, alt: title, style: { width: '100%', height: 'auto' } })
-          ) : null
-        ),
-        h('div', {
-          className: 'post-body',
-          dangerouslySetInnerHTML: { __html: bodyHtml }
-        })
-      );
+
+          h('div', {
+            className: 'post-body',
+            dangerouslySetInnerHTML: { __html: bodyHtml }
+          })
+        );
       }
     });
 
