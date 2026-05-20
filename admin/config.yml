@@ -5,10 +5,10 @@ backend:
   base_url: https://www.anagrilovoz.com
   auth_endpoint: /api/auth
 
-publish_mode: editorial_workflow
-
 media_folder: img/blog
 public_folder: /img/blog
+
+show_preview_links: true
 
 locale: pt
 
@@ -19,10 +19,17 @@ collections:
     folder: blog/_posts
     create: true
     delete: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
+    preview_path: "blog/{{slug}}/"
     editor:
       preview: true
     fields:
+      - label: Rascunho (não publicar)
+        name: draft
+        widget: boolean
+        default: false
+        hint: "Ligado = post salvo mas não aparece no site. Desligue para publicar."
+
       - label: Título
         name: title
         widget: string
@@ -39,6 +46,12 @@ collections:
         name: description
         widget: string
         hint: "Resumo para SEO e redes sociais (até 160 caracteres). Aparece no Google e quando o post é compartilhado."
+
+      - label: Imagem de capa
+        name: image
+        widget: image
+        required: false
+        hint: "Opcional — 1200×630px recomendado. Aparece no card do blog e quando o post é compartilhado nas redes sociais."
 
       - label: Categoria
         name: category
@@ -95,6 +108,7 @@ collections:
           • Subtítulo → comece a linha com ## (seção) ou ### (subseção)
           • Lista → comece cada item com - ou 1.
           • Botão WhatsApp → escreva ---cta--- na linha onde quer que o botão apareça (funciona junto com o campo "Texto do botão WhatsApp" acima)
+          • Modo Markdown → clique em "Markdown" no editor para colar texto com ## e > sem problemas
 
   - name: categories
     label: Categorias do Blog

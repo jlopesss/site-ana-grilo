@@ -66,6 +66,11 @@
         max-width: 680px; margin: 0 auto 0.5rem;
         border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 1.5rem;
       }
+      .post-hero-img {
+        margin: 2rem auto 0; max-width: 860px;
+        border-radius: 12px; overflow: hidden; line-height: 0;
+      }
+      .post-hero-img img { width: 100%; height: auto; display: block; }
     `, { raw: true });
 
     var PostPreview = CMS.createClass({
@@ -78,6 +83,7 @@
         var cat   = entry.getIn(['data', 'category'])    || '';
         var cta   = entry.getIn(['data', 'cta_texto'])   || '';
         var date  = entry.getIn(['data', 'date'])        || '';
+        var image = entry.getIn(['data', 'image'])       || '';
         var rawMd = entry.getIn(['data', 'body'])        || '';
 
         // Mesma lógica do build-post.js
@@ -108,7 +114,10 @@
             desc  ? h('p',   { className: 'preview-desc' }, desc) : null,
             h('div', { className: 'post-meta' },
               displayDate ? h('time', {}, displayDate) : null
-            )
+            ),
+            image ? h('figure', { className: 'post-hero-img' },
+              h('img', { src: image, alt: title, style: { width: '100%', height: 'auto' } })
+            ) : null
           ),
           h('div', {
             className: 'post-body',

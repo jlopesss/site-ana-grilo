@@ -237,6 +237,10 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, latestPost) {
   const title       = frontmatter.title || '';
   const description = frontmatter.description || '';
   const breadcrumb  = title.length > 40 ? title.slice(0, 40) + '…' : title;
+  const ogImage     = frontmatter.image
+    ? `https://www.anagrilovoz.com${frontmatter.image}`
+    : 'https://www.anagrilovoz.com/img/og-image.jpg';
+  const ogImageAlt  = frontmatter.image ? title : 'Ana Grilo, fonoaudióloga especializada em voz e comunicação';
 
   return `<!DOCTYPE html>
 <html lang="pt-BR">
@@ -252,10 +256,10 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, latestPost) {
   <meta property="og:description" content="${description}" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:url" content="https://anagrilovoz.com/blog/${slug}/" />
-  <meta property="og:image" content="https://anagrilovoz.com/img/og-image.jpg" />
+  <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Ana Grilo, fonoaudióloga especializada em voz e comunicação" />
+  <meta property="og:image:alt" content="${ogImageAlt}" />
   <meta property="article:published_time" content="${iso}" />
   <meta property="article:author" content="Ana Grilo" />
   <link rel="canonical" href="https://anagrilovoz.com/blog/${slug}/" />
@@ -337,6 +341,19 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, latestPost) {
       max-width: 800px; margin: 0 auto; padding: 2.5rem 0 4rem;
       --container-pad: clamp(0.75rem, 2.5vw, 1.5rem);
     }
+    .post-hero-img {
+      margin: 2rem auto 0;
+      max-width: 860px;
+      border-radius: 12px;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .post-hero-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .post-body p  { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.4rem; color: var(--color-text, inherit); }
     .post-body h2 { font-size: 1.4rem; font-weight: 700; margin: 2.5rem 0 0.85rem; color: var(--color-heading, inherit); line-height: 1.25; }
     .post-body h3 { font-size: 1.1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; color: var(--color-heading, inherit); }
@@ -447,6 +464,9 @@ ${artBlock()}
             <span class="post-meta__dot" aria-hidden="true"></span>
             <span>${readingTime} min de leitura</span>
           </div>
+          ${frontmatter.image ? `<figure class="post-hero-img">
+            <img src="${frontmatter.image}" alt="${title}" width="1200" height="630" loading="eager" itemprop="image">
+          </figure>` : ''}
         </div>
       </header>
 
@@ -483,9 +503,13 @@ function buildPostCard(slug, frontmatter, markdown = '') {
   const displayDate = formatDate(frontmatter.date);
   const readingTime = frontmatter.reading_time || estimateReadingTime(markdown);
   const tagsAttr = (frontmatter.tags || []).join(',');
+  const imgHtml = frontmatter.image
+    ? `<div class="post-card__img"><img src="${frontmatter.image}" alt="${frontmatter.title}" loading="lazy" width="800" height="450"></div>`
+    : '';
   return `<!-- POST:${slug} -->
           <article class="post-card" data-category="${frontmatter.category || ''}" data-tags="${tagsAttr}">
             <a href="/blog/${slug}/" class="post-card__link" aria-label="Ler: ${frontmatter.title}">
+              ${imgHtml}
               <div class="post-card__tag-bar">
                 <span class="post-card__tag">${frontmatter.category || ''}</span>
               </div>
@@ -547,7 +571,7 @@ const allPosts = files.map(filename => {
   const raw = fs.readFileSync(path.join(POSTS_DIR, filename), 'utf8');
   const { data: frontmatter, content: markdown } = matter(raw);
   return { filename, slug: slugFromFilename(filename), frontmatter, markdown };
-}).filter(p => p.frontmatter.title && p.frontmatter.date)
+}).filter(p => p.frontmatter.title && p.frontmatter.date && !p.frontmatter.draft)
   .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
 
 // 2ª passagem: gera HTML de cada post
