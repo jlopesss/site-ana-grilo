@@ -518,11 +518,12 @@ function buildPostCard(slug, frontmatter, markdown = '') {
   const displayDate = formatDate(frontmatter.date);
   const readingTime = frontmatter.reading_time || estimateReadingTime(markdown);
   const tagsAttr = (frontmatter.tags || []).join(',');
+  const fullIso  = new Date(frontmatter.date).toISOString();
   const imgHtml = frontmatter.image
     ? `<div class="post-card__img"><img src="${frontmatter.image}" alt="${frontmatter.title}" loading="lazy" width="800" height="450"></div>`
     : '';
   return `<!-- POST:${slug} -->
-          <article class="post-card" data-category="${frontmatter.category || ''}" data-tags="${tagsAttr}">
+          <article class="post-card" data-category="${frontmatter.category || ''}" data-tags="${tagsAttr}" data-date="${fullIso}">
             <a href="/blog/${slug}/" class="post-card__link" aria-label="Ler: ${frontmatter.title}">
               ${imgHtml}
               <div class="post-card__tag-bar">

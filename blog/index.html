@@ -393,7 +393,7 @@
         <div class="blog-grid__inner" id="blog-grid">
 
           <!-- POST DE EXEMPLO ─── remova este comentário na versão final -->
-          <article class="post-card" data-category="Saúde Vocal">
+          <article class="post-card" data-category="Saúde Vocal" data-date="2026-05-20T00:00:00.000Z">
             <a href="/blog/por-que-minha-voz-cansa/" class="post-card__link" aria-label="Ler: Por que minha voz cansa no final do dia?">
               <div class="post-card__tag-bar">
                 <span class="post-card__tag">Saúde Vocal</span>
@@ -412,7 +412,7 @@
 
 
 <!-- POST:5-hábitos-que-destroem-sua-voz-sem-você-perceber -->
-          <article class="post-card" data-category="Comunicação" data-tags="saúde vocal,cuidados com a voz,pregas vocais,rouquidão">
+          <article class="post-card" data-category="Comunicação" data-tags="saúde vocal,cuidados com a voz,pregas vocais,rouquidão" data-date="2026-05-19T00:00:00.000Z">
             <a href="/blog/5-hábitos-que-destroem-sua-voz-sem-você-perceber/" class="post-card__link" aria-label="Ler: 5 hábitos que destroem sua voz sem você perceber">
               
               <div class="post-card__tag-bar">
@@ -432,7 +432,7 @@
           <!-- /POST:5-hábitos-que-destroem-sua-voz-sem-você-perceber -->
 
 <!-- POST:teste2 -->
-          <article class="post-card" data-category="Saúde Vocal" data-tags="refluxo,saúde vocal,rouquidão,pregas vocais,pigarro">
+          <article class="post-card" data-category="Saúde Vocal" data-tags="refluxo,saúde vocal,rouquidão,pregas vocais,pigarro" data-date="2026-05-19T00:00:00.000Z">
             <a href="/blog/teste2/" class="post-card__link" aria-label="Ler: Refluxo silencioso: o que está roubando a qualidade da sua voz">
               
               <div class="post-card__tag-bar">
@@ -508,7 +508,13 @@
       const searchInput = document.getElementById('blog-search-input');
       const grid        = document.getElementById('blog-grid');
       const empty       = document.getElementById('blog-empty');
-      const cards       = Array.from(grid.querySelectorAll('.post-card[data-category]'));
+      const cards = Array.from(grid.querySelectorAll('.post-card[data-category]'))
+        .sort((a, b) => {
+          const da = a.dataset.date || a.querySelector('time')?.getAttribute('datetime') || '';
+          const db = b.dataset.date || b.querySelector('time')?.getAttribute('datetime') || '';
+          return db.localeCompare(da); // ISO strings: ordem lexicográfica = cronológica
+        });
+      cards.forEach(c => grid.appendChild(c)); // reinsere na ordem correta
 
       let activeCat   = 'Todos';
       let searchQuery = '';
