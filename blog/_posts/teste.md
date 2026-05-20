@@ -8,6 +8,4 @@ teste
 
 \---cta---
 
-
-
 \>"teste de quote
