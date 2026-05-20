@@ -48,10 +48,33 @@
       color: #5599ff !important;
     }
 
-    /* Botões do CMS */
-    html.dark button:not(#admin-theme-btn) {
+    /* Botões nativos e divs com role="button" (Decap usa ambos) */
+    html.dark button:not(#admin-theme-btn),
+    html.dark [role="button"] {
       background-color: #242438 !important;
       color: #e0e0f0 !important;
+      border-color: #3d3d58 !important;
+    }
+
+    /* Dropdowns, menus e overlays (transparentes sem isso) */
+    html.dark [role="listbox"],
+    html.dark [role="option"],
+    html.dark [role="menu"],
+    html.dark [role="menuitem"],
+    html.dark [role="dialog"],
+    html.dark [role="combobox"],
+    html.dark [role="tooltip"],
+    html.dark [role="alertdialog"] {
+      background-color: #242438 !important;
+      color: #e0e0f0 !important;
+      border-color: #3d3d58 !important;
+    }
+
+    /* Opção selecionada / hover no dropdown */
+    html.dark [role="option"][aria-selected="true"],
+    html.dark [role="option"]:hover,
+    html.dark [role="menuitem"]:hover {
+      background-color: #3a3a58 !important;
     }
 
     /* Formulários nativos */
