@@ -73,9 +73,10 @@
       .post-hero-img img { width: 100%; height: auto; display: block; }
     `, { raw: true });
 
-    var PostPreview = function(props) {
-      var h     = React.createElement;
-      var entry = props.entry;
+    // h e createClass são globais expostos pelo bundle UMD do decap-cms.js
+    var PostPreview = createClass({
+      render: function() {
+      var entry = this.props.entry;
 
       var title = entry.getIn(['data', 'title'])       || '';
       var desc  = entry.getIn(['data', 'description']) || '';
@@ -120,7 +121,8 @@
           dangerouslySetInnerHTML: { __html: bodyHtml }
         })
       );
-    };
+      }
+    });
 
     CMS.registerPreviewTemplate('posts', PostPreview);
   </script>
