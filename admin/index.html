@@ -13,55 +13,63 @@
      * Paleta do site:
      * Light — bg:#F4EFE7  surface:#FDFAF5  text:#1C2B20  muted:#5A7A66  border:#D5CFC8  primary:#2E7D52
      * Dark  — bg:#1A2B1D  surface:#223526  text:#DFF0E7  muted:#8FBDA3  border:#263D2E  primary:#72C99A
+     *
+     * Decap CMS usa styled-components com hashes (ex: sc-abc123) — seletores [class*="Nome"]
+     * não funcionam. Usamos apenas seletores de HTML semântico e classes estáveis (CodeMirror).
      */
 
-    /* ── Dark mode da interface Decap CMS ── */
-    html.dark, html.dark body {
+    /* ── Dark mode: seletores confiáveis ── */
+    html.dark {
+      color-scheme: dark; /* browser aplica dark em scrollbars, selects nativos etc. */
+    }
+
+    html.dark body {
       background: #1A2B1D !important;
       color: #DFF0E7 !important;
     }
 
-    html.dark [class*="SidebarContainer"],
-    html.dark [class*="Sidebar"],
-    html.dark [class*="Nav"] {
+    /* Formulários (elemento nativo — sempre confiável) */
+    html.dark input:not([type="file"]),
+    html.dark textarea {
+      background: #29402D !important;
+      color: #DFF0E7 !important;
+      border-color: #3A5C45 !important;
+    }
+
+    /* Editor rich-text (Decap usa contenteditable) */
+    html.dark [contenteditable] {
       background: #223526 !important;
+      color: #DFF0E7 !important;
+      caret-color: #72C99A !important;
+    }
+
+    /* Editor markdown: CodeMirror 5 (classes estáticas de lib externa) */
+    html.dark .CodeMirror {
+      background: #223526 !important;
+      color: #DFF0E7 !important;
+    }
+    html.dark .CodeMirror-scroll { background: #223526 !important; }
+    html.dark .CodeMirror-gutters {
+      background: #1A2B1D !important;
       border-right: 1px solid #263D2E !important;
     }
+    html.dark .CodeMirror-linenumber { color: #8FBDA3 !important; }
+    html.dark .CodeMirror-cursor    { border-left-color: #72C99A !important; }
+    html.dark .CodeMirror-activeline-background { background: rgba(114,201,154,0.07) !important; }
+    html.dark .CodeMirror-selected  { background: rgba(114,201,154,0.18) !important; }
 
-    html.dark [class*="AppHeader"],
-    html.dark [class*="Toolbar"] {
-      background: #223526 !important;
-      border-bottom: 1px solid #263D2E !important;
-    }
-
-    html.dark [class*="WorkflowContainer"],
-    html.dark [class*="CollectionContainer"],
-    html.dark [class*="EditorContainer"],
-    html.dark [class*="MainView"] {
+    /* Toolbar do editor (role semântico — confiável) */
+    html.dark [role="toolbar"] {
       background: #1A2B1D !important;
-    }
-
-    html.dark [class*="Card"] {
-      background: #223526 !important;
-      border: 1px solid #263D2E !important;
-      color: #DFF0E7 !important;
-    }
-
-    html.dark input,
-    html.dark textarea,
-    html.dark select,
-    html.dark [class*="TextInput"],
-    html.dark [class*="Select"] {
-      background: #29402D !important;
       border-color: #263D2E !important;
+    }
+    html.dark [role="toolbar"] button {
+      color: #8FBDA3 !important;
+    }
+    html.dark [role="toolbar"] button:hover {
+      background: rgba(114,201,154,0.1) !important;
       color: #DFF0E7 !important;
     }
-
-    html.dark label,
-    html.dark [class*="Label"] { color: #8FBDA3 !important; }
-
-    html.dark [class*="PrimaryButton"],
-    html.dark button[type="submit"] { background: #72C99A !important; }
 
     /* ── Botão flutuante de tema ── */
     #admin-theme-btn {
