@@ -21,19 +21,39 @@
 
     html.dark { color-scheme: dark; }
 
-    /* Reset universal — remove backgrounds gerados pelo styled-components */
-    html.dark * {
-      background-color: transparent !important;
-      color: inherit !important;
-    }
-
-    /* Body: superfície principal */
+    /* Superfície base */
     html.dark body {
       background: #1a1a2c !important;
       color: #e0e0f0 !important;
     }
 
-    /* Barra de navegação superior */
+    /* App container sólido — evita sobreposição do nav fixo com o header do editor */
+    html.dark body > div {
+      background-color: #1a1a2c !important;
+    }
+
+    /* Reset estrutural: SEM <button> para preservar cores do styled-components
+       (ex: o botão Publicar fica teal, Agora/Limpar ficam sua cor original) */
+    html.dark div,
+    html.dark nav,
+    html.dark main,
+    html.dark aside,
+    html.dark section,
+    html.dark article,
+    html.dark span,
+    html.dark p,
+    html.dark label,
+    html.dark ul,
+    html.dark ol,
+    html.dark form,
+    html.dark fieldset,
+    html.dark h1, html.dark h2, html.dark h3,
+    html.dark h4, html.dark h5, html.dark h6 {
+      background-color: transparent !important;
+      color: inherit !important;
+    }
+
+    /* Barra de navegação global */
     html.dark header {
       background-color: #0e0e1c !important;
     }
@@ -48,15 +68,14 @@
       color: #5599ff !important;
     }
 
-    /* Botões nativos e divs com role="button" (Decap usa ambos) */
-    html.dark button:not(#admin-theme-btn),
+    /* Divs com role="button" (não são <button> nativo — esses ficam com cor original) */
     html.dark [role="button"] {
       background-color: #242438 !important;
       color: #e0e0f0 !important;
       border-color: #3d3d58 !important;
     }
 
-    /* Dropdowns, menus e overlays (transparentes sem isso) */
+    /* Dropdowns, menus e overlays */
     html.dark [role="listbox"],
     html.dark [role="option"],
     html.dark [role="menu"],
