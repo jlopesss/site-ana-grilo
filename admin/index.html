@@ -74,7 +74,7 @@
     `, { raw: true });
 
     var PostPreview = function(props) {
-      var h     = props.h;
+      var h     = React.createElement;
       var entry = props.entry;
 
       var title = entry.getIn(['data', 'title'])       || '';
