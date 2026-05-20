@@ -1,5 +1,5 @@
 ---
-title: "Refluxo silencioso: o que está roubando a qualidade da sua voz. Leia!"
+title: "Refluxo silencioso: o que está roubando a qualidade da sua voz. Descubra!"
 date: 2026-05-19
 description: O refluxo laringofaríngeo não dói, não arde e raramente causa azia
   — mas destrói as pregas vocais aos poucos. Entenda os sinais e o que fazer.
