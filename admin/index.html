@@ -32,9 +32,14 @@
       background-color: #1a1a2c !important;
     }
 
-    /* Reset estrutural: SEM <button> para preservar cores do styled-components
-       (ex: o botão Publicar fica teal, Agora/Limpar ficam sua cor original) */
-    html.dark div,
+    /* Divs recebem fundo sólido — cobre o nav global que fica por trás do
+       header do editor quando ambos ocupam o topo da página */
+    html.dark div {
+      background-color: #1a1a2c !important;
+      color: inherit !important;
+    }
+
+    /* Elementos não-div: transparentes (herdam do div pai) */
     html.dark nav,
     html.dark main,
     html.dark aside,
@@ -51,6 +56,11 @@
     html.dark h4, html.dark h5, html.dark h6 {
       background-color: transparent !important;
       color: inherit !important;
+    }
+
+    /* Filhos dos cards de post: transparentes para mostrar o #242438 do li */
+    html.dark li * {
+      background-color: transparent !important;
     }
 
     /* Barra de navegação global */
