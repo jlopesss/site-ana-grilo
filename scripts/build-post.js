@@ -315,7 +315,8 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts) {
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,500&display=swap" /></noscript>
   <link rel="stylesheet" href="../../css/style.css" />
 
   <style>
@@ -445,12 +446,17 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts) {
     @media (max-width: 1100px) { .post-art { display: none; } }
   </style>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZKM69FL6J"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MZKM69FL6J');
+    window.addEventListener('load', function() {
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-MZKM69FL6J';
+      s.async = true;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MZKM69FL6J');
+    });
   </script>
 </head>
 <body>
@@ -482,7 +488,7 @@ ${artBlock()}
             <span>${readingTime} min de leitura</span>
           </div>
           ${frontmatter.image ? `<figure class="post-hero-img">
-            <img src="${frontmatter.image}" alt="${title}" width="1200" height="630" loading="eager" itemprop="image">
+            <img src="${frontmatter.image}" alt="${title}" width="1200" height="630" loading="eager" fetchpriority="high" itemprop="image">
           </figure>` : ''}
         </div>
       </header>
