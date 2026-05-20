@@ -120,29 +120,46 @@
         background: var(--bg);
         color: var(--text);
         margin: 0;
+        padding-top: 2.75rem;
         -webkit-font-smoothing: antialiased;
         transition: background 0.25s, color 0.25s;
       }
 
-      /* ── Botão de tema ── */
-      .theme-toggle {
+      /* ── Barra de tema (topo fixo do preview) ── */
+      .theme-bar {
         position: fixed;
-        top: 1rem;
-        right: 1rem;
+        top: 0;
+        left: 0;
+        right: 0;
         z-index: 999;
-        width: 2.25rem;
-        height: 2.25rem;
-        border-radius: 50%;
-        border: 1px solid var(--border);
-        background: var(--surface);
-        color: var(--text2);
-        font-size: 1rem;
-        cursor: pointer;
+        height: 2.75rem;
         display: flex;
         align-items: center;
-        justify-content: center;
-        transition: border-color 0.2s, color 0.2s, background 0.25s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        justify-content: space-between;
+        padding: 0 1rem;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        font-size: 0.75rem;
+        color: var(--text2);
+        letter-spacing: 0.04em;
+      }
+
+      .theme-bar span { opacity: 0.6; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.3rem 0.75rem;
+        border-radius: 100px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        color: var(--text2);
+        font-size: 0.75rem;
+        font-family: inherit;
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+        letter-spacing: 0.03em;
       }
       .theme-toggle:hover {
         border-color: var(--accent);
@@ -362,11 +379,18 @@
         }
 
         return h('div', {},
-          h('button', {
-            className: 'theme-toggle',
-            title: dark ? 'Mudar para tema claro' : 'Mudar para tema escuro',
-            onClick: this.toggleTheme
-          }, dark ? '☀' : '☾'),
+          h('div', { className: 'theme-bar' },
+            h('span', {}, 'Preview'),
+            h('button', {
+              className: 'theme-toggle',
+              title: dark ? 'Mudar para tema claro' : 'Mudar para tema escuro',
+              onClick: this.toggleTheme
+            },
+              dark ? '☀' : '☾',
+              ' ',
+              dark ? 'Tema claro' : 'Tema escuro'
+            )
+          ),
 
           h('header', { className: 'post-header' },
             cat   ? h('span', { className: 'post-tag' }, cat) : null,
