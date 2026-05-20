@@ -1,4 +1,5 @@
 ---
+post_number: 4
 title: "Nódulos nas pregas vocais: o que são, por que aparecem e quando operar
   (ou não)"
 date: 2026-05-20T08:40

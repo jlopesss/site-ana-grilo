@@ -21,10 +21,16 @@ collections:
     delete: true
     slug: "{{slug}}"
     preview_path: "blog/{{slug}}/"
+    summary: "#{{post_number}} — {{title}}"
     editor:
       preview: true
-    sortable_fields: ['date', 'title']
+    sortable_fields: ['post_number', 'date', 'title']
     fields:
+      - label: Número do post
+        name: post_number
+        widget: hidden
+        default: 0
+
       - label: Título
         name: title
         widget: string

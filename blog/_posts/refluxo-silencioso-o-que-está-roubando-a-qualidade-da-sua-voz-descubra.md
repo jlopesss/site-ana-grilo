@@ -1,4 +1,5 @@
 ---
+post_number: 2
 title: "Refluxo silencioso: o que está roubando a qualidade da sua voz. Descubra!"
 date: 2026-05-19
 description: O refluxo laringofaríngeo não dói, não arde e raramente causa azia

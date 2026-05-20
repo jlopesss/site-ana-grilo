@@ -364,6 +364,38 @@
     });
 
     CMS.registerPreviewTemplate('posts', PostPreview);
+
+    // ── Auto-numeração de posts ──
+    // Ao salvar um post novo (post_number === 0), busca o maior número existente
+    // no repositório via GitHub API e atribui o próximo.
+    CMS.registerEventListener({
+      name: 'preSave',
+      handler: async function({ entry }) {
+        var current = entry.getIn(['data', 'post_number']);
+        if (current && current > 0) return entry;
+
+        try {
+          var listRes = await fetch('https://api.github.com/repos/jlopesss/site-ana-grilo/contents/blog/_posts');
+          var files = await listRes.json();
+          var mdFiles = Array.isArray(files) ? files.filter(function(f) { return f.name.endsWith('.md'); }) : [];
+
+          var maxNum = 0;
+          await Promise.all(mdFiles.map(async function(file) {
+            try {
+              var r = await fetch(file.url);
+              var d = await r.json();
+              var text = atob((d.content || '').replace(/\n/g, ''));
+              var m = text.match(/^post_number:\s*(\d+)/m);
+              if (m) { var n = parseInt(m[1], 10); if (n > maxNum) maxNum = n; }
+            } catch(e) {}
+          }));
+
+          return entry.setIn(['data', 'post_number'], maxNum + 1);
+        } catch(e) {
+          return entry;
+        }
+      }
+    });
   </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 ---
+post_number: 3
 title: "Sua voz falha no trabalho? Pode ser tensão muscular, não fraqueza"
 date: 2026-05-20
 description: Voz que some no fim do dia, rouquidão após reuniões longas e cansaço ao falar — esses sinais não indicam fraqueza vocal, mas tensão muscular excessiva. Entenda a diferença e como tratar.
