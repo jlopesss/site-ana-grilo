@@ -12,63 +12,91 @@
     /*
      * Paleta do site:
      * Light — bg:#F4EFE7  surface:#FDFAF5  text:#1C2B20  muted:#5A7A66  border:#D5CFC8  primary:#2E7D52
-     * Dark  — bg:#1A2B1D  surface:#223526  text:#DFF0E7  muted:#8FBDA3  border:#263D2E  primary:#72C99A
+     * Dark  — bg:#1a1a2c  card:#242438     text:#e0e0f0  muted:#8888a8  border:#2d2d45  accent:#5599ff
      *
-     * Decap CMS usa styled-components com hashes (ex: sc-abc123) — seletores [class*="Nome"]
-     * não funcionam. Usamos apenas seletores de HTML semântico e classes estáveis (CodeMirror).
+     * Estratégia dark mode: reseta todos os backgrounds via `html.dark *` (vence o styled-components
+     * do Decap CMS pois usa !important), depois re-aplica cores específicas com seletores mais
+     * específicos (header, li, button, input, etc.).
      */
 
-    /* ── Dark mode: seletores confiáveis ── */
-    html.dark {
-      color-scheme: dark; /* browser aplica dark em scrollbars, selects nativos etc. */
+    html.dark { color-scheme: dark; }
+
+    /* Reset universal — remove backgrounds gerados pelo styled-components */
+    html.dark * {
+      background-color: transparent !important;
+      color: inherit !important;
     }
 
+    /* Body: superfície principal */
     html.dark body {
-      background: #1A2B1D !important;
-      color: #DFF0E7 !important;
+      background: #1a1a2c !important;
+      color: #e0e0f0 !important;
     }
 
-    /* Formulários (elemento nativo — sempre confiável) */
+    /* Barra de navegação superior */
+    html.dark header {
+      background-color: #0e0e1c !important;
+    }
+
+    /* Cards da listagem de posts */
+    html.dark li {
+      background-color: #242438 !important;
+    }
+
+    /* Links */
+    html.dark a {
+      color: #5599ff !important;
+    }
+
+    /* Botões do CMS */
+    html.dark button:not(#admin-theme-btn) {
+      background-color: #242438 !important;
+      color: #e0e0f0 !important;
+    }
+
+    /* Formulários nativos */
     html.dark input:not([type="file"]),
-    html.dark textarea {
-      background: #29402D !important;
-      color: #DFF0E7 !important;
-      border-color: #3A5C45 !important;
+    html.dark textarea,
+    html.dark select {
+      background: #242438 !important;
+      color: #e0e0f0 !important;
+      border: 1px solid #3d3d58 !important;
     }
 
-    /* Editor rich-text (Decap usa contenteditable) */
+    /* Editor rich-text */
     html.dark [contenteditable] {
-      background: #223526 !important;
-      color: #DFF0E7 !important;
-      caret-color: #72C99A !important;
+      background: #1a1a2c !important;
+      color: #e0e0f0 !important;
+      caret-color: #5599ff !important;
     }
 
-    /* Editor markdown: CodeMirror 5 (classes estáticas de lib externa) */
+    /* Editor markdown: CodeMirror 5 */
     html.dark .CodeMirror {
-      background: #223526 !important;
-      color: #DFF0E7 !important;
+      background: #1a1a2c !important;
+      color: #e0e0f0 !important;
     }
-    html.dark .CodeMirror-scroll { background: #223526 !important; }
+    html.dark .CodeMirror-scroll { background: #1a1a2c !important; }
     html.dark .CodeMirror-gutters {
-      background: #1A2B1D !important;
-      border-right: 1px solid #263D2E !important;
+      background: #0e0e1c !important;
+      border-right: 1px solid #2d2d45 !important;
     }
-    html.dark .CodeMirror-linenumber { color: #8FBDA3 !important; }
-    html.dark .CodeMirror-cursor    { border-left-color: #72C99A !important; }
-    html.dark .CodeMirror-activeline-background { background: rgba(114,201,154,0.07) !important; }
-    html.dark .CodeMirror-selected  { background: rgba(114,201,154,0.18) !important; }
+    html.dark .CodeMirror-linenumber { color: #8888a8 !important; }
+    html.dark .CodeMirror-cursor    { border-left-color: #5599ff !important; }
+    html.dark .CodeMirror-activeline-background { background: rgba(85,153,255,0.07) !important; }
+    html.dark .CodeMirror-selected  { background: rgba(85,153,255,0.18) !important; }
 
-    /* Toolbar do editor (role semântico — confiável) */
+    /* Toolbar do editor */
     html.dark [role="toolbar"] {
-      background: #1A2B1D !important;
-      border-color: #263D2E !important;
+      background: #0e0e1c !important;
+      border-color: #2d2d45 !important;
     }
     html.dark [role="toolbar"] button {
-      color: #8FBDA3 !important;
+      color: #8888a8 !important;
+      background-color: transparent !important;
     }
     html.dark [role="toolbar"] button:hover {
-      background: rgba(114,201,154,0.1) !important;
-      color: #DFF0E7 !important;
+      background: rgba(85,153,255,0.1) !important;
+      color: #e0e0f0 !important;
     }
 
     /* ── Botão flutuante de tema ── */
@@ -100,14 +128,14 @@
     }
 
     html.dark #admin-theme-btn {
-      background: #223526;
-      border-color: #263D2E;
-      color: #8FBDA3;
+      background: #1e1e30 !important;
+      border-color: #2d2d45 !important;
+      color: #8888a8 !important;
       box-shadow: 0 4px 18px rgba(0,0,0,0.35);
     }
     html.dark #admin-theme-btn:hover {
-      border-color: #72C99A;
-      color: #72C99A;
+      border-color: #5599ff !important;
+      color: #5599ff !important;
     }
   </style>
 </head>

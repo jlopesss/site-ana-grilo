@@ -23,6 +23,15 @@ collections:
     preview_path: "blog/{{slug}}/"
     editor:
       preview: true
+    sortable_fields:
+      fields:
+        - name: date
+          label: Data de publicação
+        - name: title
+          label: Título
+      default:
+        field: date
+        direction: Descending
     fields:
       - label: Título
         name: title
