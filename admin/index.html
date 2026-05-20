@@ -8,69 +8,253 @@
   <link rel="icon" href="/img/favicon/favicon.ico" sizes="any">
   <link rel="icon" href="/img/favicon/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/img/favicon/favicon-180.png">
+  <style>
+    /* ── Dark theme para a interface do Decap CMS ── */
+    :root {
+      --bg0: #0e1117;
+      --bg1: #161b26;
+      --bg2: #1d2333;
+      --border: rgba(255,255,255,0.07);
+      --text: #dde2ec;
+      --text2: #8790a3;
+      --green: #5cb87a;
+      --green-dim: rgba(92,184,122,0.14);
+    }
+
+    html, body {
+      background: var(--bg0) !important;
+      color: var(--text) !important;
+      margin: 0;
+    }
+
+    /* Barra lateral */
+    [class*="SidebarContainer"], [class*="Sidebar"], [class*="Nav"] {
+      background: var(--bg1) !important;
+      border-right: 1px solid var(--border) !important;
+    }
+
+    /* Painel principal */
+    [class*="App__NavItemLabel"],
+    [class*="AppHeader"],
+    [class*="Toolbar"] {
+      background: var(--bg1) !important;
+      border-bottom: 1px solid var(--border) !important;
+    }
+
+    /* Fundo geral do conteúdo */
+    [class*="WorkflowContainer"],
+    [class*="CollectionContainer"],
+    [class*="EditorContainer"],
+    [class*="MainView"] {
+      background: var(--bg0) !important;
+    }
+
+    /* Cards de posts */
+    [class*="Card"] {
+      background: var(--bg1) !important;
+      border: 1px solid var(--border) !important;
+      color: var(--text) !important;
+    }
+
+    /* Inputs e textareas */
+    input, textarea, select, [class*="TextInput"], [class*="Select"] {
+      background: var(--bg2) !important;
+      border-color: var(--border) !important;
+      color: var(--text) !important;
+    }
+
+    /* Labels */
+    label, [class*="Label"] {
+      color: var(--text2) !important;
+    }
+
+    /* Botão primário (manter verde) */
+    [class*="PrimaryButton"], button[type="submit"] {
+      background: var(--green) !important;
+    }
+  </style>
 </head>
 <body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Carrega o CSS real do site dentro do iframe de preview
-    CMS.registerPreviewStyle('/css/style.css');
+    // ── Preview: dark theme refinado ──
     CMS.registerPreviewStyle(`
-      body { font-family: 'Outfit', sans-serif; color: #2d2d2d; background: #fff; margin: 0; }
-      .post-header { padding: 4rem 1.5rem 2rem; text-align: center; }
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      body {
+        font-family: 'Outfit', sans-serif;
+        background: #0e1117;
+        color: #dde2ec;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Header do post ── */
+      .post-header {
+        padding: 3.5rem 1.5rem 2rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        margin-bottom: 0;
+      }
+
       .post-tag {
-        display: inline-block; font-size: 0.7rem; font-weight: 700;
-        letter-spacing: 0.1em; text-transform: uppercase;
-        color: #4A8C65;
-        background: rgba(74,140,101,0.12);
-        padding: 0.25rem 0.65rem; border-radius: 100px; margin-bottom: 1.25rem;
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #5cb87a;
+        background: rgba(92,184,122,0.12);
+        border: 1px solid rgba(92,184,122,0.2);
+        padding: 0.28rem 0.75rem;
+        border-radius: 100px;
+        margin-bottom: 1.25rem;
       }
+
       .post-title {
-        font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; line-height: 1.2;
-        max-width: 760px; margin: 0 auto 1rem;
+        font-size: clamp(1.6rem, 4vw, 2.3rem);
+        font-weight: 700;
+        line-height: 1.22;
+        max-width: 740px;
+        margin: 0 auto 0.9rem;
+        color: #eef0f5;
+        letter-spacing: -0.01em;
       }
-      .post-meta {
-        display: flex; justify-content: center; align-items: center;
-        gap: 0.75rem; font-size: 0.85rem; opacity: 0.55; flex-wrap: wrap;
-        margin-top: 0.5rem;
-      }
-      .post-body {
-        max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
-      }
-      .post-body p  { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.4rem; }
-      .post-body h2 { font-size: 1.4rem; font-weight: 700; margin: 2.5rem 0 0.85rem; line-height: 1.25; }
-      .post-body h3 { font-size: 1.1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; }
-      .post-body ul, .post-body ol { margin: 0 0 1.4rem 1.5rem; }
-      .post-body li { font-size: 1.05rem; line-height: 1.75; margin-bottom: 0.4rem; }
-      .post-body strong { font-weight: 700; }
-      .post-body em { font-style: italic; }
-      .post-body blockquote {
-        border-left: 3px solid #4A8C65; margin: 2rem 0;
-        padding: 1rem 1.5rem;
-        background: rgba(74,140,101,0.06);
-        border-radius: 0 8px 8px 0; font-size: 1.05rem; font-style: italic; line-height: 1.7;
-      }
-      .post-body hr { border: none; border-top: 1px solid rgba(0,0,0,0.1); margin: 3rem 0; }
-      .post-cta-inline {
-        text-align: center; margin: 2.5rem 0; padding: 2rem 1.5rem;
-        background: rgba(74,140,101,0.07); border-radius: 12px;
-      }
-      .post-cta-inline p { margin-bottom: 1.25rem; font-size: 1.05rem; font-style: italic; }
-      .cta-btn {
-        display: inline-block; background: #4A8C65; color: #fff;
-        padding: 0.75rem 1.75rem; border-radius: 100px;
-        font-size: 0.9rem; font-weight: 600; text-decoration: none;
-      }
+
       .preview-desc {
-        font-size: 1rem; font-style: italic; opacity: 0.6;
-        max-width: 680px; margin: 0 auto 0.5rem;
-        border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 1.5rem;
+        font-size: 1rem;
+        line-height: 1.65;
+        color: #8790a3;
+        max-width: 640px;
+        margin: 0 auto 1.25rem;
+        font-style: italic;
       }
+
+      .post-meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.8rem;
+        color: #5a6378;
+        letter-spacing: 0.03em;
+      }
+
+      /* ── Imagem hero ── */
       .post-hero-img {
-        margin: 2rem auto 0; max-width: 860px;
-        border-radius: 12px; overflow: hidden; line-height: 0;
+        margin: 0;
+        max-width: 860px;
+        margin: 2rem auto 0;
+        border-radius: 10px;
+        overflow: hidden;
+        line-height: 0;
+        border: 1px solid rgba(255,255,255,0.06);
       }
       .post-hero-img img { width: 100%; height: auto; display: block; }
+
+      /* ── Corpo do post ── */
+      .post-body {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem 5rem;
+      }
+
+      .post-body p {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        margin-bottom: 1.5rem;
+        color: #c8cdd9;
+      }
+
+      .post-body h2 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin: 2.75rem 0 0.85rem;
+        line-height: 1.25;
+        color: #eef0f5;
+        letter-spacing: -0.01em;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+
+      .post-body h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 1.75rem 0 0.6rem;
+        color: #d4d8e4;
+      }
+
+      .post-body ul, .post-body ol {
+        margin: 0 0 1.5rem 1.25rem;
+        padding: 0;
+      }
+
+      .post-body li {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        margin-bottom: 0.45rem;
+        color: #c8cdd9;
+      }
+
+      .post-body strong { font-weight: 700; color: #dde2ec; }
+      .post-body em { font-style: italic; color: #aab0be; }
+
+      .post-body blockquote {
+        border-left: 3px solid #5cb87a;
+        margin: 2.25rem 0;
+        padding: 1.1rem 1.5rem;
+        background: rgba(92,184,122,0.07);
+        border-radius: 0 10px 10px 0;
+        font-size: 1.05rem;
+        font-style: italic;
+        line-height: 1.75;
+        color: #b8c4b0;
+      }
+
+      .post-body hr {
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.07);
+        margin: 3rem 0;
+      }
+
+      .post-body a {
+        color: #5cb87a;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(92,184,122,0.3);
+        transition: border-color 0.2s;
+      }
+
+      /* ── CTA inline ── */
+      .post-cta-inline {
+        text-align: center;
+        margin: 2.5rem 0;
+        padding: 2rem 1.5rem;
+        background: rgba(92,184,122,0.07);
+        border: 1px solid rgba(92,184,122,0.18);
+        border-radius: 14px;
+      }
+
+      .post-cta-inline p {
+        margin-bottom: 1.25rem;
+        font-size: 1.05rem;
+        font-style: italic;
+        color: #b8c4b0;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        background: #5cb87a;
+        color: #fff;
+        padding: 0.8rem 1.85rem;
+        border-radius: 100px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.01em;
+      }
     `, { raw: true });
 
     // h e createClass são globais expostos pelo bundle UMD do decap-cms.js
