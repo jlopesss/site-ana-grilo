@@ -644,27 +644,27 @@ const allPosts = files.map(filename => {
     return a.filename.localeCompare(b.filename);
   });
 
-// 2ª passagem: gera HTML e atualiza card no índice
+// 2ª passagem: gera HTML de cada post
 for (const post of allPosts) {
   const { slug, frontmatter, markdown, filename } = post;
   const destDir  = path.join(BLOG_DIR, slug);
   const destFile = path.join(destDir, 'index.html');
 
   if (fs.existsSync(destFile) && !FORCE) {
-    console.log(`Pulando HTML "${slug}" (já existe; use --force para regenerar).`);
-  } else {
-    console.log(`Processando: ${filename} → blog/${slug}/index.html`);
-
-    const cleanMd = markdown.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
-    const htmlBody = injectCta(marked.parse(cleanMd), frontmatter.cta_texto, frontmatter.title);
-    const postHTML = buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts);
-
-    fs.mkdirSync(destDir, { recursive: true });
-    fs.writeFileSync(destFile, postHTML, 'utf8');
-    console.log(`  Gerado: blog/${slug}/index.html`);
+    console.log(`Pulando "${slug}" (HTML já existe; use --force para regenerar).`);
+    continue;
   }
 
-  // Sempre atualiza o card no índice (captura edições de título, descrição, categoria etc.)
+  console.log(`Processando: ${filename} → blog/${slug}/index.html`);
+
+  const cleanMd = markdown.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
+  const htmlBody = injectCta(marked.parse(cleanMd), frontmatter.cta_texto, frontmatter.title);
+  const postHTML = buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts);
+
+  fs.mkdirSync(destDir, { recursive: true });
+  fs.writeFileSync(destFile, postHTML, 'utf8');
+  console.log(`  Gerado: blog/${slug}/index.html`);
+
   injectCardInIndex(slug, buildPostCard(slug, frontmatter, markdown));
 }
 
