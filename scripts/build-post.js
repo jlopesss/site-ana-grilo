@@ -189,10 +189,10 @@ function footer() {
   </footer>`;
 }
 
-function buildRelatedSection(frontmatter, latestPost) {
+function buildRelatedSection(frontmatter, currentSlug, allPosts) {
   const cards = [];
 
-  // Serviços relacionados
+  // 1. Serviços relacionados (todos que foram indicados)
   if (frontmatter.servicos_relacionados?.length) {
     for (const s of frontmatter.servicos_relacionados) {
       const slug = typeof s === 'string' ? s : s.servico || s;
@@ -205,15 +205,30 @@ function buildRelatedSection(frontmatter, latestPost) {
     }
   }
 
-  // Último post publicado (exceto o atual)
-  if (latestPost) {
-    const iso = isoDate(latestPost.frontmatter.date);
-    const display = formatDate(latestPost.frontmatter.date);
-    cards.push(`          <a href="/blog/${latestPost.slug}/" class="post-related__card">
-            <span class="post-related__tag">${latestPost.frontmatter.category || 'Blog'}</span>
-            <p class="post-related__heading">${latestPost.frontmatter.title}</p>
+  // 2. Posts similares para completar até 6 cards
+  if (cards.length < 6) {
+    const currentCategory = frontmatter.category || '';
+    const currentTags     = frontmatter.tags || [];
+
+    const scored = allPosts
+      .filter(p => p.slug !== currentSlug)
+      .map(p => {
+        let score = 0;
+        if (currentCategory && p.frontmatter.category === currentCategory) score += 10;
+        score += (currentTags.filter(t => (p.frontmatter.tags || []).includes(t))).length * 3;
+        return { post: p, score };
+      })
+      .sort((a, b) => b.score - a.score); // empate mantém ordem de allPosts (data desc)
+
+    for (const { post } of scored.slice(0, 6 - cards.length)) {
+      const iso     = isoDate(post.frontmatter.date);
+      const display = formatDate(post.frontmatter.date);
+      cards.push(`          <a href="/blog/${post.slug}/" class="post-related__card">
+            <span class="post-related__tag">${post.frontmatter.category || 'Blog'}</span>
+            <p class="post-related__heading">${post.frontmatter.title}</p>
             <span class="post-related__date"><time datetime="${iso}">${display}</time></span>
           </a>`);
+    }
   }
 
   if (!cards.length) return '';
@@ -221,7 +236,7 @@ function buildRelatedSection(frontmatter, latestPost) {
   return `
     <section class="post-related">
       <div class="container">
-        <h2 class="post-related__title">Continue lendo</h2>
+        <h2 class="post-related__title">Veja também</h2>
         <div class="post-related__grid">
 ${cards.join('\n')}
         </div>
@@ -229,7 +244,7 @@ ${cards.join('\n')}
     </section>`;
 }
 
-function buildPostHTML(slug, frontmatter, markdown, htmlBody, latestPost) {
+function buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts) {
   const iso         = isoDate(frontmatter.date);
   const displayDate = formatDate(frontmatter.date);
   const readingTime = frontmatter.reading_time || estimateReadingTime(markdown);
@@ -488,7 +503,7 @@ ${htmlBody}
       </div>
 
     </article>
-${buildRelatedSection(frontmatter, latestPost)}
+${buildRelatedSection(frontmatter, slug, allPosts)}
   </main>
 
 ${footer()}
@@ -572,7 +587,12 @@ const allPosts = files.map(filename => {
   const { data: frontmatter, content: markdown } = matter(raw);
   return { filename, slug: slugFromFilename(filename), frontmatter, markdown };
 }).filter(p => p.frontmatter.title && p.frontmatter.date && !p.frontmatter.draft)
-  .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+  .sort((a, b) => {
+    const diff = new Date(b.frontmatter.date) - new Date(a.frontmatter.date);
+    if (diff !== 0) return diff;
+    // Desempate: alfabético pelo nome do arquivo (garante ordem determinística)
+    return a.filename.localeCompare(b.filename);
+  });
 
 // 2ª passagem: gera HTML de cada post
 for (const post of allPosts) {
@@ -587,12 +607,9 @@ for (const post of allPosts) {
 
   console.log(`Processando: ${filename} → blog/${slug}/index.html`);
 
-  // Último post publicado que não é o atual
-  const latestPost = allPosts.find(p => p.slug !== slug) || null;
-
   const cleanMd = markdown.replace(/\\([#>\-\*_\[\]!`~])/g, '$1');
   const htmlBody = injectCta(marked.parse(cleanMd), frontmatter.cta_texto, frontmatter.title);
-  const postHTML = buildPostHTML(slug, frontmatter, markdown, htmlBody, latestPost);
+  const postHTML = buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts);
 
   fs.mkdirSync(destDir, { recursive: true });
   fs.writeFileSync(destFile, postHTML, 'utf8');
