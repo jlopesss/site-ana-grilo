@@ -252,9 +252,10 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts) {
   const title       = frontmatter.title || '';
   const description = frontmatter.description || '';
   const breadcrumb  = title.length > 40 ? title.slice(0, 40) + '…' : title;
+  const encodedSlug = encodeURIComponent(slug);
   const ogImage     = frontmatter.image
-    ? `https://www.anagrilovoz.com${frontmatter.image}`
-    : 'https://www.anagrilovoz.com/img/og-image.jpg';
+    ? `https://anagrilovoz.com${frontmatter.image}`
+    : 'https://anagrilovoz.com/img/og-image.jpg';
   const ogImageAlt  = frontmatter.image ? title : 'Ana Grilo, fonoaudióloga especializada em voz e comunicação';
 
   return `<!DOCTYPE html>
@@ -270,14 +271,14 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts) {
   <meta property="og:title" content="${title} | Ana Grilo Fonoaudióloga" />
   <meta property="og:description" content="${description}" />
   <meta property="og:locale" content="pt_BR" />
-  <meta property="og:url" content="https://anagrilovoz.com/blog/${slug}/" />
+  <meta property="og:url" content="https://anagrilovoz.com/blog/${encodedSlug}/" />
   <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="${ogImageAlt}" />
   <meta property="article:published_time" content="${iso}" />
   <meta property="article:author" content="Ana Grilo" />
-  <link rel="canonical" href="https://anagrilovoz.com/blog/${slug}/" />
+  <link rel="canonical" href="https://anagrilovoz.com/blog/${encodedSlug}/" />
   <meta name="theme-color" content="#4A8C65" />
   <link rel="icon" href="../../img/favicon/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="../../img/favicon/favicon.ico" sizes="32x32" />
@@ -292,7 +293,8 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts) {
     "@type": "BlogPosting",
     "headline": "${title}",
     "description": "${description}",
-    "url": "https://anagrilovoz.com/blog/${slug}/",
+    "image": { "@type": "ImageObject", "url": "${ogImage}", "width": 1200, "height": 630 },
+    "url": "https://anagrilovoz.com/blog/${encodedSlug}/",
     "datePublished": "${iso}",
     "dateModified": "${iso}",
     "author": {
@@ -307,13 +309,13 @@ function buildPostHTML(slug, frontmatter, markdown, htmlBody, allPosts) {
       "url": "https://anagrilovoz.com",
       "logo": { "@type": "ImageObject", "url": "https://anagrilovoz.com/img/og-image.jpg" }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://anagrilovoz.com/blog/${slug}/" }
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://anagrilovoz.com/blog/${encodedSlug}/" }
   }
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,900&family=Fuggles&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../css/style.css" />
 
   <style>
@@ -664,7 +666,7 @@ for (const post of allPosts) {
 removeOrphans(new Set(allPosts.map(p => p.slug)));
 
 // Gera sitemap.xml incluindo posts do blog
-const BASE_URL = 'https://www.anagrilovoz.com';
+const BASE_URL = 'https://anagrilovoz.com';
 const today = new Date().toISOString().slice(0, 10);
 
 const staticPages = [
@@ -680,7 +682,7 @@ const staticPages = [
 ];
 
 const postEntries = allPosts.map(p => ({
-  loc:        `/blog/${p.slug}/`,
+  loc:        `/blog/${encodeURIComponent(p.slug)}/`,
   lastmod:    (p.frontmatter.date ? new Date(p.frontmatter.date).toISOString().slice(0, 10) : today),
   priority:   '0.7',
   changefreq: 'yearly',
