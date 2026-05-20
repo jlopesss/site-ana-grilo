@@ -568,6 +568,47 @@ function injectCardInIndex(slug, cardHTML) {
   console.log(`  index.html: card adicionado para "${slug}".`);
 }
 
+function removeOrphans(activeSlugs) {
+  // Remove cards do index para posts que não existem mais
+  let content = fs.readFileSync(BLOG_INDEX, 'utf8');
+  let changed  = false;
+
+  const markerRe = /<!-- POST:([^\s/]+) -->/g;
+  const inIndex  = new Set();
+  let m;
+  while ((m = markerRe.exec(content)) !== null) inIndex.add(m[1]);
+
+  for (const slug of inIndex) {
+    if (activeSlugs.has(slug)) continue;
+    const esc = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    content = content.replace(
+      new RegExp(`\\n?\\s*<!-- POST:${esc} -->[\\s\\S]*?<!-- /POST:${esc} -->`, 'g'),
+      ''
+    );
+    changed = true;
+    console.log(`  index.html: card removido para "${slug}" (post excluído).`);
+  }
+
+  if (changed) fs.writeFileSync(BLOG_INDEX, content, 'utf8');
+
+  // Remove diretórios blog/{slug}/ de posts excluídos
+  const blogDirs = fs.readdirSync(BLOG_DIR, { withFileTypes: true })
+    .filter(d => d.isDirectory() && !activeSlugs.has(d.name))
+    .map(d => d.name)
+    .filter(name => {
+      // Só remove diretórios que tinham um post (contêm index.html gerado pelo build)
+      const indexFile = path.join(BLOG_DIR, name, 'index.html');
+      if (!fs.existsSync(indexFile)) return false;
+      const html = fs.readFileSync(indexFile, 'utf8');
+      return html.includes('post-article') || html.includes('BlogPosting');
+    });
+
+  for (const name of blogDirs) {
+    fs.rmSync(path.join(BLOG_DIR, name), { recursive: true, force: true });
+    console.log(`  Removido: blog/${name}/ (post excluído).`);
+  }
+}
+
 // ── main ──────────────────────────────────────────────────────────────────────
 
 if (!fs.existsSync(POSTS_DIR)) {
@@ -618,6 +659,9 @@ for (const post of allPosts) {
 
   injectCardInIndex(slug, buildPostCard(slug, frontmatter, markdown));
 }
+
+// Remove cards e diretórios de posts excluídos
+removeOrphans(new Set(allPosts.map(p => p.slug)));
 
 // Gera sitemap.xml incluindo posts do blog
 const BASE_URL = 'https://www.anagrilovoz.com';
