@@ -33,27 +33,15 @@ themeToggle.addEventListener('click', () => {
 
 const navbar = document.getElementById('navbar');
 
-let sectionCache = [];
-
-function buildSectionCache() {
-  sectionCache = Array.from(document.querySelectorAll('section[id]')).map(s => ({
-    id: s.id,
-    top: s.offsetTop,
-    bottom: s.offsetTop + s.offsetHeight,
-  }));
-}
-
 function updateActiveLink() {
+  const sections = document.querySelectorAll('section[id]');
   const scrollY = window.scrollY + 120;
-  sectionCache.forEach(({ id, top, bottom }) => {
-    const link = document.querySelector(`.navbar__nav a[href="#${id}"]`);
+  sections.forEach(section => {
+    const link = document.querySelector(`.navbar__nav a[href="#${section.id}"]`);
     if (!link) return;
-    link.classList.toggle('active', scrollY >= top && scrollY < bottom);
+    link.classList.toggle('active', scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight);
   });
 }
-
-buildSectionCache();
-window.addEventListener('resize', buildSectionCache, { passive: true });
 
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 20);
