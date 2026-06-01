@@ -1481,35 +1481,6 @@ footer {
   padding-block: 0.625rem;
 }
 
-.footer__blog {
-  padding-bottom: 1rem;
-  margin-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.footer__blog-label {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0.45;
-  margin-bottom: 0.5rem;
-}
-.footer__blog-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 1.5rem;
-}
-.footer__blog-list a {
-  font-size: 0.73rem;
-  opacity: 0.6;
-  transition: opacity var(--transition-fast);
-  text-decoration: none;
-}
-.footer__blog-list a:hover { opacity: 1; }
-
 .footer__inner {
   display: flex;
   align-items: center;
