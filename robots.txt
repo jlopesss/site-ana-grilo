@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Disallow: /blog/_posts/
+Disallow: /blog/_categories/
 
 Sitemap: https://anagrilovoz.com/sitemap.xml
