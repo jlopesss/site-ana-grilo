@@ -1259,6 +1259,9 @@ input, textarea { font-family: var(--font-body); }
 .sp-faq__header {
   margin-bottom: 2rem;
 }
+.sp-faq .section-title {
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+}
 .sp-faq__list {
   display: flex;
   flex-direction: column;
@@ -2386,8 +2389,10 @@ footer {
   transition: opacity 0.3s;
 }
 [data-theme="dark"] .sp-bottom-nav { opacity: 0.40; }
+[data-theme="dark"] .sp-bottom-nav:hover { opacity: 0.85; }
 @media (prefers-color-scheme: dark) {
   body:not([data-theme="light"]) .sp-bottom-nav { opacity: 0.40; }
+  body:not([data-theme="light"]) .sp-bottom-nav:hover { opacity: 0.85; }
 }
 .sp-bottom-nav:hover { opacity: 0.85; }
 .sp-bottom-nav__home {
